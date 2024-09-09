@@ -1,0 +1,20 @@
+<div *ngIf="isLoading"><app-loading-screen></app-loading-screen></div>
+<section class="course-categories-section nav-margin nav-padding" *ngIf="!isLoading">
+  <div class="container-fluid">
+    <div class="categories-header">
+      <h2 *ngIf="branchesToDisplay.length !== 0">{{ "Courses.S_Categorie" | translate }}</h2>
+      <h2 *ngIf="branchesToDisplay.length === 0">{{ "Courses.N_Categorie" | translate }}</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-xl-4 mb-4" *ngFor="let branch of branchesToDisplay">
+        <div class="category-card" [routerLink]="['/courses', 'list', typeId, branch.id]" role="button">
+          <div class="category-image" [ngStyle]="{ 'background-image': 'url(' + branch.image + ')' }">
+            <div class="image-overlay"></div>
+            <h3 class="category-title">{{ branch.name }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,344 @@
+<footer class="footer" *ngIf="data">
+  <div class="container-fluid">
+    <div
+      class="row justify-content-center justify-content-md-start logo-container"
+    >
+      <div class="col-lg-3 col-6 mb-4 contact">
+        <!-- <p class="gray regular mb-3 w-75">
+          {{ "Footer.text" | translate }}
+        </p> -->
+        <div class="shop">
+          <h4 class="red semi-bold s-mb-1" routerLink="/contact-us">
+            {{ "Footer.Contact_us" | translate }}
+          </h4>
+          <ul class="contact-info">
+            <li>
+              <span class="d-none d-md-flex">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20.886"
+                  height="20.924"
+                  viewBox="0 0 20.886 20.924"
+                >
+                  <path
+                    id="phone"
+                    d="M21.5,16.542v2.924a1.949,1.949,0,0,1-2.125,1.949,19.288,19.288,0,0,1-8.411-2.992,19.006,19.006,0,0,1-5.848-5.848A19.288,19.288,0,0,1,2.12,4.125,1.949,1.949,0,0,1,4.059,2H6.983A1.949,1.949,0,0,1,8.933,3.676a12.514,12.514,0,0,0,.682,2.739,1.949,1.949,0,0,1-.439,2.056L7.938,9.709a15.594,15.594,0,0,0,5.848,5.848l1.238-1.238a1.949,1.949,0,0,1,2.056-.439,12.515,12.515,0,0,0,2.739.682A1.949,1.949,0,0,1,21.5,16.542Z"
+                    transform="translate(-1.361 -1.25)"
+                    fill="none"
+                    stroke="#050605"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+              <a
+                class="gray regular numbers"
+                href="tel:{{ data.contact_us.phone }}"
+                >{{ data.contact_us.phone }}</a
+              >
+            </li>
+            <li *ngIf="data.contact_us.phone1">
+              <span class="d-none d-md-flex">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20.886"
+                  height="20.924"
+                  viewBox="0 0 20.886 20.924"
+                >
+                  <path
+                    id="phone"
+                    d="M21.5,16.542v2.924a1.949,1.949,0,0,1-2.125,1.949,19.288,19.288,0,0,1-8.411-2.992,19.006,19.006,0,0,1-5.848-5.848A19.288,19.288,0,0,1,2.12,4.125,1.949,1.949,0,0,1,4.059,2H6.983A1.949,1.949,0,0,1,8.933,3.676a12.514,12.514,0,0,0,.682,2.739,1.949,1.949,0,0,1-.439,2.056L7.938,9.709a15.594,15.594,0,0,0,5.848,5.848l1.238-1.238a1.949,1.949,0,0,1,2.056-.439,12.515,12.515,0,0,0,2.739.682A1.949,1.949,0,0,1,21.5,16.542Z"
+                    transform="translate(-1.361 -1.25)"
+                    fill="none"
+                    stroke="#050605"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+              <a
+                class="gray regular numbers"
+                href="tel:{{ data.contact_us.phone1 }}"
+                >{{ data.contact_us.phone1 }}</a
+              >
+            </li>
+            <li>
+              <!-- <img src="../../../../assets/imgs/location2.svg" alt="" /> -->
+              <!-- <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="30"
+                height="30"
+                viewBox="0 0 30 30"
+              >
+                <defs>
+                  <clipPath id="clip-path">
+                    <rect
+                      id="Rectangle_259"
+                      data-name="Rectangle 259"
+                      width="24"
+                      height="24"
+                      transform="translate(852 948)"
+                      fill="none"
+                    />
+                  </clipPath>
+                </defs>
+                <g
+                  id="Group_481"
+                  data-name="Group 481"
+                  transform="translate(-1055 -817)"
+                >
+                  <circle
+                    id="Ellipse_29"
+                    data-name="Ellipse 29"
+                    cx="16"
+                    cy="16"
+                    r="16"
+                    transform="translate(1055 817)"
+                    fill="none"
+                  />
+                  <g
+                    id="Mask_Group_13"
+                    data-name="Mask Group 13"
+                    transform="translate(207 -127)"
+                    clip-path="url(#clip-path)"
+                  >
+                    <g id="mail" transform="translate(852 948)">
+                      <path
+                        id="Path_11"
+                        data-name="Path 11"
+                        d="M4,4H20a2.006,2.006,0,0,1,2,2V18a2.006,2.006,0,0,1-2,2H4a2.006,2.006,0,0,1-2-2V6A2.006,2.006,0,0,1,4,4Z"
+                        fill="none"
+                        stroke="#050605"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                      />
+                      <path
+                        id="Path_12"
+                        data-name="Path 12"
+                        d="M22,6,12,13,2,6"
+                        fill="none"
+                        stroke="#050605"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                      />
+                    </g>
+                  </g>
+                </g>
+              </svg> -->
+
+              <a
+                href="mailto:{{ data.contact_us.email }}"
+                class="info gray regular"
+              >
+                {{ data.contact_us.email }}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-6 mb-4">
+        <div class="shop">
+          <h4 class="red semi-bold s-mb-1">{{ "Footer.shop" | translate }}</h4>
+          <ul class="links">
+            <li *ngFor="let type of shopList">
+              <a class="gray regular" routerLink="products/{{ type.id }}"
+                >• {{ type.name }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- <div class="mobile-view">
+        <ul class="links">
+          <h4 class="red semi-bold s-mb-1 s-mt-1">
+            {{ "Footer.shop" | translate }}
+          </h4>
+          <li *ngFor="let type of shopList">
+            <a class="gray regular" routerLink="products/{{ type.id }}"
+              >• {{ type.name }}
+            </a>
+          </li>
+        </ul>
+        <ul class="links">
+          <h4 class="red semi-bold s-mb-1 s-mt-1">
+            {{ "Footer.About" | translate }}
+          </h4>
+          <li>
+            <a class="gray regular" [routerLink]="['about-us']"
+              >• {{ "Footer.About_us" | translate }}</a
+            >
+          </li>
+          <li>
+            <a class="gray regular" [routerLink]="['policy', 'faq']"
+              >• {{ "Footer.FAQ" | translate }}</a
+            >
+          </li>
+        </ul>
+      </div> -->
+
+      <div class="col-lg-3 col-6 mb-4">
+        <div class="shop">
+          <h4 class="red semi-bold s-mb-1">
+            {{ "Footer.WhyKMC" | translate }}
+          </h4>
+          <ul class="links">
+            <li>
+              <a class="gray regular" [routerLink]="['about-us']"
+                >• {{ "Footer.WhyKMC" | translate }}</a
+              >
+            </li>
+            <li>
+              <a class="gray regular" [routerLink]="['policy', 'faq']"
+                >• {{ "Footer.FAQ" | translate }}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-6 mb-4">
+        <!-- <div class="shop mobile-view">
+          <ul class="links">
+            <h4 class="red semi-bold s-mb-1">
+              {{ "Footer.Service" | translate }}
+            </h4>
+            <li>
+              <a
+                class="gray regular"
+                [routerLink]="['policy', 'terms-and-conditions']"
+                >• {{ "Footer.Terms_Conditions" | translate }}
+              </a>
+            </li>
+      
+            <li>
+              <a class="gray regular" [routerLink]="['policy']"
+                >• {{ "Footer.Privacy_Policy" | translate }}</a
+              >
+            </li>
+          </ul>
+          <ul class="links">
+            <h4 class="red semi-bold s-mb-1 s-mt-1">
+              {{ "Footer.Contact_us" | translate }}
+            </h4>
+
+            <ul class="contact-info">
+              <li>
+                <a class="gray regular numbers" href="tel:+20 109-916-7197"
+                  >+(20)109-916-7197</a
+                >
+              </li>
+              <li>
+                <a class="gray regular numbers" href="tel:+20 109-916-7197"
+                  >+(20)109-916-7197</a
+                >
+              </li>
+            </ul>
+          </ul>
+        </div> -->
+        <div class="shop">
+          <h4 class="red semi-bold s-mb-1">
+            {{ "Footer.Policy" | translate }}
+          </h4>
+          <ul class="links">
+            <li *ngFor="let contact of data.service">
+              <a
+                class="gray regular size"
+                routerLink="/policy/{{ contact.slug }}"
+                >• {{ contact.title }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="lower-part">
+    <div class="">
+      <div class="d-flex justify-content-between">
+        <div class="follow-us">
+          <p class="regular white">{{ "Footer.Follow_us" | translate }}</p>
+          <a>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 36 36"
+            >
+              <path
+                id="Icon_simple-instagram"
+                data-name="Icon simple-instagram"
+                d="M18,0c-4.89,0-5.5.023-7.42.108A13.273,13.273,0,0,0,6.21.945,8.815,8.815,0,0,0,3.021,3.021,8.783,8.783,0,0,0,.945,6.21a13.234,13.234,0,0,0-.837,4.37C.018,12.5,0,13.11,0,18s.023,5.5.108,7.42a13.281,13.281,0,0,0,.837,4.37,8.827,8.827,0,0,0,2.076,3.189A8.8,8.8,0,0,0,6.21,35.055a13.289,13.289,0,0,0,4.37.837c1.92.09,2.53.108,7.42.108s5.5-.022,7.42-.108a13.32,13.32,0,0,0,4.37-.837,9.2,9.2,0,0,0,5.265-5.265,13.281,13.281,0,0,0,.837-4.369C35.982,23.5,36,22.89,36,18s-.022-5.5-.108-7.42a13.312,13.312,0,0,0-.837-4.37,8.834,8.834,0,0,0-2.076-3.189A8.77,8.77,0,0,0,29.79.945,13.242,13.242,0,0,0,25.421.108C23.5.018,22.89,0,18,0Zm0,3.24c4.8,0,5.378.024,7.275.106a9.917,9.917,0,0,1,3.34.622,5.923,5.923,0,0,1,3.417,3.415,9.938,9.938,0,0,1,.619,3.34c.085,1.9.1,2.469.1,7.275s-.022,5.378-.111,7.275a10.13,10.13,0,0,1-.632,3.34,5.715,5.715,0,0,1-1.348,2.073,5.616,5.616,0,0,1-2.07,1.344,10.011,10.011,0,0,1-3.353.619c-1.911.085-2.473.1-7.288.1s-5.379-.022-7.288-.111a10.207,10.207,0,0,1-3.354-.632,5.574,5.574,0,0,1-2.069-1.348,5.466,5.466,0,0,1-1.35-2.07,10.215,10.215,0,0,1-.63-3.353c-.068-1.89-.092-2.473-.092-7.266s.024-5.379.092-7.292a10.2,10.2,0,0,1,.63-3.351,5.336,5.336,0,0,1,1.35-2.071A5.324,5.324,0,0,1,7.313,3.917a9.963,9.963,0,0,1,3.332-.632c1.913-.068,2.475-.09,7.288-.09L18,3.24Zm0,5.517A9.243,9.243,0,1,0,27.243,18,9.242,9.242,0,0,0,18,8.757ZM18,24a6,6,0,1,1,6-6A6,6,0,0,1,18,24ZM29.769,8.392a2.16,2.16,0,1,1-2.16-2.158A2.162,2.162,0,0,1,29.769,8.392Z"
+                fill="#fff"
+              />
+            </svg>
+          </a>
+          <a>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 16.625 28"
+            >
+              <path
+                id="facebook"
+                d="M21.625,2H17.636a6.575,6.575,0,0,0-6.648,6.5v3.9H7v5.2h3.989V28h5.318V17.6H20.3l1.33-5.2H16.307V8.5a1.315,1.315,0,0,1,1.33-1.3h3.989Z"
+                transform="translate(-6 -1)"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </a>
+          <a>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 40.4 29"
+            >
+              <path
+                id="Icon_awesome-youtube"
+                data-name="Icon awesome-youtube"
+                d="M38.648,8.725a4.825,4.825,0,0,0-3.395-3.417c-2.995-.808-15-.808-15-.808s-12.008,0-15,.808A4.825,4.825,0,0,0,1.852,8.725c-.8,3.014-.8,9.3-.8,9.3s0,6.289.8,9.3a4.753,4.753,0,0,0,3.395,3.362c2.995.808,15,.808,15,.808s12.008,0,15-.808a4.753,4.753,0,0,0,3.395-3.362c.8-3.014.8-9.3.8-9.3s0-6.289-.8-9.3ZM16.323,23.737V12.318l10.036,5.71L16.323,23.737Z"
+                transform="translate(-0.05 -3.5)"
+                fill="none"
+                stroke="#fff"
+                stroke-width="2"
+              />
+            </svg>
+          </a>
+        </div>
+        <div class="back-to-to">
+          <p role="button" class="white" (click)="onActivate($event)">
+            {{ "Footer.Back_to_Top" | translate }}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14.121"
+              height="7.811"
+              viewBox="0 0 14.121 7.811"
+            >
+              <path
+                id="chevron-up"
+                d="M18,15,12,9,6,15"
+                transform="translate(-4.939 -8.25)"
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              />
+            </svg>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

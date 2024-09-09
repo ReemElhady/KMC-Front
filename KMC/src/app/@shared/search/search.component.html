@@ -1,0 +1,15 @@
+<div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+<div class="search nav-margin nav-padding" *ngIf="!isLoading">
+  <div class="container-fluid">
+    <div class="row" *ngIf='allData'>
+      <div class="col-xl-4 col-md-6" *ngFor="let res of allData.results | keyvalue">
+        <app-product-item [product]='res.value'></app-product-item>
+      </div>
+      <div class="col-lg-12">
+        <p class="medium" *ngIf="noRes">{{ "Search.Results" | translate }}</p>
+      </div>
+    </div>
+  </div>
+</div>

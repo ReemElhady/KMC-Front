@@ -1,0 +1,40 @@
+@import "../../../../../assets/styles/base/colors.scss";
+@import "../../../../../assets/styles/base/variables.scss";
+@import "../../../../../assets/styles/base/typography.scss";
+
+.points {
+  min-height: calc(100vh - 400px);
+
+  .size {
+    font-size: clamp(14px, 1.0416666666666665VW, 20px) !important;
+
+  }
+
+  table {
+    .bacg-gray {
+      background-color: $regularGray !important;
+    }
+  }
+
+  .size-priv {
+    font-size: clamp(7px, 0.7291666666666666VW, 14px) !important;
+  }
+  .text {
+    font-size: 10px !important;
+  }
+
+  .bg-red{
+    background-color: $red;
+  }
+
+}
+
+
+.table> :not(caption)>*>* {
+  font-size: 12px
+}
+.points-expired{
+  padding: .5rem;
+  font-size: 12px
+
+}

@@ -1,0 +1,124 @@
+// KMC Poppons Font
+// @font-face {
+//   font-family: "poppinsRegular";
+//   src: url("../../fonts/poppins/Poppins-Regular.eot"),
+//     url("../../fonts/poppins/Poppins-Regular.woff2") format("woff2"),
+//     url("../../fonts/poppins/Poppins-Regular.woff") format("woff"),
+//     url("../../fonts/poppins/Poppins-Regular.ttf") format("truetype");
+// }
+
+// @font-face {
+//   font-family: "poppinsLight";
+//   src: url("../../fonts/poppins/Poppins-Light.eot"),
+//     url("../../fonts/poppins/Poppins-Light.woff2") format("woff2"),
+//     url("../../fonts/poppins/Poppins-Light.woff") format("woff"),
+//     url("../../fonts/poppins/Poppins-Light.ttf") format("truetype");
+// }
+
+// @font-face {
+//   font-family: "poppinsMedium";
+//   src: url("../../fonts/poppins/Poppins-Medium.eot"),
+//     url("../../fonts/poppins/Poppins-Medium.woff2") format("woff2"),
+//     url("../../fonts/poppins/Poppins-Medium.woff") format("woff"),
+//     url("../../fonts/poppins/Poppins-Medium.ttf") format("truetype");
+// }
+
+// @font-face {
+//   font-family: "poppinsSemiBold";
+//   src: url("../../fonts/poppins/Poppins-SemiBold.eot"),
+//     url("../../fonts/poppins/Poppins-SemiBold.woff2") format("woff2"),
+//     url("../../fonts/poppins/Poppins-SemiBold.woff") format("woff"),
+//     url("../../fonts/poppins/Poppins-SemiBold.ttf") format("truetype");
+// }
+
+// @font-face {
+//   font-family: "poppinsBold";
+//   src: url("../../fonts/poppins/Poppins-Bold.eot"),
+//     url("../../fonts/poppins/Poppins-Bold.woff2") format("woff2"),
+//     url("../../fonts/poppins/Poppins-Bold.woff") format("woff"),
+//     url("../../fonts/poppins/Poppins-Bold.ttf") format("truetype");
+// }
+/* Montserrat  Font Family */
+// thin
+@font-face {
+  font-family: "montserratThin";
+  src: url("../../fonts/Montserrat/thin/Montserrat-Thin.eot"),
+    url("../../fonts/Montserrat/thin/Montserrat-Thin.woff2") format("woff2"),
+    url("../../fonts/Montserrat/thin/Montserrat-Thin.woff") format("woff"),
+    url("../../fonts/Montserrat/thin/Montserrat-Thin.ttf") format("truetype");
+}
+
+// light
+@font-face {
+  font-family: "montserratLight";
+  src: url("../../fonts/Montserrat/light/Montserrat-Light.eot"),
+    url("../../fonts/Montserrat/light/Montserrat-Light.woff2") format("woff2"),
+    url("../../fonts/Montserrat/light/Montserrat-Light.woff") format("woff"),
+    url("../../fonts/Montserrat/light/Montserrat-Light.ttf") format("truetype");
+}
+
+// Regular
+@font-face {
+  font-family: "montserratRegular";
+  src: url("../../fonts/Montserrat/regular/Montserrat-Regular.eot"),
+    url("../../fonts/Montserrat/regular/Montserrat-Regular.woff2") format("woff2"),
+    url("../../fonts/Montserrat/regular/Montserrat-Regular.woff") format("woff"),
+    url("../../fonts/Montserrat/regular/Montserrat-Regular.ttf") format("truetype");
+}
+
+// medium
+@font-face {
+  font-family: "montserratMedium";
+  src: url("../../fonts/Montserrat/medium/Montserrat-Medium.eot"),
+    url("../../fonts/Montserrat/medium/Montserrat-Medium.woff2") format("woff2"),
+    url("../../fonts/Montserrat/medium/Montserrat-Medium.woff") format("woff"),
+    url("../../fonts/Montserrat/medium/Montserrat-Medium.ttf") format("truetype");
+}
+
+// SemiBold
+@font-face {
+  font-family: "montserratSemiBold";
+  src: url("../../fonts/Montserrat/semi-bold/Montserrat-SemiBold.eot"),
+    url("../../fonts/Montserrat/semi-bold/Montserrat-SemiBold.woff2") format("woff2"),
+    url("../../fonts/Montserrat/semi-bold/Montserrat-SemiBold.woff") format("woff"),
+    url("../../fonts/Montserrat/semi-bold/Montserrat-SemiBold.ttf") format("truetype");
+}
+
+// Bold
+@font-face {
+  font-family: "montserratBold";
+  src: url("../../fonts/Montserrat/bold/Montserrat-Bold.eot"),
+    url("../../fonts/Montserrat/bold//Montserrat-Bold.woff2") format("woff2"),
+    url("../../fonts/Montserrat/bold/Montserrat-Bold.woff") format("woff"),
+    url("../../fonts/Montserrat/bold/Montserrat-Bold.ttf") format("truetype");
+}
+
+// ExBold
+@font-face {
+  font-family: "montserratExBold";
+  src: url("../../fonts//Montserrat/bold/Montserrat-Bold.eot"),
+    url("../../fonts//Montserrat/bold//Montserrat-Bold.woff2") format("woff2"),
+    url("../../fonts//Montserrat/bold/Montserrat-Bold.woff") format("woff"),
+    url("../../fonts//Montserrat/bold/Montserrat-Bold.ttf") format("truetype");
+}
+// frigh font meduim
+@font-face {
+  font-family: "freigh";
+  src: url("../../fonts/friegh/FreightBigProMedium-Regular.eot"),
+    url("../../fonts/friegh/FreightBigProMedium-Regular.woff2") format("woff2"),
+    url("../../fonts/friegh/FreightBigProMedium-Regular.woff") format("woff"),
+    url("../../fonts/friegh/FreightBigProMedium-Regular.ttf") format("truetype");
+}
+
+
+
+$KMC-p-regular: "montserratRegular", sans-serif;
+
+$KMC-p-light: "montserratLight", sans-serif;
+
+$KMC-p-medium: "montserratMedium", sans-serif;
+
+$KMC-p-sBold: "montserratSemiBold", sans-serif;
+
+$KMC-p-bold: "montserratBold", sans-serif;
+$KMC-p-freigh: "freigh", sans-serif;

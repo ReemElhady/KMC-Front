@@ -1,0 +1,61 @@
+<p *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</p>
+<div *ngIf="!isLoading && !pointsContent.points_list.length">
+  <p class="medium">{{ "Points.noPoints" | translate }}</p>
+</div>
+<section *ngIf="!isLoading && pointsContent.points_list.length" class="points">
+  <p class="semi-bold black">
+    {{ "Points.Your Points Balance" | translate }} :{{
+      pointsContent.total_points
+    }}
+    {{ "Points.point" | translate }} = {{ pointsContent.total_points_value }}
+    {{ "Orders.LE" | translate }}
+  </p>
+  <table class="table table-bordered s-mt-1">
+    <tbody>
+      <tr class="bacg-gray black medium size">
+        <td>{{ "Points.Date" | translate }}</td>
+        <!-- <td>{{"Points.Order #" | translate}}</td> -->
+        <!-- <td>{{ "Points.Points" | translate }}</td> -->
+        <td>{{ "Points.Points_used" | translate }}</td>
+      </tr>
+      <tr
+        class="gray medium size-priv"
+        *ngFor="let points of pointsContent.points_list"
+      >
+        <td>{{ points.created_at }}</td>
+        <!-- <td>{{points.order_id}}</td> -->
+        <!-- <td>{{ points.points }}</td> -->
+        <td>{{ points.used_points }}</td>
+      </tr>
+      <!-- <tr>
+        <td colspan="2" class='bg-red white semi-bold'>
+          {{"Points.expiring_points" | translate}} {{pointsContent.first_points_to_expire}} 
+          {{"Points.expiring_points_date" | translate}} {{pointsContent.first_points_to_expire_date}}
+        </td>
+     
+        <td>
+          {{"Orders.Total" | translate}} : {{pointsContent.total_points}} = {{pointsContent.total_points * pointValue }} EGP
+
+        </td>
+        <td>
+          {{"Orders.Total" | translate}} : {{pointsContent.total_used_points}}
+        </td>
+      </tr> -->
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-lg-5" *ngIf="pointsContent.first_points_to_expire">
+      <div class="bg-red white semi-bold points-expired">
+        {{ "Points.expiring_points" | translate }}
+        {{ pointsContent.first_points_to_expire }}
+        {{ "Points.expiring_points_date" | translate }}
+        {{ pointsContent.first_points_to_expire_date }}
+      </div>
+    </div>
+  </div>
+  <p class="medium gray size-priv s-mt-1 text">
+    {{ "Points.Text" | translate }}
+  </p>
+</section>

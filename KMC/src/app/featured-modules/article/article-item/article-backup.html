@@ -1,0 +1,42 @@
+<section class="article-item">
+    <div class="article-container">
+      <div class="img-container" [ngStyle]="{
+        'background-image': 'url(' + imgUrl + article.article_image + ')'
+      }">
+      <!-- <div class="date-container">
+        <span class="circle-date">{{ article.created_at }}</span>
+      </div> -->
+  
+      </div>
+      
+      <div class="info-article">
+        <h4 class="article-title">
+          {{
+            !isMobile
+              ? (article.article_title | slice : 0 : 30)
+              : (article.article_title | slice : 0 : 10)
+          }}
+          <span *ngIf="article.article_title.length > 30"> ...</span>
+        </h4>
+        <!-- <h5 class="article-description">
+          {{
+            !isMobile
+              ? (article.article_text | slice : 0 : 150)
+              : (article.article_text | slice : 0 : 70)
+          }}
+          <span *ngIf="article.article_text.length > 150"> ...</span>
+        </h5> -->
+        <div class="user-container">
+          <span class="article-date">
+            {{ 'Article.Posted' | translate }} {{ article.created_at }}
+          </span>
+          <p class="article-writer"><strong>Written by:</strong> {{ article.article_writer }}</p>
+          <p class="article-department"><strong>Department:</strong> {{ article.article_department }}</p>
+        </div>
+        <!-- <a *ngIf="article.pdf_articale" [href]="article.pdf_articale" target="_blank" class="pdf-link">
+          View Article PDF
+        </a> -->
+      </div>
+    </div>
+  </section>
+  

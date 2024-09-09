@@ -1,0 +1,43 @@
+<!-- <app-header></app-header> -->
+<router-outlet (activate)="onActivate($event)"></router-outlet>
+<!-- <app-footer></app-footer> -->
+
+<!-- This is the modal -->
+<button
+  uk-toggle="target: #my-id"
+  style="display: none"
+  #openDialog
+  type="button"
+></button>
+<div id="my-id" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body">
+    <h2 class="text-danger">{{ outOfStockError }}</h2>
+    <div *ngFor="let error of errors">
+      <div class="d-flex align-items-center">
+        <img
+          class="m-3"
+          [src]="imgUrl + error.error.image"
+          alt=""
+          width="50px"
+          height="50px"
+        />
+        <span class="m-2">{{ error.error.title }}</span>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button
+        class="uk-modal-close primary-btn"
+        (click)="unsubscribeError()"
+        type="button"
+      >
+        close
+      </button>
+    </div>
+  </div>
+</div>
+<div
+  class="fb-customerchat"
+  attribution="setup_tool"
+  page_id="561632072833720"
+  theme_color="#0084ff"
+></div>

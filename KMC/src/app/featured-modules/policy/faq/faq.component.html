@@ -1,0 +1,24 @@
+<app-loading-screen *ngIf="isLoading"></app-loading-screen>
+<section *ngIf="!isLoading" class="nav-margin">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-xl-7">
+        <div class="faq">
+          <h2 class="black bold s-mt-1 text-center">
+            {{ "Footer.Frequently_asked" | translate }}
+          </h2>
+          <div *ngFor="let content of data" class="faq-box s-mt-2">
+            <h6 class="bold red">{{ content.question }}</h6>
+            <p class="regular gray s-mt-1 break">
+              {{ content.answer }}
+            </p>
+          </div>
+
+          <button routerLink="/contact-us" class="primary-btn s-mt-2">
+            {{ "Home.help" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

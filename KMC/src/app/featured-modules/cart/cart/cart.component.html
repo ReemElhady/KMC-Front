@@ -1,0 +1,733 @@
+<div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+<section class="cart nav-margin nav-padding" *ngIf="!isLoading">
+  <div class="container-fluid"  >
+    <h2 class="semi-bold black s-mb-2">
+      {{ "Cart.title" | translate }}
+    </h2>
+
+    <div class="row  not-mobile-view cart-summary-card justify-content-between" *ngIf="localItems.length || remoteItems.length">
+      <!-- Start Product List -->
+    <div class="col-lg-8 product-list">
+      <div class="row align-items-center s-mb-1">
+        <div class="col-lg-5 align-items-center d-flex justify-content-center">
+          <p class="medium gray">{{ "Products.Product" | translate }}</p>
+        </div>
+        <div class="col-lg-2 align-items-center d-flex justify-content-center">
+          <p class="medium gray">{{ "Products.price" | translate }}</p>
+        </div>
+        <div class="col-lg-2 align-items-center d-flex justify-content-center">
+          <p class="medium gray">{{ "Orders.Quantity" | translate }}</p>
+        </div>
+        <div class="col-lg-2 align-items-center d-flex justify-content-center">
+          <p class="medium gray">{{ "Cart.total" | translate }}</p>
+        </div>
+        <div class="col-lg-1 align-items-center d-flex justify-content-center">
+          <!-- <p class="medium gray">{{ " Remove" | translate }}</p> -->
+        </div>
+      </div>
+      <div *ngIf="remoteItems.length">
+        <div *ngFor="let item of remoteItems" 
+              class="row align-items-center item-row s-mb-2"
+              [ngClass]="{ 'border-error': remoteErrors.includes(item.id) || item.out_of_stock }">
+          <small *ngIf="remoteErrors.includes(item.id) || item.out_of_stock" 
+                  class="red semi-bold s-mt-1 d-flex justify-content-end s-p-2">
+            {{ "Cart.error" | translate }}
+          </small>
+          <div class="col-xl-3 d-flex align-items-end">   
+            <img [src]="imgUrl + item.product.main_image" alt="" class="img" />
+          </div>
+          <div class="col-xl-2 d-flex align-items-center">
+            <p class="regular product-name ms-3">
+              {{ item.product.title }}
+              <span *ngIf="item.product_item.species" class="regular d-block">
+                {{ item.product_item.product_item_title }} : {{ item.product_item.species }}
+              </span>
+            </p>
+          </div>
+          <div class="col-xl-2 text-center">
+            <p
+              class="medium"
+              [ngClass]="{ 'item-price': item.product.sale_price }"
+              *ngIf="!item.product.sale_price"
+            >
+              {{ item.product.price }} {{ "Cart.currency" | translate }}
+            </p>
+            <p *ngIf="item.product.sale_price" class="medium">
+              {{ item.product.sale_price }}
+              {{ "Cart.currency" | translate }}
+            </p>
+          </div>
+          <div class="col-xl-2">
+            <div class="d-flex align-items-center justify-content-center">
+              <button class="minus btn btn-outline-secondary" (click)="remoteCounter(-1, item.id)">-</button>
+              <p class="medium black mx-2">{{ item.quantity }}</p>
+              <button class="plus btn btn-outline-secondary" (click)="remoteCounter(1, item.id)">+</button>
+            </div>
+          </div>
+          <div class="col-xl-2 text-end">
+            <p class="medium" [ngClass]="{ 'item-price': item.product.sale_price }">
+              {{ (item.product.sale_price || item.product.price) * item.quantity }} {{ "Cart.currency" | translate }}
+            </p>
+          </div>
+          <div class="col-xl-1 text-end">
+            <svg (click)="deleteRemoteItem(item.id)" class="trash-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M3,6H21" fill="none" stroke="#cdcdcc" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+              <path d="M19,6V20a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6M8,6V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6" fill="none" stroke="#cdcdcc" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="localItems.length">
+        <div *ngFor="let item of localItems" 
+              class="row align-items-center item-row s-mb-2"
+              [ngClass]="{ 'border-error': localOutOfSockErrors.includes(item.id) }">
+          <small  *ngIf="localOutOfSockErrors.includes(item.id)" 
+                  class="red semi-bold s-mt-1 d-flex justify-content-end s-p-2">
+            {{ "Cart.error" | translate }}
+          </small>
+          <div class="col-xl-5 d-flex align-items-center">
+            <img  [src]="imgUrl + item.main_image" alt="" class="img" />
+            <p class="regular product-name ms-3">
+              {{ item.title }}
+              <span class="regular d-block" *ngIf="item.product_item"
+                        >{{ item.product_item.product_item_title }} :
+                        {{ item.product_item.species }}</span>
+            </p>
+          </div>
+          <div class="col-xl-2 text-center">
+            <p
+            class="medium"
+            [ngClass]="{ 'item-price': item.sale_price }"
+            *ngIf="!item.sale_price"
+          >
+            {{ item.price }} {{ "Cart.currency" | translate }}
+          </p>
+          <p class="medium" *ngIf="item.sale_price">
+            {{ item.sale_price }} {{ "Cart.currency" | translate }}
+          </p>
+          </div>
+          <div class="col-xl-2">
+            <div class="d-flex align-items-center justify-content-center">
+              <button class="minus btn btn-outline-secondary" (click)="counter(-1, item.id, item.product_item)">-</button>
+              <p class="medium black mx-2">{{ item.quantity }}</p>
+              <button class="plus btn btn-outline-secondary" (click)="counter(1, item.id, item.product_item)">+</button>
+            </div>
+          </div>
+          <div class="col-xl-2 text-end">
+            <p
+            class="medium"
+            [ngClass]="{ 'item-price': item.sale_price }"
+            *ngIf="!item.sale_price"
+          >
+            {{ item.price * item.quantity }}
+            {{ "Cart.currency" | translate }}
+          </p>
+          <p class="medium" *ngIf="item.sale_price">
+            {{ item.sale_price * item.quantity }}
+            {{ "Cart.currency" | translate }}
+          </p>
+          </div>
+          <div class="col-xl-1 text-end">
+            <svg
+                      (click)="localDeleteItem(item.id)"
+                      class="trash-icon"
+                      style="cursor: pointer"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <defs>
+                        <clipPath id="clip-path">
+                          <rect
+                            id="Rectangle_277"
+                            data-name="Rectangle 277"
+                            width="24"
+                            height="24"
+                            fill="none"
+                          />
+                        </clipPath>
+                      </defs>
+                      <g
+                        id="Mask_Group_16"
+                        data-name="Mask Group 16"
+                        clip-path="url(#clip-path)"
+                      >
+                        <g id="trash" transform="translate(3 2)">
+                          <path
+                            id="Path_43"
+                            data-name="Path 43"
+                            d="M3,6H21"
+                            transform="translate(-3 -2)"
+                            fill="none"
+                            stroke="#cdcdcc"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="1.5"
+                          />
+                          <path
+                            id="Path_44"
+                            data-name="Path 44"
+                            d="M19,6V20a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6M8,6V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"
+                            transform="translate(-3 -2)"
+                            fill="none"
+                            stroke="#cdcdcc"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="1.5"
+                          />
+                        </g>
+                      </g>
+                    </svg>
+    
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Product List -->
+    <!-- starting cart summary -->
+    <div class="col-lg-4 col-md-6">
+      <div class="checkout-card" *ngIf="localItems.length || remoteItems.length">
+        <div class="checkout-card-header">
+          <h4 class="title">{{ "Cart.order_summary" | translate }}</h4>
+        </div>
+        
+        <!-- Coupon Section -->
+        <div class="coupon-section" *ngIf="remoteItems.length">
+          <!-- Show Coupon Form if no coupon is applied -->
+          <form
+            class="coupon-form"
+            [formGroup]="couponForm"
+            (ngSubmit)="sendCoupon()"
+            *ngIf="!appiedCoupon"
+          >
+            <input
+              type="text"
+              formControlName="code"
+              placeholder="{{ 'Apply Coupon' | translate }}"
+              aria-label="Coupon Code"
+            />
+            <button
+              type="submit"
+              class="primary-btn"
+              [disabled]="formContarols['code'].invalid"
+            >
+              {{ "Cart.apply" | translate }}
+            </button>
+            <!-- Error Messages -->
+            <div class="error-messages">
+              <small
+                class="error"
+                *ngIf="formContarols['code']?.errors?.['minlength'] && formContarols['code']?.touched"
+              >
+                {{ "Cart.coupon_val" | translate }}
+              </small>
+              <small
+                class="error"
+                *ngIf="couponError && !formContarols['code']?.errors?.['required'] && !formContarols['code']?.errors?.['minlength']"
+              >
+                {{ couponErrorMessage }}
+              </small>
+            </div>
+          </form>
+
+
+      
+          <!-- Show Applied Coupon with Option to Delete -->
+          <div class="applied-coupon" *ngIf="appiedCoupon">
+            <p class="coupon-text">
+              {{ "Cart.coupon_applied" | translate }}: <strong>{{ appiedCoupon.code }}</strong>
+            </p>
+            <button (click)="deleteCoupon()" class="delete-btn">
+              {{ "Cart.remove_coupon" | translate }}
+            </button>
+          </div>
+        </div>
+      
+        <!-- Order Summary Section -->
+        <ul>
+          <li
+            class="d-flex justify-content-between" style=" margin: 20px;"
+          >
+            <span class="regular red">{{ "Cart.discount" | translate }}</span>
+            <span class="regular red">
+              {{ remoteOrderSummary.discount }} {{ "Cart.currency" | translate }}
+            </span>
+          </li>
+          <li class="total d-flex justify-content-between">
+            <span class="bold black">{{ "Cart.total" | translate }}</span>
+              <span class="bold black">{{ remoteOrderSummary.total_price }} {{ "Cart.currency" | translate }}</span>
+              
+          </li>
+          <li>
+            <p class="bold black"> ( +{{ "Addresses.ShipingFees" | translate }} ) </p> 
+          </li>
+        </ul>
+      
+        <!-- Action Buttons -->
+        <div class="actions">
+          <button
+            class="primary-btn"
+            (click)="navigate()"
+            [disabled]="isClicked"
+          >
+            {{ isClicked ? '' : "Cart.checkout" | translate }}
+            <app-forms-loading-spinner *ngIf="isClicked"></app-forms-loading-spinner>
+          </button>
+          <a
+            [routerLink]="['/products', 'shop']"
+            class="continue-shopping-link"
+          >
+            {{ "Continue Shopping" | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- ending cart summary -->
+    </div>
+  
+    <!-- start mobile view -->
+    <div class="row mobile-view cart-summary-card">
+      <div class="col-12" *ngIf="localItems.length">
+        <div class="row align-items-center s-mb-1">
+          <div class="col-4">
+            <div class="align-items-center d-flex justify-content-center">
+              <p class="medium gray">{{ "Products.Product" | translate }}</p>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="align-items-center d-flex justify-content-center">
+              <p class="medium gray">{{ "Orders.Quantity" | translate }}</p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div
+              class="align-items-center d-flex justify-content-center text-center"
+            >
+              <p class="medium gray">{{ "Cart.total" | translate }}</p>
+            </div>
+          </div>
+          <div class="col-1 align-items-center d-flex justify-content-center">
+            <!-- <p class="medium gray">{{ " Remove" | translate }}</p> -->
+          </div>
+        </div>
+        <div
+          class="row align-items-center mobile-cart-container item-row"
+          [ngClass]="{ 'border-error': localOutOfSockErrors.includes(item.id) }"
+          *ngFor="let item of localItems"
+        >
+          <small
+            *ngIf="localOutOfSockErrors.includes(item.id)"
+            class="red semi-bold d-flex s-mt-1 justify-content-end s-p-2"
+            >{{ "Cart.error" | translate }}</small
+          >
+          <div class="col-4">
+            <div
+              class="d-flex align-items-center justify-content-center flex-column"
+            >
+              <img
+                [src]="imgUrl + item.main_image"
+                alt="Your Order"
+                class="img"
+              />
+              <p class="regular">{{ item.title }}</p>
+              <div class="align-items-center d-flex justify-content-start">
+                <p
+                  *ngIf="!item.sale_price"
+                  [ngClass]="{ 'item-price': item.sale_price }"
+                >
+                  {{ item.price }} {{ "Cart.currency" | translate }}
+                </p>
+                <p *ngIf="item.sale_price">
+                  {{ item.sale_price }} {{ "Cart.currency" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="d-flex justify-content-center">
+              <div class="buttons-container">
+                <button
+                  class="minus"
+                  (click)="counter(-1, item.id, item.product_item)"
+                >
+                  -
+                </button>
+                <p class="medium black">{{ item.quantity }}</p>
+                <button
+                  class="plus"
+                  (click)="counter(1, item.id, item.product_item)"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="align-items-center d-flex justify-content-start">
+                <p
+                  *ngIf="!item.sale_price"
+                  [ngClass]="{ 'item-price': item.sale_price }"
+                >
+                  {{ item.price * item.quantity }}
+                  {{ "Cart.currency" | translate }}
+                </p>
+                <p *ngIf="item.sale_price">
+                  {{ item.sale_price * item.quantity }}
+                  {{ "Cart.currency" | translate }}
+                </p>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-1">
+            <div
+              role="button"
+              (click)="localDeleteItem(item.id)"
+              style="cursor: pointer"
+              class="d-flex justify-content-start trash-icon"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <defs>
+                  <clipPath id="clip-path">
+                    <rect
+                      id="Rectangle_277"
+                      data-name="Rectangle 277"
+                      width="24"
+                      height="24"
+                      fill="none"
+                    />
+                  </clipPath>
+                </defs>
+                <g
+                  id="Mask_Group_16"
+                  data-name="Mask Group 16"
+                  clip-path="url(#clip-path)"
+                >
+                  <g id="trash" transform="translate(3 2)">
+                    <path
+                      id="Path_43"
+                      data-name="Path 43"
+                      d="M3,6H21"
+                      transform="translate(-3 -2)"
+                      fill="none"
+                      stroke="#cdcdcc"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                    />
+                    <path
+                      id="Path_44"
+                      data-name="Path 44"
+                      d="M19,6V20a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6M8,6V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"
+                      transform="translate(-3 -2)"
+                      fill="none"
+                      stroke="#cdcdcc"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="remoteItems.length">
+        <div class="row align-items-center s-mb-1">
+          <div class="col-4">
+            <div class="align-items-center d-flex justify-content-center">
+              <p class="medium gray">{{ "Products.Product" | translate }}</p>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="align-items-center d-flex justify-content-center">
+              <p class="medium gray">{{ "Orders.Quantity" | translate }}</p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div
+              class="align-items-center d-flex justify-content-center text-center"
+            >
+              <p class="medium gray">{{ "Cart.total" | translate }}</p>
+            </div>
+          </div>
+          <div class="col-1 align-items-center d-flex justify-content-center">
+            <!-- <p class="medium gray">{{ " Remove" | translate }}</p> -->
+          </div>
+        </div>
+        <div
+          class="row align-items-center item-row"
+          [ngClass]="{ 'border-error': remoteErrors.includes(item.id) }"
+          *ngFor="let item of remoteItems"
+        >
+          <small
+            *ngIf="remoteErrors.includes(item.id)"
+            class="red semi-bold s-mt-1 d-flex justify-content-end s-p-2"
+            >{{ "Cart.error" | translate }}</small
+          >
+          <div class="col-4">
+            <div
+              class="d-flex align-items-center justify-content-center flex-column"
+            >
+              <img
+                [src]="imgUrl + item.product.main_image"
+                alt=""
+                class="img"
+              />
+              <p class="regular text-center product-name">{{ item.product.title }}</p>
+              <div class="align-items-center d-flex justify-content-center">
+                <p
+                  class="medium"
+                  [ngClass]="{ 'item-price': item.product.sale_price }"
+                  *ngIf="!item.product.sale_price"
+                >
+                  {{ item.product.price }} {{ "Cart.currency" | translate }}
+                </p>
+                <p class="medium" *ngIf="item.product.sale_price">
+                  {{ item.product.sale_price }}
+                  {{ "Cart.currency" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="d-flex justify-content-center">
+              <div class="buttons-container">
+                <button class="minus btn btn-outline-secondary" (click)="remoteCounter(-1, item.id)">
+                  -
+                </button>
+                <p class="medium black">{{ item.quantity }}</p>
+                <button class="plus btn btn-outline-secondary" (click)="remoteCounter(1, item.id)">
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="d-flex justify-content-center align-items-center">
+  
+                <p
+                  class="medium"
+                  [ngClass]="{ 'item-price': item.product.sale_price }"
+                  *ngIf="!item.product.sale_price"
+                >
+                  {{ item.product.price * item.quantity }}
+                  {{ "Cart.currency" | translate }}
+                </p>
+                <p class="medium" *ngIf="item.product.sale_price">
+                  {{ item.product.sale_price * item.quantity }}
+                  {{ "Cart.currency" | translate }}
+                </p>
+             
+            </div> 
+          </div>
+          <div class="col-1">
+          <div
+          role="button"
+          class="d-flex justify-content-start trash-icon"
+          (click)="deleteRemoteItem(item.id)"
+          style="cursor: pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <defs>
+              <clipPath id="clip-path">
+                <rect
+                  id="Rectangle_277"
+                  data-name="Rectangle 277"
+                  width="24"
+                  height="24"
+                  fill="none"
+                />
+              </clipPath>
+            </defs>
+            <g
+              id="Mask_Group_16"
+              data-name="Mask Group 16"
+              clip-path="url(#clip-path)"
+            >
+              <g id="trash" transform="translate(3 2)">
+                <path
+                  id="Path_43"
+                  data-name="Path 43"
+                  d="M3,6H21"
+                  transform="translate(-3 -2)"
+                  fill="none"
+                  stroke="#cdcdcc"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+                <path
+                  id="Path_44"
+                  data-name="Path 44"
+                  d="M19,6V20a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6M8,6V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"
+                  transform="translate(-3 -2)"
+                  fill="none"
+                  stroke="#cdcdcc"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+              </g>
+            </g>
+          </svg>
+        </div>
+          </div>
+
+       
+          
+        </div>
+      </div>
+     <!-- starting cart summary -->
+      <div class="col-lg-4 col-md-6">
+        <div class="checkout-card" *ngIf="localItems.length || remoteItems.length">
+          <div class="checkout-card-header">
+            <h4 class="title">{{ "Cart.order_summary" | translate }}</h4>
+          </div>
+          
+          <!-- Coupon Section -->
+          <div class="coupon-section" *ngIf="remoteItems.length">
+            <!-- Show Coupon Form if no coupon is applied -->
+            <form
+              class="coupon-form"
+              [formGroup]="couponForm"
+              (ngSubmit)="sendCoupon()"
+              *ngIf="!appiedCoupon"
+            >
+              <input
+                type="text"
+                formControlName="code"
+                placeholder="{{ 'Apply Coupon' | translate }}"
+                aria-label="Coupon Code"
+              />
+              <button
+                type="submit"
+                class="primary-btn"
+                [disabled]="formContarols['code'].invalid"
+              >
+                {{ "Cart.apply" | translate }}
+              </button>
+              <!-- Error Messages -->
+              <div class="error-messages">
+                <small
+                  class="error"
+                  *ngIf="formContarols['code']?.errors?.['minlength'] && formContarols['code']?.touched"
+                >
+                  {{ "Cart.coupon_val" | translate }}
+                </small>
+                <small
+                  class="error"
+                  *ngIf="couponError && !formContarols['code']?.errors?.['required'] && !formContarols['code']?.errors?.['minlength']"
+                >
+                  {{ couponErrorMessage }}
+                </small>
+              </div>
+            </form>
+
+
+        
+            <!-- Show Applied Coupon with Option to Delete -->
+            <div class="applied-coupon" *ngIf="appiedCoupon">
+              <p class="coupon-text">
+                {{ "Cart.coupon_applied" | translate }}: <strong>{{ appiedCoupon.code }}</strong>
+              </p>
+              <button (click)="deleteCoupon()" class="delete-btn">
+                {{ "Cart.remove_coupon" | translate }}
+              </button>
+            </div>
+          </div>
+        
+          <!-- Order Summary Section -->
+          <ul>
+            <li
+              class="d-flex justify-content-between" style=" margin: 20px;"
+            >
+              <span class="regular red">{{ "Cart.discount" | translate }}</span>
+              <span class="regular red">
+                {{ remoteOrderSummary.discount }} {{ "Cart.currency" | translate }}
+              </span>
+            </li>
+            <li class="total d-flex justify-content-between">
+              <span class="bold black">{{ "Cart.total" | translate }}</span>
+                <span class="bold black">{{ remoteOrderSummary.total_price }} {{ "Cart.currency" | translate }}</span>
+                
+            </li>
+            <li>
+              <p class="bold black"> ( +{{ "Addresses.ShipingFees" | translate }} ) </p> 
+            </li>
+          </ul>
+        
+          <!-- Action Buttons -->
+          <div class="actions">
+            <button
+              class="primary-btn"
+              (click)="navigate()"
+              [disabled]="isClicked"
+            >
+              {{ isClicked ? '' : "Cart.checkout" | translate }}
+              <app-forms-loading-spinner *ngIf="isClicked"></app-forms-loading-spinner>
+            </button>
+            <a
+              [routerLink]="['/products', 'shop']"
+              class="continue-shopping-link"
+            >
+              {{ "Continue Shopping" | translate }}
+            </a>
+          </div>
+        </div>
+      </div>
+    <!-- ending cart summary -->
+    </div>
+    <!-- end mobile view -->
+    <div
+      class="not-available"
+      *ngIf="!localItems.length && !remoteItems.length && !isLoading"
+    >
+      <h4>{{ "Cart.no_items" | translate }}</h4>
+      <div class="d-flex my-5 justify-content-center">
+        <button class="primary-btn" [routerLink]="['/products', 'shop']">
+          {{ "Cart.see_product" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<button
+  uk-toggle="target: #my-id"
+  style="display: none"
+  #openDialog
+  type="button"
+></button>
+
+<!-- This is the modal -->
+<div id="my-id" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body">
+    <h2 class="text-danger my-2">{{ "Cart.c_success" | translate }}</h2>
+    <p class="my-2">{{ "Cart.c_successfully" | translate }}</p>
+    <div class="d-flex justify-content-end">
+      <button class="uk-modal-close primary-btn" type="button">
+        {{ "Cart.close" | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+

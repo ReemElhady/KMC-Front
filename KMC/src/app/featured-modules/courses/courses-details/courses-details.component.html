@@ -1,0 +1,44 @@
+<section class="course-details-section nav-margin nav-padding" *ngIf="!isLoading">
+  <div class="container-fluid">
+    <!-- Video Section -->
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div *ngIf="!courseContent.iframe_link" class="course-image" [ngStyle]="{ 'background-image': 'url(' + courseContent.image + ')' }"></div>
+        <div *ngIf="courseContent.iframe_link" class="video-container">
+          <iframe width="100%" height="100%" [src]="courseContent.iframe_link | safe: 'resourceUrl'" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- Title & Description Card -->
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-8">
+        <div class="card card-title-description">
+          <div class="card-body">
+            <h2 class="card-title">{{ courseContent.title }}</h2>
+            <p class="card-description">{{ courseContent.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Details Card -->
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-8">
+        <div class="card card-details">
+          <div class="card-body">
+            <div class="course-metadata">
+              <span><strong>{{ "Courses.Duration" | translate }}:</strong> {{ courseContent.duration }} h</span>
+              <span><strong>{{ "Courses.Languages" | translate }}:</strong> {{ courseContent.language }}</span>
+              <span><strong>{{ "Courses.Course_Fees" | translate }}:</strong> {{ courseContent.fees }}</span>
+              <span><strong>{{ "Courses.Videos" | translate }}:</strong> {{ courseContent.number_of_videos }} {{ "Courses.Video" | translate }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

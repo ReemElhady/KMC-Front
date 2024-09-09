@@ -1,0 +1,21 @@
+<div *ngIf="isLoading"><app-loading-screen></app-loading-screen></div>
+<section class="courses-section nav-margin" *ngIf="!isLoading">
+  <div class="section-header" style="background-image: url('assets/imgs/B-Dental-Surgery.png');">
+    <h2>{{ "Courses.Courses" | translate }}</h2>
+    <div class="header-overlay"></div>
+  </div>
+  <div class="courses-container my-5">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 col-xl-4 mb-4" *ngFor="let brand of types">
+          <div class="course-card" [routerLink]="['list', brand.id]" role="button">
+            <div class="course-image" [ngStyle]="{ 'background-image': 'url(' + brand.image + ')' }">
+              <div class="image-overlay"></div>
+              <h3 class="course-title">{{ brand.name }}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

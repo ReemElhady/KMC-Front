@@ -1,0 +1,132 @@
+@import "../../../../assets/styles/base/colors.scss";
+@import "../../../../assets/styles/base/variables.scss";
+
+.article-item {
+  .article-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+
+    .img-container {
+      width: 100%; // Full width
+      min-height: 40vh !important; 
+      padding-top: 100%; // Make it a square
+      background-size: cover;
+      background-position: center;
+      position: relative;
+
+      // .date-container {
+      //   position: absolute;
+      //   top: 10px; // Adjust as needed
+      //   right: 10px; // Adjust as needed
+
+      //   .circle-date {
+      //     border-radius: 50%;
+      //     background-color: $red;
+      //     width: 50px;
+      //     height: 50px;
+      //     @include flexCenter;
+      //     text-align: center;
+      //     color: white;
+
+      //     span {
+      //       font-size: 12px;
+      //       white-space: break-spaces;
+      //       text-align: left;
+      //     }
+      //   }
+      // }
+    }
+
+    .info-article {
+      padding: 15px;
+
+      .article-title {
+        font-size: 1.25em;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .article-description {
+        font-size: 1em;
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .user-container {
+        font-size: 0.9em;
+        color: #333;
+        margin-bottom: 10px;
+        margin-top: 13px;
+
+        .article-writer,
+        .article-department {
+          strong {
+            color: #333;
+          }
+        }
+      }
+
+      .pdf-link {
+        color: #007bff;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+
+//responsive
+// ipad
+@media screen and(min-width:768px) and (max-width:1024px) {
+  .article-item {
+    .article-container {
+      .img-container {
+        .date-container {
+          padding: 1vw;
+        }
+      }
+    }
+  }
+}
+
+//mobile
+@media screen and(max-width:767px) {
+  .article-item {
+    .article-container {
+      .img-container {
+        .date-container {
+          padding: 2vw;
+
+          .circle-date {
+            width: 30px;
+            height: 30px;
+
+            span {
+              font-size: 7px;
+            }
+          }
+        }
+      }
+
+      .info-article {
+
+        h4,
+        h5 {
+          margin-bottom: 2vw !important;
+        }
+      }
+    }
+  }
+}

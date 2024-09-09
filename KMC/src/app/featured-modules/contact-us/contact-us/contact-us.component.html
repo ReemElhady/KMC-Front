@@ -1,0 +1,238 @@
+<div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+<section class="contact-us nav-margin nav-padding" *ngIf="!isLoading">
+  <div class="container-fluid">
+    <div class="row justify-content-between">
+      <div class="col-xl-6 col-md-12">
+        <h2 class="semi-bold">{{ contactUsContent.title }}</h2>
+        <p class="medium gray s-mt-1 s-mb-1">
+          {{ contactUsContent.sub_title }}
+        </p>
+        <div class="row">
+          <div class="col-xl-8">
+            <div class="text-center" *ngIf="formSpineer">
+              <app-forms-loading-spinner></app-forms-loading-spinner>
+            </div>
+            <form
+              *ngIf="!formSpineer"
+              [formGroup]="contactUsForm"
+              (ngSubmit)="sendData()"
+            >
+              <div class="input-container">
+                <label for="exampleInputName">{{
+                  "Contact_Us.Name" | translate
+                }}</label>
+                <input
+                  type="email"
+                  id="exampleInputName"
+                  formControlName="name"
+                />
+                <div
+                  *ngIf="
+                    contactUsForm.get('name')?.invalid &&
+                    contactUsForm.get('name')?.touched
+                  "
+                >
+                  <p
+                    *ngIf="formContarols['name'].errors?.['required']"
+                    class="errors"
+                  >
+                    {{ "Contact_Us.V_Name_R" | translate }}
+                  </p>
+                  <p
+                    *ngIf="formContarols['name'].errors?.['pattern']"
+                    class="errors"
+                  >
+                    {{ "Contact_Us.V_Name_P" | translate }}
+                  </p>
+                </div>
+              </div>
+              <div class="input-container">
+                <label for="exampleInputEmail"
+                  >{{ "Contact_Us.Email" | translate }}
+                </label>
+                <input
+                  type="email"
+                  class="input"
+                  id="exampleInputEmail"
+                  formControlName="email"
+                />
+                <div
+                  *ngIf="
+                    contactUsForm.get('email')?.invalid &&
+                    contactUsForm.get('email')?.touched
+                  "
+                >
+                  <p
+                    *ngIf="formContarols['email'].errors?.['required']"
+                    class="errors"
+                  >
+                    {{ "Contact_Us.V_Email_R" | translate }}
+                  </p>
+                  <p
+                    *ngIf="formContarols['email'].errors?.['pattern']"
+                    class="errors"
+                  >
+                    {{ "Contact_Us.V_Email_P" | translate }}
+                  </p>
+                </div>
+              </div>
+              <div class="input-container">
+                <label for="exampleInputPhone">{{
+                  "Contact_Us.Phone" | translate
+                }}</label>
+                <input
+                  type="text"
+                  class="input"
+                  id="exampleInputPhone"
+                  formControlName="phone"
+                />
+                <div
+                  *ngIf="
+                    contactUsForm.get('phone')?.invalid &&
+                    contactUsForm.get('phone')?.touched
+                  "
+                >
+                  <p
+                    *ngIf="formContarols['phone'].errors?.['required']"
+                    class="errors"
+                  >
+                    {{ "Contact_Us.V_Phone_R" | translate }}
+                  </p>
+                  <p
+                    *ngIf="formContarols['phone'].errors?.['pattern']"
+                    class="errors"
+                  >
+                    {{ "Contact_Us.V_phone_11" | translate }}
+                  </p>
+                  <p
+                    *ngIf="formContarols['phone'].errors?.['checkPhone']"
+                    class="errors"
+                  >
+                    {{ "Contact_Us.V_Phone_P-01" | translate }}
+                    bla
+                  </p>
+                  <!-- <p *ngIf="formContarols['phone'].errors?.['checkPhone']" class="errors">
+                    {{"Contact_Us.V_Phone_P-01" | translate }}
+                  </p> -->
+                </div>
+              </div>
+              <div class="input-container">
+                <label for="exampleInputSubject">{{
+                  "Contact_Us.Subject" | translate
+                }}</label>
+                <input
+                  type="email"
+                  class="input"
+                  id="exampleInputSubject"
+                  formControlName="subject"
+                />
+                <div
+                  *ngIf="
+                    contactUsForm.get('subject')?.invalid &&
+                    contactUsForm.get('subject')?.touched
+                  "
+                >
+                  <p
+                    *ngIf="formContarols['subject'].errors?.['required']"
+                    class="errors"
+                  >
+                    {{ "Contact_Us.V_Sub_R" | translate }}
+                  </p>
+                  <p
+                    *ngIf="formContarols['subject'].errors?.['pattern']"
+                    class="errors"
+                  >
+                    {{ "Contact_Us.V_Sub_P" | translate }}
+                  </p>
+                </div>
+              </div>
+              <div class="input-container">
+                <label for="exampleFormControlTextarea">{{
+                  "Contact_Us.Message" | translate
+                }}</label>
+                <textarea
+                  id="exampleFormControlTextarea"
+                  formControlName="message"
+                ></textarea>
+                <div
+                  *ngIf="
+                    contactUsForm.get('message')?.invalid &&
+                    contactUsForm.get('message')?.touched
+                  "
+                >
+                  <p
+                    *ngIf="formContarols['message'].errors?.['required']"
+                    class="errors"
+                  >
+                    {{ "Contact_Us.V_Message_R" | translate }}
+                  </p>
+
+                  <p
+                    *ngIf="formContarols['message'].errors?.['minlength']"
+                    class="errors"
+                  >
+                    {{ "Contact_Us.V_Message_P" | translate }}
+                  </p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button
+                  type="submit"
+                  class="primary-btn"
+                  [disabled]="contactUsForm.invalid || clicked"
+                >
+                  {{ "Contact_Us.Send" | translate }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-md-12">
+        <div
+          class="img-container"
+          [ngStyle]="{
+            'background-image': 'url(' + imgUrl + contactUsContent.image + ')'
+          }"
+        >
+          <div class="layoutImg"></div>
+          <div class="info">
+            <div class="childInfo">
+              <a
+                class="medium contact__link"
+                [href]="'tel:' + contactUsContent.phone"
+              >
+                <img src="assets/imgs/phone.svg" alt="" />
+
+                {{ contactUsContent.phone }} - {{ contactUsContent.phone1 }}
+              </a>
+            </div>
+            <div class="childInfo">
+              <a
+                class="medium contact__link"
+                [href]="'mailto:' + contactUsContent.email"
+              >
+                <img src="assets/imgs/location.svg" alt="" />
+
+                {{ contactUsContent.email }}
+              </a>
+            </div>
+            <div class="childInfo">
+              <a
+                class="medium contact__link"
+                [href]="contactUsContent.address_url"
+                target="_blank"
+              >
+                <img src="assets/imgs/message.svg" alt="" />
+
+                {{ contactUsContent.address }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

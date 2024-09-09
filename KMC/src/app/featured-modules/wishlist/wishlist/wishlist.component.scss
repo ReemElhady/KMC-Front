@@ -1,0 +1,75 @@
+@import "../../../../assets/styles/base/variables.scss";
+@import "../../../../assets/styles/base/colors.scss";
+
+.wighlist {
+  min-height: 100vh;
+  .not-available {
+    height: 100vh;
+    @include flexCenter
+  }
+
+  .product-container {
+    @include hCenter;
+    padding: 1vw 0;
+
+    img {
+      width: 6vw;
+      height: 6vw;
+      cursor: pointer;
+    }
+
+    .product-content {
+      .title {
+        font-size: clamp(13px, 1vw, 20px) !important;
+
+      }
+
+      margin: 0 1vw;
+    }
+  }
+
+  a {
+    &:hover {
+      color: $gray;
+    }
+  }
+
+  .delete-contanier {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    svg {
+      width: 1.2rem;
+    }
+
+    .cart {
+      font-size: clamp(12px, 0.78125VW, 15px) !important;
+    }
+  }
+
+
+  hr {
+    margin: 1vw 0;
+  }
+}
+
+// }
+// responsive
+
+@media only screen and (max-width : 767px) {
+  .wighlist {
+    .product-container {
+      display: block;
+
+      img {
+        width: 100%;
+        height: 20vh;
+        object-fit: contain;
+        margin-bottom: 5vw
+      }
+    }
+  }
+}

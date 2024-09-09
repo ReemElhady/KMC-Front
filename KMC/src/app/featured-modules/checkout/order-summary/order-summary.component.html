@@ -1,0 +1,227 @@
+<div class="text-center" *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+<section
+  class="address-info nav-margin nav-padding"
+  *ngIf="!isLoading && selectedAddress"
+>
+  <div class="container-fluid">
+    <div class="row justify-content-between s-mt-2 s-mb-2">
+      <!-- start address Info card -->
+      <div class="col-md-6">
+        <h3 class="card-title">
+          {{ "Checkout.Address_Info" | translate }}
+        </h3>
+        <div class="info-line">
+          <p class="info-title">{{ "Checkout.Name" | translate }}</p>
+          <h4 class="info-value">{{ selectedAddress.name }}</h4>
+        </div>
+        <div class="info-line">
+          <p class="info-title">{{ "Checkout.Phone_Number" | translate }}</p>
+          <h4 class="info-value">{{ selectedAddress.phone }}</h4>
+        </div>
+        <div class="info-line">
+          <p class="info-title">{{ "Checkout.Address" | translate }}</p>
+          <h4 class="info-value">{{ selectedAddress.address }}</h4>
+        </div>
+        <div class="info-line">
+          <p class="info-title">{{ "Checkout.City" | translate }}</p>
+          <h4 class="info-value">
+            {{ selectedAddress.city_name }} , {{ selectedAddress.country }}
+          </h4>
+        </div>
+        <div class="info-line">
+          <p class="info-title">{{ "Checkout.Country" | translate }}</p>
+          <h4 class="info-value">{{ selectedAddress.country }}</h4>
+        </div>
+        <div class="info-line">
+          <p class="info-title">{{ "Addresses.Building" | translate }}</p>
+          <h4 class="info-value">{{ selectedAddress.building }}</h4>
+        </div>
+        <div class="info-line">
+          <p class="info-title">{{ "Addresses.Apartment" | translate }}</p>
+          <h4 class="info-value">{{ selectedAddress.apartment }}</h4>
+        </div>
+        <div class="info-line">
+          <p class="info-title">{{ "Addresses.Floor" | translate }}</p>
+          <h4 class="info-value">{{ selectedAddress.floor }}</h4>
+        </div>
+        <div class="info-line">
+          <p class="info-title">{{ "Checkout.Payment_Info" | translate }}</p>
+          <h4 class="info-value">{{ paymentMethod }}</h4>
+        </div>
+      </div>
+      <!-- end address Info card -->
+      <!-- summary card -->
+      <div class="col-xl-5 col-md-6">
+        <div class="checkout-card-header">
+          <h3 class="card-title">
+              {{ "Checkout.Order_Summary" | translate }}
+          </h3>
+          </div>
+        <div class="checkout-card">
+
+            <ul>
+            <li class="kmc-border-bottom" *ngFor="let item of cartItems">
+                <div class="order-item">
+                <div>
+                    <img
+                    class="imgs-container"
+                    [src]="imgUrl + item.product.main_image"
+                    alt=""
+                    />
+                </div>
+                <div class="info">
+                    <p class="semi-bold black">{{ item.product.title }}</p>
+                    <div class="d-flex justify-content-between">
+                    <p class="gray quantity">
+                        {{ "Orders.Quantity" | translate }}
+                    </p>
+                    <p class="semi-bold black" *ngIf="!item.product.sale_price">
+                        {{ item.product.price }}
+                        {{ "Checkout.Currency" | translate }}
+                    </p>
+                    <p class="semi-bold black" *ngIf="item.product.sale_price">
+                        {{ item.product.sale_price }}
+                        {{ "Checkout.Currency" | translate }}
+                    </p>
+                    </div>
+                    <h5 class="light gray">{{ item.quantity }}</h5>
+                    <h5 class="light gray" *ngIf="item.product_item.species">
+                    {{ item.product_item.product_item_title }}:
+                    {{ item.product_item.species }}
+                    </h5>
+                </div>
+                </div>
+            </li>
+            <li class="d-flex justify-content-between" style=" margin: 20px;">
+                <p class="regular red">{{ "Checkout.Discount" | translate }}</p>
+                <p class="regular black">
+                {{ orderSummary.discount }}
+                {{ "Checkout.Currency" | translate }}
+                </p>
+            </li>
+            <li class="d-flex justify-content-between" style=" margin: 20px;">
+                <p class="regular black">
+                {{ "Addresses.ShipingFees" | translate }} :
+                </p>
+                <p class="regular black">
+                <ng-container *ngIf="paymentMethod === 'Credit Card'">
+                    {{ selectedAddress.shipping_details.shipping_cost }}
+                </ng-container>
+                <ng-container *ngIf="paymentMethod !== 'Credit Card'">
+                    {{
+                    selectedAddress.shipping_details.shipping_cost +
+                        selectedAddress.shipping_details.cod_cost
+                    }}
+                </ng-container>
+                {{ "Checkout.Currency" | translate }}
+                </p>
+            </li>
+            <li
+            class="total d-flex justify-content-between"
+            >
+                <p class="bold black">{{ "Checkout.Total" | translate }}</p>
+                <p class="bold black" *ngIf="!points">
+                <ng-container *ngIf="paymentMethod === 'Credit Card'">
+                    {{
+                    orderSummary.total_price +
+                        selectedAddress.shipping_details.shipping_cost
+                    }}
+                </ng-container>
+                <ng-container *ngIf="paymentMethod !== 'Credit Card'">
+                    {{
+                    orderSummary.total_price +
+                        (selectedAddress.shipping_details.shipping_cost +
+                        selectedAddress.shipping_details.cod_cost)
+                    }}
+                </ng-container>
+                {{ "Checkout.Currency" | translate }}
+                </p>
+            </li>
+            <!-- <p class="medium gray"> Total Price includes VAT </p> -->
+            </ul>
+        </div>
+        </div>
+      <!-- end summary card -->
+    </div>
+    <div class="d-flex justify-content-center mx-2">
+      <button
+        class="primary-btn"
+        (click)="payNow()"
+        *ngIf="paymentMethod === 'Credit Card'"
+      >
+        {{ "Checkout.Pay_Now" | translate }}
+      </button>
+      <button
+        class="primary-btn"
+        (click)="payNow()"
+        *ngIf="paymentMethod != 'Credit Card'"
+      >
+        {{ "Checkout.Order" | translate }}
+      </button>
+    </div>
+  </div>
+
+
+</section>
+
+<!-- This is the modal -->
+<button
+  uk-toggle="target: #my-id"
+  style="display: none"
+  #openDialog
+  type="button"
+></button>
+<!-- <a href="#my-id" #openDialog data-uk-modal="{target:'#my-id',bgclose:false}"
+  >Teste Modal bgclose:false</a
+> -->
+
+<div id="my-id" uk-modal="bg-close: false">
+  <div class="uk-modal-dialog uk-modal-body">
+    <h2 class="text-danger">{{ "Checkout.Success" | translate }}</h2>
+    <p>{{ "Checkout.Order_Successfully" | translate }}</p>
+    <div class="d-flex justify-content-end">
+      <button
+        class="uk-modal-close primary-btn"
+        [routerLink]="['/account', 'orders']"
+        type="button"
+      >
+        {{ "Checkout.Close" | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<button
+  uk-toggle="target: #my-id2"
+  style="display: none"
+  #errorDialog
+  type="button"
+></button>
+<div id="my-id2" uk-modal="bg-close: false">
+  <div class="uk-modal-dialog uk-modal-body">
+    <h2 class="text-danger">{{ "Checkout.Out_Items" | translate }}</h2>
+    <div *ngFor="let error of outOFStockErros">
+      <div class="d-flex align-items-center">
+        <img
+          class="m-3"
+          [src]="imgUrl + error.image"
+          alt=""
+          width="50px"
+          height="50px"
+        />
+        <span class="m-2">{{ error.title }}</span>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button
+        class="uk-modal-close primary-btn"
+        [routerLink]="['/cart']"
+        type="button"
+      >
+        {{ "Checkout.Please_Edit_Cart" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

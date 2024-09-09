@@ -1,0 +1,128 @@
+@import "../../../../../assets/styles/base/colors.scss";
+@import "../../../../../assets/styles/base/variables.scss";
+
+.orders {
+  .order-header {
+    background-color: $regularGray;
+    padding: 1vw 0;
+
+    .mob {
+      padding: 0 1vw;
+
+      .bac-gray {
+        font-size: clamp(9px, 0.625VW, 12px);
+
+
+      }
+
+      .invoice {
+        text-align: right;
+        display: block;
+      }
+    }
+
+  }
+
+  .row-order {
+    @include hCenter;
+    justify-content: space-between;
+.large-screen-item{
+  display: block;
+}
+.mob-screen-item{
+  display: none;
+}
+    .img {
+      img {
+        width: 6vw;
+        height: 15vh;
+        margin-right: 2vw;
+        margin-top: 1vw;
+      }
+
+    }
+
+    .price {
+      padding: 0 1vw !important;
+    }
+
+    .quantity {
+      font-size: 13px !important;
+    }
+  }
+
+
+  .btn-container {
+    .primary-btn {
+      background-color: $white !important;
+    }
+  }
+
+
+}
+
+//mobile
+@media screen and (max-width: 1024px) {
+  .orders {
+    .order-header {
+      .mob {
+        padding: 2vw;
+      }
+    }
+
+    .row-order {
+      .large-screen-item{
+        display: none;
+      }
+      .mob-screen-item{
+        display: block;
+        small{
+          font-size: 10px !important;
+        }
+      }
+      
+    .quantity {
+      font-size: 10px !important;
+    }
+      .img {
+        img {
+          width: 11vw;
+          height: 11vh;
+          margin-right: 4vw;
+        }
+      }
+    }
+
+
+    .orderone {
+      order: 1;
+    }
+
+    .ordertwo {
+      order: 2;
+    }
+
+    .mob-res {
+      .mob-order {
+        display: block !important;
+        background-color: $white;
+      }
+
+      flex-direction: column;
+
+      .mob {
+        display: flex;
+        justify-content: space-between;
+
+        .invoice {
+          text-align: left;
+        }
+
+      }
+    }
+
+    .mob-flex {
+      justify-content: center !important;
+    }
+  }
+}

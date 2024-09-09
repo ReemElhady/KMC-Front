@@ -1,0 +1,150 @@
+<div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+
+<section class="devices nav-margin" *ngIf="!isLoading">
+  <div
+    class="section-header"
+    [ngStyle]="{
+      'background-image': 'url(' + header.category_details_image + ')'
+    }"
+  >
+    <div class="layout"></div>
+    <h2>{{ header.name }}</h2>
+  </div>
+</section>
+<div class="devices-body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-3 s-mt-2 s-mb-1">
+        <div class="filter-fixed">
+          <div class="fliters-container">
+            <div
+              class="filter-header d-flex justify-content-between align-items-center my-3"
+            >
+              <span class="black medium">{{
+                "Products.Filters" | translate
+              }}</span>
+              <span class="gray medium clear" (click)="resetFilters()">{{
+                "Products.Clear_All" | translate
+              }}</span>
+            </div>
+            <ul uk-accordion="multiple: true" class="filters">
+              <li>
+                <a class="uk-accordion-title medium main Branches-title">
+                  {{ "Shop.Branches" | translate }}
+                </a>
+
+                <div class="uk-accordion-content">
+                  <ul uk-accordion>
+                    <li
+                      class="branches"
+                      *ngFor="let branch of branches; let i = index"
+                    >
+                      <p class="medium">
+                        <input
+                          type="checkbox"
+                          [(ngModel)]="branchChecks[i]"
+                          checked
+                          (click)="checkedAllBranchFilter(branch.id, i)"
+                        />
+                        {{ branch.name }}
+                      </p>
+                      <!-- <ng-container *ngIf='branch.branch_sub_branches.length'> -->
+
+                      <a class="uk-accordion-title medium"> </a>
+
+                      <div class="uk-accordion-content">
+                        <small
+                          class="medium branche"
+                          *ngFor="
+                            let sub of branch.branch_sub_branches;
+                            let i2 = index
+                          "
+                        >
+                          <input
+                            (click)="filterBy(sub.id, subBranchList)"
+                            type="checkbox"
+                            class="sub-name"
+                            [(ngModel)]="subBranchChecks[branch.id][i2]"
+                            [checked]="subBranchChecks[branch.id][i2]"
+                            (click)="checkSubBranch(branch.id, i)"
+                            />
+                          {{ sub.name }}
+                        </small>
+                      </div>
+                      <!-- </ng-container> -->
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <a class="uk-accordion-title medium main">{{
+                  "Shop.Brand" | translate
+                }}</a>
+                <div class="uk-accordion-content">
+                  <p
+                    class="medium branches"
+                    *ngFor="let brand of brands; let i = index"
+                  >
+                    <input
+                      type="checkbox"
+                      (click)="filterBy(brand.id, brandList)"
+                      [(ngModel)]="brandsChecks[i]"
+                      [checked]="brandsChecks[i]"
+                    />
+                    {{ brand.name }}
+                  </p>
+                </div>
+              </li>
+            </ul>
+
+            <div class="button">
+              <button routerLink="/contact-us" class="primary-btn">
+                {{ "Home.request" | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-9 s-mt-1 text-center" *ngIf="isLoading">
+        <app-forms-loading-spinner></app-forms-loading-spinner>
+      </div>
+      <div
+        class="col-xl-9 s-mt-1"
+        *ngIf="!isLoading && productsContent.results"
+      >
+        <div class="row">
+          <div
+            class="col-lg-4 col-6" 
+            *ngFor="let productItem of productsContent.results | keyvalue"
+          >
+            <app-product-item [product]="productItem.value"></app-product-item>
+          </div>
+          <div
+            class="s-mt-2 text-center meduim"
+            *ngIf="productsContentExists === 0"
+          >
+            <h4 class="regular">{{ "Cart.No" | translate }}</h4>
+          </div>
+
+
+          <div *ngIf="PaginateisLoading">
+            <app-loading-screen></app-loading-screen>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="productsContent && productsContent.next"
+  class="search-results"
+  infinite-scroll
+  (scrolled)="onScrollDown($event)"
+  [infiniteScrollDistance]="0"
+  [infiniteScrollThrottle]="0"
+>
+
+</div>

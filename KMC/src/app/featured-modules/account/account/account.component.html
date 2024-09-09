@@ -1,0 +1,48 @@
+<section class="accounts nav-margin nav-padding">
+  <div class="container-fluid">
+    <div class="row s-mt-1 ">
+      <div class="col-md-12 s-mb-1">
+        <h3>{{"Accounts.Your Account" | translate }}</h3>
+      </div>
+      <div class="col-xl-2 col-md-12 ">
+        <div class="account-container" [routerLinkActive]="['active']" routerLink="./orders">
+          <p class="medium black ">{{"Accounts.Your Orders" | translate }}</p>
+          <p class="gray font-size-gray">
+            {{"Accounts.Track" | translate }}
+          </p>
+        </div>
+        <div class="account-container" routerLink="./login-and-security" [routerLinkActive]="['active']">
+          <p class="medium black">
+            {{"Accounts.Login & security" | translate }}
+
+          </p>
+          <p class="gray font-size-gray">
+            {{"Accounts.Edit-login" | translate }}
+          </p>
+        </div>
+        <div class="account-container" routerLink="./addresses" [routerLinkActive]="['active']">
+          <p class="medium black">
+            {{"Accounts.Your Addresses" | translate }}
+          </p>
+          <p class="gray font-size-gray">
+            {{"Accounts.Edit-addresses" | translate }}
+
+          </p>
+        </div>
+        <!-- <div class="account-container " routerLink="./points" [routerLinkActive]="['active']">
+          <p class="medium black">
+            {{"Accounts.My Points" | translate }}: <span class="red"> {{totalPoints}} </span>
+
+          </p>
+          <p class="gray font-size-gray">
+            {{"Accounts.View-balance" | translate }}
+          </p>
+        </div> -->
+      </div>
+      <div class="col-xl-9 col-md-12 ">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+
+</section>

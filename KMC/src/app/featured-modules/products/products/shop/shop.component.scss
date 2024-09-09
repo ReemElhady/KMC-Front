@@ -1,0 +1,36 @@
+@import "../../../../../assets/styles/base/variables.scss";
+
+.shop {
+  .img-container {
+    position: relative;
+    @include flexCenter;
+    min-height: auto;
+    height: 65vh;
+    text-align: center;
+    text-transform: capitalize;
+
+    .content {
+      position: relative;
+      z-index: 1;
+      @include hCenterWithColumn;
+
+      h2 {
+        text-transform: uppercase;
+        font-size: clamp(40px, 4.010416666666667vw, 77px) !important;
+      }
+    }
+  }
+}
+
+// responsive
+
+@media only screen and (max-width : 767px) {
+  .shop {
+    .img-container {
+      .content {
+        display: block;
+      }
+    }
+  }
+
+}

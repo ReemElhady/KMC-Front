@@ -1,0 +1,96 @@
+<div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+<section class="about-us nav-margin nav-padding" *ngIf="!isLoading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="description-container">
+          <div class="section-title">
+            <h2 class="semi-bold my-3">{{ aboutUsContent.about_title }}</h2>
+          </div>
+          <p class="gray medium decsription">
+            {{ aboutUsContent.about_text }}
+          </p>
+          <div class="s-mt-4">
+            <div class="row align-items-end">
+              <div
+                class="col-md-4 my-4"
+                *ngFor="let statistics of aboutUsContent.about_us_statistics"
+              >
+                <div class="content-center">
+                  <div>
+                    <img
+                      [src]="imgUrl + statistics.sav"
+                      alt="Achievement icon"
+                    />
+                  </div>
+                  <h2 class="bold s-mt-1">{{ statistics.number }}</h2>
+                  <p class="medium s-mt-1">{{ statistics.text }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div
+          class="img-container"
+          [ngStyle]="{
+            'background-image':
+              'url(' + imgUrl + aboutUsContent.about_image + ')'
+          }"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="testimonials s-mt-4 s-mb-2">
+    <div class="container-fluid">
+      <h2 class="semi-bold my-2">{{ aboutUsContent.testimonial_title }}</h2>
+      <p class="gray medium text-spacing">
+        {{ aboutUsContent.testimonial_subtitle }}
+      </p>
+      <div
+        class="img-container my-3"
+        [ngStyle]="{
+          'background-image':
+            'url(' + imgUrl + aboutUsContent.testimonial_image + ')'
+        }"
+      >
+        <div class="layout"></div>
+        <div class="row d-flex align-items-center justify-content-center">
+          <div class="col-md-11">
+            <div class="slider-container">
+              <swiper
+                [autoplay]="{
+                  delay: 3000,
+                  disableOnInteraction: false
+                }"
+                [config]="config"
+                [pagination]="true"
+                class="swiper-wrapper d-flex"
+              >
+                <ng-template
+                  class=""
+                  swiperSlide
+                  *ngFor="let slider of aboutUsContent.about_us_testimonial"
+                >
+                  <div class="testimonial-card">
+                    <div class="testimonial-image">
+                      <img [src]="imgUrl + slider.image" alt="Doctor's Name">
+                    </div>
+                    <div class="testimonial-content">
+                      <h3 class="doctor-name">{{ slider.name }}</h3>
+                      <p class="doctor-review">{{slider.text}}</p>
+                    </div>
+                  </div>                  
+                </ng-template>
+              </swiper>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

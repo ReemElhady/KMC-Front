@@ -1,0 +1,211 @@
+<div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+
+<section class="orders" *ngIf="!isLoading">
+  <section *ngFor="let order of allOrders.results">
+    <div class="order-header">
+      <div class="row align-items-center">
+        <div class="col-xl-11 col-md-12 ordertwo">
+          <div class="d-flex mob-res">
+            <div class="mob">
+              <h5 class="black medium">
+                {{ "Orders.Order placed" | translate }}
+              </h5>
+              <span class="meduim gray bac-gray">
+                {{ order.created_at | date }}
+              </span>
+            </div>
+            <div class="mob">
+              <h5 class="black medium">
+                {{ "Orders.Total" | translate }}
+              </h5>
+              <span class="meduim gray bac-gray">
+                {{ order.total_price }} LE
+              </span>
+            </div>
+            <div class="mob">
+              <h5 class="black medium">
+                {{ "Orders.Delivered to" | translate }}
+              </h5>
+              <span class="meduim gray bac-gray">
+                {{ order.user }}
+              </span>
+            </div>
+            <div class="mob">
+              <h5 class="black medium">
+                {{ "Orders.Address" | translate }}
+              </h5>
+              <span class="meduim gray bac-gray">
+                {{ order.address.address }}
+              </span>
+            </div>
+            <div class="mob">
+              <h5 class="black medium">
+                {{ "Addresses.OrderStatus" | translate }}
+              </h5>
+              <span class="meduim gray bac-gray">
+                {{ order.order_status }}
+              </span>
+            </div>
+            <div class="mob">
+              <h5 class="black medium">
+                {{ "Orders.ShippingStatus" | translate }}
+              </h5>
+              <span class="meduim gray bac-gray">
+                {{ order.shipping_status }}
+              </span>
+            </div>
+            <div class="mob" *ngIf="order.can_be_paid">
+              <span class="red"
+                >{{ "Orders.Expire Message" | translate }}
+                {{ order.expires_after }}
+                {{ "Orders.Expire hr" | translate }}</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-1 col-md-12 orderone">
+          <div class="d-flex justify-content-end mob-res">
+            <div class="mob-order mob">
+              <h5 class="black medium">
+                {{ "Orders.Order#" | translate }}{{ order.id }}
+              </h5>
+              <span class="meduim gray bac-gray invoice">
+                {{ order.code }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <p class="black medium s-mt-1">
+      {{ "Accounts.Order_Date" | translate }} :
+      {{ order.created_at|date }}
+    </p> -->
+    <div class="row-order" *ngFor="let item of order.items">
+      <div class="d-flex align-items-center">
+        <div class="img">
+          <img [src]="imgUrl + item.product_image" />
+        </div>
+        <p class="black regular">
+          {{
+            cs.get("language") == "ar"
+              ? item.product_title_ar
+              : item.product_title_en
+          }}
+          <span class="meduim bac-gray gray d-block quantity">
+            {{ "Orders.Quantity" | translate }}: {{ item.quantity }}
+          </span>
+          <span
+            class="meduim bac-gray gray d-block quantity"
+            *ngIf="item.refund_item.requested_quantity != null"
+          >
+            {{ "Orders.refundrequest" | translate }} :
+            {{ item.refund_item.requested_quantity }}
+          </span>
+        </p>
+      </div>
+      <div class="large-screen-item">
+        <p class="black regular">
+          <span
+            class="meduim bac-gray gray d-block quantity"
+            *ngIf="item.refund_item.refunded_quantity != null"
+          >
+            {{ "Orders.refundedquantity" | translate }} :
+            {{ item.refund_item.refunded_quantity }}
+          </span>
+        </p>
+      </div>
+      <div>
+        <p class="black regular price">
+          {{ item.total_price }} {{ "Orders.LE" | translate }}
+        </p>
+        <div class="mob-screen-item">
+          <span
+            class="meduim bac-gray gray d-block quantity"
+            *ngIf="item.refund_item.refunded_quantity != null"
+          >
+            {{ "Orders.refundedquantity" | translate }} :
+            {{ item.refund_item.refunded_quantity }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-xl-8 col-md-6 s-mt-1">
+        <div class="d-flex">
+          <button
+            type="button"
+            class="primary-btn meduim white"
+            *ngIf="!order.can_be_paid"
+            (click)="reorder(order.id)"
+          >
+            {{ "Orders.Reorder again" | translate }}
+          </button>
+          <button
+            type="button"
+            class="primary-btn meduim white"
+            *ngIf="order.can_be_paid"
+            (click)="payNow(order.id)"
+          >
+            {{ "Checkout.Pay_Now" | translate }}
+          </button>
+        </div>
+      </div>
+      <div
+        class="col-xl-4 col-md-6 s-mt-1"
+        *ngIf="order.refundable && !order.coupon"
+      >
+        <div class="d-flex justify-content-end">
+          <button
+            type="button"
+            class="primary-btn meduim white"
+            [routerLink]="['/account', 'orders', 'refund', order.id]"
+          >
+            {{ "Orders.Return" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <h3 class="text-center" *ngIf="!allOrders.results.length">
+    {{ "Orders.No-Orders" | translate }}
+  </h3>
+  <div
+    class="d-flex justify-content-center my-4"
+    *ngIf="allOrders.next && !paginationIsloading"
+  >
+    <span (click)="sendPagnationRequest()" style="cursor: pointer">
+      {{ "Orders.See" | translate }}
+    </span>
+  </div>
+  <div *ngIf="paginationIsloading" class="text-center">
+    <app-loading-screen></app-loading-screen>
+  </div>
+</section>
+
+<!-- This is the modal -->
+<button
+  uk-toggle="target: #my-id"
+  style="display: none"
+  #openDialog
+  type="button"
+></button>
+<div id="my-id" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body">
+    <div class="text-danger" *ngIf="isSuccess == 'true'">
+      <h2>{{ "Orders.orderSecc" | translate }}</h2>
+      <!-- <h6 class="my-4"> {{"Orders.YourOrder" | translate }} </h6> -->
+    </div>
+    <div class="text-danger" *ngIf="isSuccess == 'false'">
+      <h2>{{ "Orders.orderFailed" | translate }}</h2>
+      <!-- <h6 class="red my-4"> {{"Orders.your order Failed" | translate }} </h6> -->
+    </div>
+    <div class="d-flex justify-content-end">
+      <button class="uk-modal-close primary-btn" type="button">
+        {{ "Orders.Close" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

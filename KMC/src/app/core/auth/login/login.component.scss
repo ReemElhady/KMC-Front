@@ -1,0 +1,17 @@
+@import "../../../../assets/styles/base/colors.scss";
+.login {
+ .forget-password {
+    text-align: right;
+    display: block;
+    text-decoration: none;
+   
+  }
+}
+.eye-password{
+  left: 86%;
+  svg{
+    fill:$red;
+  }
+  // @media only screen and (max-width : 1200px) {
+  // }
+}

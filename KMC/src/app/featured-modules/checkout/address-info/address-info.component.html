@@ -1,0 +1,949 @@
+<div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+<section
+  class="address-info nav-margin nav-padding"
+  *ngIf="!isLoading && cartItems"
+>
+  <div class="container-fluid">
+    <div class="row justify-content-between s-mt-2 s-mb-2">
+      <!-- address card -->
+      <div class="col-xl-5 col-md-6">
+        <h2 class="black semi-bold s-mb-1">
+          {{ "Checkout.Address" | translate }}
+        </h2>
+        <div
+          *ngFor="let address of allAddresses; let i = index"
+          class="s-mb-1 align-items-center justify-content-center s-mt-1"
+        >
+          <div
+            class="div-container"
+            [ngClass]="{
+              activel: selectedAddress && selectedAddress.id == address.id
+            }"
+          >
+            <div class="address-container checkout-card ">
+              <div
+                class="d-flex"
+                [ngClass]="{
+                  'justify-content-between':
+                    selectedAddress && selectedAddress.id == address.id,
+                  'justify-content-end': !(
+                    selectedAddress && selectedAddress.id == address.id
+                  )
+                }"
+              >
+                <svg
+                  *ngIf="selectedAddress && selectedAddress.id == address.id"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    id="Group_667"
+                    data-name="Group 667"
+                    transform="translate(-86 -459)"
+                  >
+                    <g
+                      id="Ellipse_52"
+                      data-name="Ellipse 52"
+                      transform="translate(86 459)"
+                      fill="red"
+                      stroke="#F2F2F2"
+                      stroke-width="1"
+                    >
+                      <circle cx="12" cy="12" r="12" stroke="none" />
+                      <circle cx="12" cy="12" r="11.5" fill="none" />
+                    </g>
+                    <path
+                      id="ok-svgrepo-com"
+                      d="M4,11.473,7.727,15.2l8.2-8.2"
+                      transform="translate(88.5 459.5)"
+                      fill="none"
+                      stroke=" #F2F2F2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1"
+                    />
+                  </g>
+                </svg>
+                <div class="imgParent">
+                  <img
+                    (click)="deleteAddress(address.id)"
+                    src="../../../../../assets/imgs/delete.svg"
+                    class="cursor"
+                  />
+                  <img
+                    (click)="openAddresses(content, i, address.id)"
+                    src="../../../../../assets/imgs/edit2.svg"
+                    class="cursor"
+                  />
+                </div>
+              </div>
+              <div class="cursor" (click)="setSelectedAddress(address)" >
+                <div class="row s-mt-1 kmc-border-bottom">
+                  <div class="col-lg-5">
+                    <p class="gray regualar">
+                      {{ "Checkout.Name" | translate }} :
+                    </p>
+                  </div>
+                  <div class="col-lg-6">
+                    <p class="black medium">{{ address.name }}</p>
+                  </div>
+                </div>
+                <div class="row s-mt-1 kmc-border-bottom">
+                  <div class="col-lg-5">
+                    <p class="gray regualar">
+                      {{ "Checkout.Address" | translate }} :
+                    </p>
+                  </div>
+                  <div class="col-lg-6">
+                    <p class="black medium">
+                      {{ address.address }}
+                    </p>
+                  </div>
+                </div>
+                <div class="row s-mt-1 kmc-border-bottom">
+                  <div class="col-lg-5">
+                    <p class="gray regualar">
+                      {{ "Checkout.City" | translate }} :
+                    </p>
+                  </div>
+                  <div class="col-lg-6">
+                    <p class="black medium">
+                      {{ address.city_name }} ,{{ address.country }}
+                    </p>
+                  </div>
+                </div>
+               <div class="row s-mt-1 kmc-border-bottom">
+                  <div class="col-lg-5">
+                    <p class="gray regualar">
+                      {{ "Checkout.Phone_Number" | translate }} :
+                    </p>
+                  </div>
+                  <div class="col-lg-6">
+                    <p class="black medium">
+                      ({{ address.phone_country_code }}) {{ address.phone }}
+                    </p>
+                  </div>
+                </div>
+                <div class="row s-mt-1 kmc-border-bottom">
+                  <div class="col-lg-5 ">
+                    <p class="gray regualar">
+                      {{ "Addresses.Apartment" | translate }} :
+                    </p>
+                  </div>
+                  <div class="col-lg-6">
+                    <p class="black medium">
+                      {{ address.apartment }}
+                    </p>
+                  </div>
+                </div>
+                <div class="row s-mt-1 kmc-border-bottom">
+                  <div class="col-lg-5">
+                    <p class="gray regualar">
+                      {{ "Addresses.Building" | translate }} :
+                    </p>
+                  </div>
+                  <div class="col-lg-6">
+                    <p class="black medium">
+                      {{ address.building }}
+                    </p>
+                  </div>
+                </div>
+                <div class="row s-mt-1">
+                  <div class="col-lg-5">
+                    <p class="gray regualar">
+                      {{ "Addresses.Floor" | translate }} :
+                    </p>
+                  </div>
+                  <div class="col-lg-6">
+                    <p class="black medium">
+                      {{ address.floor }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h5 *ngIf="!allAddresses.length">
+          {{ "Checkout.No_Addresses" | translate }}
+        </h5>
+        <p class="red s-mt-2 s-mb-2 add" (click)="open(content)">
+          + {{ "Checkout.Add_Address" | translate }}
+        </p>
+      </div>
+      <!-- ending of address card -->
+
+      <!-- order summary -->
+      <div class="col-xl-6 col-md-6"> 
+        <h3 class="black semi-bold s-mb-1">
+          {{ "Checkout.Order_Summary" | translate }}
+        </h3>
+        <div class="checkout-card">
+          <div class="checkout-card-header">
+            <button class="primary-btn" [routerLink]="['/cart']">
+              {{ "Checkout.Edit_Cart" | translate }}
+            </button>
+          </div>
+          <ul>
+            <li *ngFor="let item of cartItems" class="kmc-border-bottom">
+              <div class="order-item">
+                <img
+                  class="imgs-container"
+                  [src]="imgUrl + item.product.main_image"
+                  alt=""
+                />
+                <div class="info">
+                  <p class="semi-bold black">{{ item.product.title }}</p>
+                  <div class="d-flex justify-content-between">
+                    <p class="gray quantity">
+                      {{ "Orders.Quantity" | translate }}
+                    </p>
+
+                    <p class="semi-bold black" *ngIf="!item.product.sale_price">
+                      {{ item.product.price }}
+                      {{ "Checkout.Currency" | translate }}
+                    </p>
+                    <p class="semi-bold black" *ngIf="item.product.sale_price">
+                      {{ item.product.sale_price }}
+                      {{ "Checkout.Currency" | translate }}
+                    </p>
+                  </div>
+                  <h5 class="medium gray">{{ item.quantity }}</h5>
+                  <h5 class="medium gray" *ngIf="item.product_item.species">
+                    {{ item.product_item.product_item_title }} :
+                    {{ item.product_item.species }}
+                  </h5>
+                </div>
+              </div>
+            </li>
+            <!-- payment -->
+            <p class="medium gray s-mt-1">
+              {{ "Checkout.Choose_Payment" | translate }}
+            </p>
+            <form class="kmc-border-bottom">
+              <div class="form-check s-mt-1">
+                <input
+                  class="form-check-input"
+                  [(ngModel)]="paymentMethod"
+                  [value]="paymemtValues[1]"
+                  type="radio"
+                  name="method"
+                  id="flexRadioDefault1"
+                  (change)="getShipingFees()"
+                />
+                <label
+                  class="form-check-label regular font-sizing"
+                  for="flexRadioDefault1"
+                >
+                  {{ "Checkout.Cash" | translate }}
+                  <span class="medium gray">
+                    (
+                    {{ codFees }}
+                    {{ "Checkout.Currency" | translate }}
+                  </span>
+                  <span class="regular gray">
+                    {{ "Addresses.CodFees" | translate }}
+                    )
+                  </span>
+                </label>
+              </div>
+              <div class="form-check s-mt-1">
+                <input
+                  class="form-check-input"
+                  [(ngModel)]="paymentMethod"
+                  [value]="paymemtValues[0]"
+                  value="Cash On Delivery"
+                  type="radio"
+                  name="method"
+                  id="flexRadioDefault2"
+                  (change)="getShipingFees()"
+                />
+                <label
+                  class="form-check-label regular font-sizing"
+                  for="flexRadioDefault2"
+                >
+                  {{ "Checkout.Credit_Visa" | translate }}
+                </label>
+              </div>
+            </form>
+            <li
+              class="d-flex justify-content-between" style=" margin: 20px;"
+              *ngIf="allAddresses.length || selectedAddress"
+            >
+              <p class="regular red">{{ "Checkout.Discount" | translate }}</p>
+              <p class="regular red">
+                {{ orderSummary.discount }}
+                {{ "Checkout.Currency" | translate }}
+              </p>
+            </li>
+              <li
+                class="d-flex justify-content-between " style=" margin: 20px;"
+                *ngIf="allAddresses.length || selectedAddress"
+              >
+                <p class="regular black">
+                  {{ "Addresses.ShipingFees" | translate }} :
+                </p>
+
+                <p class="regular black">
+                  <ng-container *ngIf="paymentMethod === 'Credit Card'">
+                    {{ selectedAddress.shipping_details.shipping_cost }}
+                    </ng-container>
+                    <ng-container *ngIf="paymentMethod !== 'Credit Card'">
+                        {{
+                        selectedAddress.shipping_details.shipping_cost +
+                            selectedAddress.shipping_details.cod_cost
+                        }}
+                    </ng-container>
+                  {{ "Checkout.Currency" | translate }}
+                </p>
+              </li>
+
+            <li
+              class="total d-flex justify-content-between"
+              *ngIf="allAddresses.length || selectedAddress"
+            >
+              <p class="bold black">{{ "Checkout.Total" | translate }} </p>
+              <p class="bold black" *ngIf="!selectedPointes">
+                <ng-container *ngIf="paymentMethod === 'Credit Card'">
+                    {{
+                    orderSummary.total_price +
+                        selectedAddress.shipping_details.shipping_cost
+                    }}
+                </ng-container>
+                <ng-container *ngIf="paymentMethod !== 'Credit Card'">
+                    {{
+                    orderSummary.total_price +
+                        (selectedAddress.shipping_details.shipping_cost +
+                        selectedAddress.shipping_details.cod_cost)
+                    }}
+                </ng-container>
+
+                {{ "Checkout.Currency" | translate }}
+              </p>
+              
+            </li>
+            <!-- <p class="medium gray"> Total Price includes VAT </p> -->
+          </ul>
+          <div class="s-mt-2 d-flex justify-content-end">
+            <button
+              class="primary-btn"
+              
+              (click)="continueCheckOut()"
+              [disabled]="!allAddresses.length || !selectedAddress"
+            >
+              {{ "Checkout.Continue_Checkout" | translate }}
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="checkout-address__reminder red"
+          *ngIf="!allAddresses.length || !selectedAddress"
+        >
+          {{ "Addresses.Add" | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- modAL create and update -->
+<ng-template
+  #content
+  let-c="close"
+  let-d="dismiss"
+  aria-hidden="true"
+  id="content"
+>
+  <div class="d-flex justify-content-between align-items-center">
+    <h4 class="black" id="modal-basic-title">
+      {{ "Addresses.Add new address" | translate }}
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <!-- <form [formGroup]="AddressesForm" (ngSubmit)="confirm()">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="input-container">
+            <label for="exampleInputName">{{
+              "Contact_Us.Name" | translate
+              }}</label>
+            <div class="containe">
+              <input type="text" id="exampleInputName" formControlName="name" class="gray medium sizeFont" />
+              <div *ngIf="
+                  AddressesForm.get('name')?.invalid &&
+                  AddressesForm.get('name')?.touched
+                ">
+                <p *ngIf="formContarols['name'].errors?.['required']" class="errors">
+                  {{ "Contact_Us.V_Name_R" | translate }}
+                </p>
+
+                <p *ngIf="formContarols['name'].errors?.['pattern']" class="errors">
+                  {{ "Contact_Us.V_Name_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="phone-container">
+            <label for="exampleInputPhone" class="medium">{{ "Contact_Us.Phone"| translate }}</label>
+            <div class="containe">
+              <input formControlName="phone_country_code" class="input-code" readonly>
+              <input type="text" id="exampleInputPhone" formControlName="phone"
+                class="gray medium sizeFont input-phone">
+            </div>
+            <div *ngIf="
+                    AddressesForm.get('phone')?.invalid &&
+                   AddressesForm.get('phone')?.touched
+                  ">
+              <p *ngIf="formContarols['phone'].errors?.['required']" class="errors bold">
+                {{ "Contact_Us.V_Phone_R" | translate }}
+              </p>
+              <p *ngIf="formContarols['phone'].errors?.['pattern']" class="errors bold">
+                {{ "Contact_Us.V_phone_11" | translate }}
+              </p>
+              <p *ngIf="formContarols['phone'].errors?.['checkPhone']" class="errors bold">
+                {{ "Contact_Us.V_Phone_P-01" | translate }}
+              </p>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+
+          <div class="input-container">
+            <label for="exampleInputCountry">{{
+              "Addresses.Country" | translate
+              }}</label>
+            <div class="containe">
+              <input type="text" id="exampleInputCountry" autocomplete="off" formControlName="country" #countries
+                (change)='setCountryCode(countries.value)' class="gray medium sizeFont" list="countries" />
+              <datalist id="countries">
+                <option *ngFor="let country of ourCountry" [value]="country"></option>
+              </datalist>
+
+              <div *ngIf="
+                  AddressesForm.get('country')?.invalid &&
+                  AddressesForm.get('country')?.touched
+                ">
+                <p *ngIf="formContarols['country'].errors?.['required']" class="errors">
+                  {{ "Addresses.V_Country_R" | translate }}
+                </p>
+                <p *ngIf="formContarols['name'].errors?.['pattern']" class="errors">
+                  {{ "Addresses.V_Country_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-container">
+            <label for="exampleInputCity">{{
+              "Addresses.City" | translate
+              }}</label>
+            <div class="containe">
+              <input type="text" class="input" id="exampleInputCity" autocomplete="off" formControlName="city"
+                class="gray medium sizeFont" [disabled]="true" list="cites" />
+
+              <datalist id="cites">
+                <option *ngFor="let city of ourCity[countries.value].cities" [value]="city"></option>
+              </datalist>
+
+              <div *ngIf="
+                  AddressesForm.get('city')?.invalid &&
+                  AddressesForm.get('city')?.touched
+                ">
+                <p *ngIf="formContarols['city'].errors?.['required']" class="errors">
+                  {{ "Addresses.V_City_R" | translate }}
+                </p>
+                <p *ngIf="formContarols['city'].errors?.['pattern']" class="errors">
+                  {{ "Addresses.V_City_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="input-container">
+            <label for="exampleInputAddresses">{{ "Addresses.Addresses" | translate }}
+            </label>
+
+            <div class="containe">
+              <input type="text" class="input" id="exampleInputAddresses" formControlName="address"
+                class="gray medium sizeFont" />
+              <div *ngIf="
+                  AddressesForm.get('address')?.invalid &&
+                  AddressesForm.get('address')?.touched
+                ">
+                <p *ngIf="formContarols['address'].errors?.['required']" class="errors">
+                  {{ "Addresses.V_Addresses_R" | translate }}
+                </p>
+                <p *ngIf="formContarols['address'].errors?.['pattern']" class="errors">
+                  {{ "Addresses.V_Addresses_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-container">
+            <label for="exampleInputBuilding">{{
+              "Addresses.Building" | translate
+              }}</label>
+            <div class="containe">
+              <input type="text" class="input" id="exampleInputBuilding" formControlName="building"
+                class="gray medium sizeFont" />
+              <div *ngIf="
+                  AddressesForm.get('building')?.invalid &&
+                  AddressesForm.get('building')?.touched
+                ">
+                <p *ngIf="formContarols['building'].errors?.['required']" class="errors">
+                  {{ "Addresses.V_Building_R" | translate }}
+                </p>
+                <p *ngIf="formContarols['building'].errors?.['pattern']" class="errors">
+                  {{ "Addresses.V_Building_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-container">
+            <label for="exampleInputFloor">{{
+              "Addresses.Floor" | translate
+              }}</label>
+            <div class="containe">
+              <input type="text" class="input" id="exampleInputFloor" formControlName="floor"
+                class="gray medium sizeFont" />
+              <div *ngIf="
+                  AddressesForm.get('floor')?.invalid &&
+                  AddressesForm.get('floor')?.touched
+                ">
+                <p *ngIf="formContarols['building'].errors?.['required']" class="errors">
+                  {{ "Addresses.V_Floor_R" | translate }}
+                </p>
+                <p *ngIf="formContarols['floor'].errors?.['pattern']" class="errors">
+                  {{ "Addresses.V_Floor_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-container">
+            <label for="exampleInputApartment">{{
+              "Addresses.Apartment" | translate
+              }}</label>
+            <div class="containe">
+              <input type="text" class="input" id="exampleInputApartment" formControlName="apartment"
+                class="gray medium sizeFont" />
+              <div *ngIf="
+                  AddressesForm.get('apartment')?.invalid &&
+                  AddressesForm.get('apartment')?.touched
+                ">
+                <p *ngIf="formContarols['apartment'].errors?.['required']" class="errors">
+                  {{ "Addresses.V_Apartment_R" | translate }}
+                </p>
+                <p *ngIf="formContarols['apartment'].errors?.['pattern']" class="errors">
+                  {{ "Addresses.V_Apartment_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end align-items-center">
+        <button type="submit" class="primary-btn" [disabled]="AddressesForm.invalid || clickedConfirm">
+          {{ "Addresses.Confirm" | translate }}
+        </button>
+      </div>
+      <div class="input-container">
+        <span class="errors d-block"> {{ errorMsg }} </span>
+      </div>
+    </form> -->
+    <form [formGroup]="AddressesForm" (ngSubmit)="confirm()">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="input-container">
+            <label for="exampleInputName">{{
+              "Contact_Us.Name" | translate
+            }}</label>
+            <div class="containe">
+              <input
+                type="text"
+                id="exampleInputName"
+                formControlName="first_name"
+                class="gray medium sizeFont"
+              />
+              <div
+                *ngIf="
+                  AddressesForm.get('first_name')?.invalid &&
+                  AddressesForm.get('first_name')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['first_name'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Contact_Us.V_Name_R" | translate }}
+                </p>
+
+                <p
+                  *ngIf="formContarols['first_name'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Contact_Us.V_Name_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="input-container">
+            <label for="exampleInputCountry">{{
+              "Addresses.Country" | translate
+            }}</label>
+            <div class="containe">
+              <input
+                type="text"
+                id="exampleInputCountry"
+                autocomplete="off"
+                formControlName="country"
+                class="gray medium sizeFont"
+                [value]="'Egypt'"
+                [disabled]="true"
+                readonly
+              />
+              <!-- (change)="setCountryCode(countries.value)"
+                #countries -->
+
+              <!-- list="countries" -->
+              <!-- <datalist id="countries">
+                <option
+                  *ngFor="let country of ourCountry"
+                  [value]="country"
+                ></option>
+              </datalist> -->
+
+              <div
+                *ngIf="
+                  AddressesForm.get('country')?.invalid &&
+                  AddressesForm.get('country')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['country'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Country_R" | translate }}
+                </p>
+                <p
+                  *ngIf="formContarols['country'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Country_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="input-container">
+            <label for="exampleInputName">{{
+              "Contact_Us.last" | translate
+            }}</label>
+            <div class="containe">
+              <input
+                type="text"
+                id="exampleInputName"
+                formControlName="last_name"
+                class="gray medium sizeFont"
+              />
+              <div
+                *ngIf="
+                  AddressesForm.get('last_name')?.invalid &&
+                  AddressesForm.get('last_name')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['last_name'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Contact_Us.V_Name_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="input-container">
+            <label for="exampleInputCity">{{
+              "Addresses.City" | translate
+            }}</label>
+            <div class="containe">
+              <!-- <input
+                type="text"
+                class="input"
+                id="exampleInputCity"
+                autocomplete="off"
+                formControlName="city"
+                class="gray medium sizeFont"
+                [disabled]="true"
+                list="cites"
+              /> -->
+
+              <select
+                id="cites"
+                formControlName="city"
+                class="gray medium sizeFont input input-select"
+              >
+                <option *ngFor="let city of smsaCities" [value]="city.id">
+                  {{ city.name }}
+                </option>
+              </select>
+
+              <div
+                *ngIf="
+                  AddressesForm.get('city')?.invalid &&
+                  AddressesForm.get('city')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['city'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_City_R" | translate }}
+                </p>
+                <!-- <p
+                  *ngIf="formContarols['city'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_City_P" | translate }}
+                </p> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12">
+          <div class="phone-container">
+            <label for="exampleInputPhone" class="medium">{{
+              "Contact_Us.Phone" | translate
+            }}</label>
+            <div class="containe">
+              <input
+                formControlName="phone_country_code"
+                class="input-code"
+                readonly
+              />
+              <input
+                type="text"
+                id="exampleInputPhone"
+                formControlName="phone"
+                class="gray medium sizeFont input-phone"
+              />
+            </div>
+            <div
+              *ngIf="
+                AddressesForm.get('phone')?.invalid &&
+                AddressesForm.get('phone')?.touched
+              "
+            >
+              <p
+                *ngIf="formContarols['phone'].errors?.['required']"
+                class="errors bold"
+              >
+                {{ "Contact_Us.V_Phone_R" | translate }}
+              </p>
+              <p
+                *ngIf="formContarols['phone'].errors?.['pattern']"
+                class="errors bold"
+              >
+                {{ "Contact_Us.V_phone_11" | translate }}
+              </p>
+              <!-- <p
+                *ngIf="formContarols['phone'].errors?.['checkPhone']"
+                class="errors bold"
+              >
+                {{ "Contact_Us.V_Phone_P-01" | translate }}
+              </p> -->
+              <p
+                *ngIf="formContarols['phone'].errors?.['notPhone']"
+                class="errors bold"
+              >
+                {{ "Contact_Us.V_Phone_P" | translate }}
+              </p>
+              <p
+                *ngIf="formContarols['phone'].errors?.['notEgypt']"
+                class="errors bold"
+              >
+                {{ "Contact_Us.V_Phone_P-01" | translate }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="input-container">
+            <label for="exampleInputAddresses"
+              >{{ "Addresses.Addresses" | translate }}
+            </label>
+
+            <div class="containe">
+              <input
+                type="text"
+                class="input"
+                id="exampleInputAddresses"
+                formControlName="address"
+                class="gray medium sizeFont"
+              />
+              <div
+                *ngIf="
+                  AddressesForm.get('address')?.invalid &&
+                  AddressesForm.get('address')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['address'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Addresses_R" | translate }}
+                </p>
+                <p
+                  *ngIf="formContarols['address'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Addresses_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-container">
+            <label for="exampleInputBuilding">{{
+              "Addresses.Building" | translate
+            }}</label>
+            <div class="containe">
+              <input
+                type="text"
+                class="input"
+                id="exampleInputBuilding"
+                formControlName="building"
+                class="gray medium sizeFont"
+              />
+              <div
+                *ngIf="
+                  AddressesForm.get('building')?.invalid &&
+                  AddressesForm.get('building')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['building'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Building_R" | translate }}
+                </p>
+                <p
+                  *ngIf="formContarols['building'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Building_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-container">
+            <label for="exampleInputFloor">{{
+              "Addresses.Floor" | translate
+            }}</label>
+            <div class="containe">
+              <input
+                type="text"
+                class="input"
+                id="exampleInputFloor"
+                formControlName="floor"
+                class="gray medium sizeFont"
+              />
+              <div
+                *ngIf="
+                  AddressesForm.get('floor')?.invalid &&
+                  AddressesForm.get('floor')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['building'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Floor_R" | translate }}
+                </p>
+                <p
+                  *ngIf="formContarols['floor'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Floor_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-container">
+            <label for="exampleInputApartment">{{
+              "Addresses.Apartment" | translate
+            }}</label>
+            <div class="containe">
+              <input
+                type="text"
+                class="input"
+                id="exampleInputApartment"
+                formControlName="apartment"
+                class="gray medium sizeFont"
+              />
+              <div
+                *ngIf="
+                  AddressesForm.get('apartment')?.invalid &&
+                  AddressesForm.get('apartment')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['apartment'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Apartment_R" | translate }}
+                </p>
+                <p
+                  *ngIf="formContarols['apartment'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Apartment_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end align-items-center">
+        <button
+          type="submit"
+          class="primary-btn"
+          [disabled]="
+            !AddressesForm.dirty
+              ? true
+              : AddressesForm.invalid || clickedConfirm
+          "
+        >
+          {{ "Addresses.Confirm" | translate }}
+        </button>
+        <!-- AddressesForm.get('apartment')?.value == AddressesContent.apartment -->
+      </div>
+      <div class="input-container">
+        <span class="errors d-block"> {{ errorMsg }} </span>
+      </div>
+    </form>
+  </div>
+</ng-template>

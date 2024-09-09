@@ -1,0 +1,86 @@
+@import "../../../../../assets/styles/base/colors.scss";
+@import "../../../../../assets/styles/base/font-size.scss";
+@import "../../../../../assets/styles/base/variables.scss";
+@import "../../../../../assets/styles/base/typography.scss";
+
+
+.form-content {
+  .input-container {
+
+
+    input {
+      border: dashed 1px #CDCDCC;
+      text-align: center;
+      width: 100%;
+    }
+
+  }
+
+  span,
+  .resend {
+    display: block;
+    text-align: center;
+  }
+
+  .resend {
+    cursor: pointer;
+  }
+}
+
+.login-and-security {
+  min-height: calc(100vh - 400px);
+
+  a:hover {
+    color: $red;
+  }
+
+}
+
+.input-container {
+  // position: relative;
+
+  .containe {
+    position: relative;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      right: 0.5vw;
+      transform: translate(-50%, -50%);
+
+    }
+
+    .sizeFont {
+      font-size: clamp(11px, 0.8333333333333334VW, 16px);
+    }
+
+    img {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1.5vw;
+    }
+  }
+}
+
+
+
+
+//response
+//mobile
+@media screen and (max-width: 767px) {
+
+  .login-and-security {
+    .input-container {
+
+      .containe {
+
+        img {
+          width: 5VW;
+          top: 60% !important;
+        }
+      }
+    }
+  }
+}

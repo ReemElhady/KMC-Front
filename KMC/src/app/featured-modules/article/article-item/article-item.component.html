@@ -1,0 +1,26 @@
+<section class="article-item">
+  <div class="article-container">
+    <div class="img-container" [ngStyle]="{
+      'background-image': 'url(' + imgUrl + article.article_image + ')'
+    }">
+    </div>
+    
+    <div class="info-article">
+      <h4 class="article-title">
+        {{
+          !isMobile
+            ? (article.article_title | slice : 0 : 30)
+            : (article.article_title | slice : 0 : 10)
+        }}
+        <span *ngIf="article.article_title.length > 30"> ...</span>
+      </h4>
+      <div class="user-container">
+        <span class="article-date">
+          {{ 'Article.Posted' | translate }} {{ article.created_at }}
+        </span>
+        <p class="article-writer"><strong>Written by:</strong> {{ article.article_writer }}</p>
+        <p class="article-department"><strong>Department:</strong> {{ article.article_department }}</p>
+      </div>
+    </div>
+  </div>
+</section>

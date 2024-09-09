@@ -1,0 +1,22 @@
+<div *ngIf="isLoading"><app-loading-screen></app-loading-screen></div>
+<section class="shop nav-margin s-mb-2" *ngIf="!isLoading">
+  <!-- <div class="container-fluid"> -->
+  <div
+    class="img-container s-mb-2"
+    *ngFor="let cat of shopList"
+    [ngStyle]="{
+      'background-image': 'url(' + cat.category_image + ')'
+    }"
+  >
+    <div class="layout"></div>
+    <div class="content">
+      <h2 class="white semi-bold">{{ cat.name }}</h2>
+      <div>
+        <button routerLink="../{{ cat.id }}" class="primary-btn s-mt-2">
+          {{ "Header.shop" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</section>

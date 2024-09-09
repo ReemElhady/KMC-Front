@@ -1,0 +1,74 @@
+<div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+<section class="wighlist nav-margin nav-padding">
+  <div class="container-fluid">
+    <div *ngIf="!isLoading && wishlist.results.length === 0" class="not-available">
+      <h4 class="red">
+        {{ "Wishlist.N_Available" | translate }}
+      </h4>
+    </div>
+
+    <div class="s-mb-2" *ngIf="!isLoading && wishlist.results.length !== 0">
+      <h2 class="semi-bold">{{ "Wishlist.Wishlist" | translate }}</h2>
+      <div class="row">
+        <div class="col-xl-8">
+          <div class="row s-mt-2" *ngFor="let item of wishlist.results">
+            <div class="col-xl-8">
+              <div class="product-container">
+                <img [src]="imgUrl + item.product_details.main_image"  alt="" routerLink="/products/details/{{item.product_details.type}}/{{ item.product_details.id }}" />
+                <div class="product-content">
+                  <p class="medium red title">
+                    {{ item.product_details.title }}
+                  </p>
+                  <p class="price semi-bold" *ngIf="!item.product_details.sale_price"> {{ item.product_details.price }}
+                  </p>
+                  <p class="price semi-bold" *ngIf="item.product_details.sale_price">
+                    {{ item.product_details.sale_price }} </p>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20.903" height="18.232" viewBox="0 0 20.903 18.232">
+                    <path id="heart"
+                      d="M20.84,4.61a5.5,5.5,0,0,0-7.78,0L12,5.67,10.94,4.61a5.5,5.5,0,0,0-7.78,7.78l1.06,1.06L12,21.23l7.78-7.78,1.06-1.06a5.5,5.5,0,0,0,0-7.78Z"
+                      transform="translate(-1.549 -2.998)" fill="#e4021b" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4">
+              <div class="delete-contanier">
+                <a class="delete" (click)="delete(item.product_details.type,item.product)">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24"
+                    height="24" viewBox="0 0 24 24">
+                    <defs>
+                      <clipPath id="clip-path">
+                        <rect id="Rectangle_277" data-name="Rectangle 277" width="24" height="24" fill="none" />
+                      </clipPath>
+                    </defs>
+                    <g id="Mask_Group_16" data-name="Mask Group 16" clip-path="url(#clip-path)">
+                      <g id="trash" transform="translate(3 2)">
+                        <path id="Path_43" data-name="Path 43" d="M3,6H21" transform="translate(-3 -2)" fill="none"
+                          stroke="#cdcdcc" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                        <path id="Path_44" data-name="Path 44"
+                          d="M19,6V20a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6M8,6V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"
+                          transform="translate(-3 -2)" fill="none" stroke="#cdcdcc" stroke-linecap="round"
+                          stroke-linejoin="round" stroke-width="1.5" />
+                      </g>
+                    </g>
+                  </svg>
+                </a>
+
+                <a class="gray regular cart" (click)="addToCart(item.product_details)">
+                  {{ "Wishlist.M_Cart" | translate }}
+                </a>
+              </div>
+            </div>
+            <hr />
+
+          </div>
+          <a (click)='sendPagnationRequest()' class="d-block black text-center regular"
+            *ngIf="wishlist.count >10 && wishlist.results.length<wishlist.count">
+            {{ "Shop.Load more items" | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

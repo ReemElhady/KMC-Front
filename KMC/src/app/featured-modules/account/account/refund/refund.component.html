@@ -1,0 +1,153 @@
+<div class="text-center" *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+<section *ngIf="!isLoading ">
+  <div class="order-header">
+    <div class="row align-items-center">
+      <div class="col-xl-8 col-md-12 ordertwo">
+        <div class="d-flex mob-res">
+          <div class="mob">
+            <h5 class="black medium">
+              {{"Orders.Order placed" | translate }}
+            </h5>
+            <span class="meduim gray bac-gray">
+              {{ order.created_at|date }}
+            </span>
+          </div>
+          <div class=" mob ">
+            <h5 class="black medium">
+              {{"Orders.Total" | translate }}
+            </h5>
+            <span class="meduim gray bac-gray">
+              {{order.total_price}} LE
+
+            </span>
+          </div>
+          <div class=" mob">
+            <h5 class="black medium">
+              {{"Orders.Delivered to" | translate }}
+
+            </h5>
+            <span class="meduim gray bac-gray">
+              {{order.user}}
+
+            </span>
+          </div>
+          <div class=" mob">
+            <h5 class="black medium">
+              {{"Orders.Address" | translate }}
+
+            </h5>
+            <span class="meduim gray bac-gray">
+              {{order.address.name}}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-12 orderone">
+        <div class="d-flex justify-content-end mob-res">
+          <div class="mob-order mob">
+            <h5 class="black medium">
+              {{"Orders.Order#" | translate }}{{order.id}}
+            </h5>
+            <span class="meduim gray bac-gray invoice">
+              {{order.code}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="d-flex align-items-center">
+    <p class="black medium ">
+      {{ order.created_at|date }}
+    </p>
+    <div *ngIf="order.items.length" class="d-flex align-items-center">
+      <input class="input-all" (change)="handleChackAll()" [(ngModel)]="checkAll" type="checkbox"
+        name="flexRadioDefault" id="flexRadioDefault1">
+      <label for="flexRadioDefault1">
+      </label>
+      <p class="black medium">
+        {{ "Orders.All" | translate }}
+      </p>
+    </div>
+  </div>
+
+  <form *ngIf="order.items.length">
+    <div class=" s-mt-1" *ngFor="let item of order.items;let i =index">
+      <div class="refund">
+        <div>
+          <input type="checkbox" name="method" [(ngModel)]="checkOptions[i].check" />
+          <label>
+          </label>
+          <div class="refund-container">
+            <div class="img">
+              <img [src]="imgUrl+item.product_image">
+            </div>
+            <div>
+              <p class="regular">
+                {{cs.get('language')=='ar'?item.product_title_ar:item.product_title_en}}
+              </p>
+              <span class="meduim gray quantity">
+                {{"Orders.Quantity" | translate }} : {{item.quantity}}
+              </span>
+              <span class="meduim gray quantity">
+                {{item.product_item_type }} : {{item.product_item_title}}
+              </span>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="buttons-container" *ngIf="checkOptions[i].check">
+          <button class="minus" (click)="counter(-1, i)">-</button>
+          <p class="medium black">{{ checkOptions[i].quantity }}</p>
+          <button class="plus" (click)="counter(1, i)">+</button>
+        </div>
+
+
+        <div>
+          <p class="black regular price">
+            {{item.total_price}} {{ "Orders.LE" | translate }}
+          </p>
+        </div>
+      </div>
+      <div class="comments" *ngIf="checkOptions[i].check">
+        <p class="semi-bold black">{{ "Orders.Comment" | translate }}</p>
+        <input class="comment-input s-mt-1" type="text" [name]="'comment'+i" [(ngModel)]="checkOptions[i].comment" id=""
+          (change)='removeError(i)' placeholder="{{ 'Orders.Comment-placeholder' | translate }}">
+        <p *ngIf='checkOptions[i].isError' class='red'>{{ "Orders.Comment_error" | translate }}</p>
+      </div>
+    </div>
+  </form>
+  <div *ngIf="!order.items.length" class="text-center my-4">
+    <h3>{{ "Orders.Refund-Msg" |translate }}</h3>
+  </div>
+  <div class="d-flex justify-content-end">
+    <button type="button" class="primary-btn meduim white" (click)="refund()">
+      {{ "Orders.Refund" | translate }}
+    </button>
+  </div>
+
+
+</section>
+
+
+
+
+<button uk-toggle="target: #refund_response" style="display: none;" #openDialog type="button"></button>
+<div id="refund_response" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body">
+    <div class="text-danger" *ngIf="isSuccess">
+      <h2> {{"Orders.refundSucc" | translate }}</h2>
+    </div>
+    <div class="text-danger" *ngIf="!isSuccess">
+      <h2> {{"Orders.refundFail" | translate }}</h2>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button class="uk-modal-close primary-btn" type="button" routerLink="/account/orders"> {{"Orders.go_to_order" |
+        translate }}</button>
+    </div>
+  </div>
+</div>

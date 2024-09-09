@@ -1,0 +1,518 @@
+<div class="text-center" *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+<section class="addresses" *ngIf="!isLoading">
+  <div
+    class="addresses-header s-mt-1 cursor"
+    (click)="openAddresses(content, null, null)"
+  >
+    <div class="align-items-center justify-content-center d-flex">
+      <img src="../../../../../assets/imgs/plus.svg" class="black cursor" />
+    </div>
+  </div>
+  <div class="s-mt-1 align-items-center justify-content-center">
+    <h4 *ngIf="AddressesContent.length == 0" class="black addressesmargin">
+      {{ "Addresses.N_Address" | translate }}
+    </h4>
+
+    <div
+      class="div-container"
+      *ngFor="let addresses of AddressesContent; let i = index"
+      [ngClass]="{ 'border-def': addresses.is_default === true }"
+    >
+      <div class="d-flex justify-content-start align-items-center">
+        <button
+          class="primary-btn btn-default cursor w-75 w-auto"
+          (click)="setDefult(addresses.id)"
+          (click)="setDefult(addresses.id)"
+          *ngIf="addresses.is_default === false"
+        >
+          {{ "Addresses.Default-set" | translate }}
+        </button>
+      </div>
+      <div class="containe">
+        <button
+          class="primary-btn secondrey gray"
+          *ngIf="addresses.is_default === true"
+        >
+          {{ "Addresses.Default" | translate }}
+        </button>
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="black medium s-mt-1">{{ addresses.name }}</p>
+          <div class="imgParent">
+            <!-- <img src="../../../../../assets/imgs/delete.svg" class="cursor" (click)="open(contentDelete,addresses.id )">
+             -->
+            <span class="delete-res">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class=""
+                (click)="open(contentDelete, addresses.id)"
+                width="22"
+                height="22"
+                fill="#CDCDCC"
+                class="bi bi-trash3-fill cursor"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"
+                />
+              </svg>
+            </span>
+            <img
+              src="../../../../../assets/imgs/edit2.svg"
+              (click)="openAddresses(content, i, addresses.id)"
+              class="cursor"
+            />
+          </div>
+        </div>
+        <p class="gray medium sizeFont s-mt-1">{{ addresses.address }}</p>
+        <p class="gray medium sizeFont">{{ addresses.country }}</p>
+        <p class="gray medium sizeFont">{{ addresses.city_name }}</p>
+        <p class="gray medium sizeFont">
+          ({{ addresses.phone_country_code }}) {{ addresses.phone }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- modAL create and update -->
+<ng-template
+  #content
+  let-c="close"
+  let-d="dismiss"
+  aria-hidden="true"
+  id="content"
+>
+  <div class="d-flex justify-content-between align-items-center">
+    <h4 class="black" id="modal-basic-title">
+      {{ "Addresses.Add new address" | translate }}
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="AddressesForm" (ngSubmit)="confirm(id)">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="input-container">
+            <label for="exampleInputName">{{
+              "Contact_Us.Name" | translate
+            }}</label>
+            <div class="containe">
+              <input
+                type="text"
+                id="exampleInputName"
+                formControlName="first_name"
+                class="gray medium sizeFont"
+              />
+              <div
+                *ngIf="
+                  AddressesForm.get('first_name')?.invalid &&
+                  AddressesForm.get('first_name')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['first_name'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Contact_Us.V_Name_R" | translate }}
+                </p>
+
+                <p
+                  *ngIf="formContarols['first_name'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Contact_Us.V_Name_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="input-container">
+            <label for="exampleInputName">{{
+              "Contact_Us.last" | translate
+            }}</label>
+            <div class="containe">
+              <input
+                type="text"
+                id="exampleInputName"
+                formControlName="last_name"
+                class="gray medium sizeFont"
+              />
+              <div
+                *ngIf="
+                  AddressesForm.get('last_name')?.invalid &&
+                  AddressesForm.get('last_name')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['last_name'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Contact_Us.V_Name_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6">
+          <div class="input-container">
+            <label for="exampleInputCountry">{{
+              "Addresses.Country" | translate
+            }}</label>
+            <div class="containe">
+              <!-- <input
+                type="text"
+                id="exampleInputCountry"
+                autocomplete="off"
+                formControlName="country"
+                #countries
+                class="gray medium sizeFont"
+                list="countries"
+                (change)="setCountryCode(countries.value)"
+              />
+              <datalist id="countries">
+                <option
+                  *ngFor="let country of ourCountry"
+                  [value]="country"
+                ></option>
+              </datalist> -->
+              <input
+                type="text"
+                id="exampleInputCountry"
+                autocomplete="off"
+                formControlName="country"
+                class="gray medium sizeFont"
+                [value]="'Egypt'"
+                [disabled]="true"
+                readonly
+              />
+              <div
+                *ngIf="
+                  AddressesForm.get('country')?.invalid &&
+                  AddressesForm.get('country')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['country'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Country_R" | translate }}
+                </p>
+                <p
+                  *ngIf="formContarols['country'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Country_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="input-container">
+            <label for="exampleInputCity">{{
+              "Addresses.City" | translate
+            }}</label>
+            <div class="containe">
+              <!-- <input
+                type="text"
+                class="input"
+                id="exampleInputCity"
+                autocomplete="off"
+                formControlName="city"
+                class="gray medium sizeFont"
+                [disabled]="true"
+                list="cites"
+              /> -->
+
+              <!-- <datalist id="cites">
+                <option *ngFor="let city of smsaCities" [value]="city.id">
+                  {{ city.name }}
+                </option>
+              </datalist> -->
+
+              <select
+                id="cites"
+                formControlName="city"
+                class="gray medium sizeFont input input-select"
+              >
+                <option *ngFor="let city of smsaCities" [value]="city.id">
+                  {{ city.name }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  AddressesForm.get('city')?.invalid &&
+                  AddressesForm.get('city')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['city'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_City_R" | translate }}
+                </p>
+                <p
+                  *ngIf="formContarols['city'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_City_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12">
+          <div class="phone-container">
+            <label for="exampleInputPhone" class="medium">{{
+              "Contact_Us.Phone" | translate
+            }}</label>
+            <div class="containe">
+              <input
+                formControlName="phone_country_code"
+                class="input-code"
+                readonly
+              />
+              <input
+                type="text"
+                id="exampleInputPhone"
+                formControlName="phone"
+                class="gray medium sizeFont input-phone"
+              />
+            </div>
+            <div
+              *ngIf="
+                AddressesForm.get('phone')?.invalid &&
+                AddressesForm.get('phone')?.touched
+              "
+            >
+              <p
+                *ngIf="formContarols['phone'].errors?.['required']"
+                class="errors bold"
+              >
+                {{ "Contact_Us.V_Phone_R" | translate }}
+              </p>
+              <!-- <p
+                *ngIf="formContarols['phone'].errors?.['pattern']"
+                class="errors bold"
+              >
+                {{ "Contact_Us.V_phone_11" | translate }}
+              </p> -->
+              <!-- <p
+                *ngIf="formContarols['phone'].errors?.['checkPhone']"
+                class="errors bold"
+              >
+                {{ "Contact_Us.V_Phone_P-01" | translate }}
+              </p> -->
+              <!-- <div
+              *ngIf="formContarols['phone'].errors?.['countryCodeMismatch']"
+            >
+              Phone number doesn't match country code.
+            </div> -->
+              <p
+                *ngIf="formContarols['phone'].errors?.['notPhone']"
+                class="errors bold"
+              >
+                {{ "Contact_Us.V_Phone_P" | translate }}
+              </p>
+              <p
+                *ngIf="formContarols['phone'].errors?.['notEgypt']"
+                class="errors bold"
+              >
+                {{ "Contact_Us.V_Phone_P-01" | translate }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="input-container">
+            <label for="exampleInputAddresses"
+              >{{ "Addresses.Addresses" | translate }}
+            </label>
+
+            <div class="containe">
+              <input
+                type="text"
+                class="input"
+                id="exampleInputAddresses"
+                formControlName="address"
+                class="gray medium sizeFont"
+              />
+              <div
+                *ngIf="
+                  AddressesForm.get('address')?.invalid &&
+                  AddressesForm.get('address')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['address'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Addresses_R" | translate }}
+                </p>
+                <p
+                  *ngIf="formContarols['address'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Addresses_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-container">
+            <label for="exampleInputBuilding">{{
+              "Addresses.Building" | translate
+            }}</label>
+            <div class="containe">
+              <input
+                type="text"
+                class="input"
+                id="exampleInputBuilding"
+                formControlName="building"
+                class="gray medium sizeFont"
+              />
+              <div
+                *ngIf="
+                  AddressesForm.get('building')?.invalid &&
+                  AddressesForm.get('building')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['building'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Building_R" | translate }}
+                </p>
+                <p
+                  *ngIf="formContarols['building'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Building_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-container">
+            <label for="exampleInputFloor">{{
+              "Addresses.Floor" | translate
+            }}</label>
+            <div class="containe">
+              <input
+                type="text"
+                class="input"
+                id="exampleInputFloor"
+                formControlName="floor"
+                class="gray medium sizeFont"
+              />
+              <div
+                *ngIf="
+                  AddressesForm.get('floor')?.invalid &&
+                  AddressesForm.get('floor')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['building'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Floor_R" | translate }}
+                </p>
+                <p
+                  *ngIf="formContarols['floor'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Floor_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-container">
+            <label for="exampleInputApartment">{{
+              "Addresses.Apartment" | translate
+            }}</label>
+            <div class="containe">
+              <input
+                type="text"
+                class="input"
+                id="exampleInputApartment"
+                formControlName="apartment"
+                class="gray medium sizeFont"
+              />
+              <div
+                *ngIf="
+                  AddressesForm.get('apartment')?.invalid &&
+                  AddressesForm.get('apartment')?.touched
+                "
+              >
+                <p
+                  *ngIf="formContarols['apartment'].errors?.['required']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Apartment_R" | translate }}
+                </p>
+                <p
+                  *ngIf="formContarols['apartment'].errors?.['pattern']"
+                  class="errors"
+                >
+                  {{ "Addresses.V_Apartment_P" | translate }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end align-items-center">
+        <button
+          type="submit"
+          class="primary-btn"
+          [disabled]="
+            !AddressesForm.dirty ? true : AddressesForm.invalid || clicked
+          "
+        >
+          {{ "Addresses.Confirm" | translate }}
+        </button>
+        <!-- AddressesForm.get('apartment')?.value == AddressesContent.apartment -->
+      </div>
+      <div class="input-container">
+        <span class="errors d-block"> {{ errorMsg }} </span>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- modAL delete-->
+<ng-template #contentDelete let-c="close" let-d="dismiss">
+  <div class="d-flex justify-content-between align-items-center">
+    <h4 class="black" id="modal-basic-title">
+      {{ "Addresses.Delete" | translate }}
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <h5 class="black" id="modal-basic-title">
+      {{ "Addresses.Are You Sure" | translate }}
+    </h5>
+    <div class="d-flex justify-content-end align-items-center">
+      <button type="button" class="primary-btn" (click)="deleteAddresses()">
+        {{ "Addresses.Confirm" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

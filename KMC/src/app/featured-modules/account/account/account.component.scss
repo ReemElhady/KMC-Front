@@ -1,0 +1,32 @@
+@import "../../../../assets/styles/base/colors.scss";
+@import "../../../../assets/styles/base/variables.scss";
+
+.accounts {
+  min-height: calc(100vh - 400px);
+
+  .account-container {
+    padding: 1vw;
+
+    .font-size-gray {
+      font-size: clamp(9px, 0.625VW, 12px) !important;
+    }
+  }
+
+  .account-container:hover {
+    cursor: pointer;
+  }
+
+  .active {
+    background-color: $regularGray;
+  }
+}
+
+//response
+//mobile
+@media screen and (max-width: 767px) {
+  .accounts {
+    .account-container {
+      text-align: center;
+    }
+  }
+}

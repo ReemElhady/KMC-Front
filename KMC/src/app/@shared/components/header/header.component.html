@@ -1,0 +1,735 @@
+<div
+  class="kmc-navbar"
+  [ngClass]="{
+    'kmc-nav-home-slider': isInHome && !isScroll,
+    'kmc-nav-home-scroll': !isInHome || isScroll
+  }"
+>
+  <div class="container-fluid">
+    <nav uk-navbar>
+      <div class="uk-navbar-left">
+        <ul class="uk-navbar-nav">
+          <li class="logo">
+            <a [routerLink]="['']">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="112"
+                height="69"
+                viewBox="0 0 112 69"
+              >
+                <path
+                  id="Path_1"
+                  data-name="Path 1"
+                  d="M19.782,24.587h9.549V33l8.319-8.417H47.765L37.65,34.991,47.765,55.7H37.554L29.331,37.166V55.7H19.782Zm49.63,16.456-5.1,5.3-4.822-5.3V55.7H50.128V24.587h9.358v5.675l4.822,5.674,5.1-5.674V24.587H79.528V42.131L103.255,8.18l-3.072-.425L109.873,0,106.9,11.632l-1.8-2.27L94.322,24.587h8.366l9.265,11.873H102.31l-2.458-2.888H95.315L90.777,40.1l4.632,6.62h4.537l2.459-3.044H112L102.688,55.7H91.912L82.6,42.415l-3.073,4.208V55.7s-4.68-.048-8.035,0c-4,4.539-16.389,16.1-41.406,12.672C7.609,65.3.828,50.437.072,43.975-1.1,28.339,12.1,17.391,30.843,14.28c19.311-2.854,30.238,5.674,33.465,9.551a35.6,35.6,0,0,0-20.514-8.038c-7.745-.484-18.879.447-28.265,8.794-7.3,6.491-9.7,15.134-7,23.171C13.946,63.839,31.93,66.53,36.326,67.05A38.891,38.891,0,0,0,69.413,54.283Z"
+                  transform="translate(0 0.001)"
+                  fill="#e4021b"
+                />
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              routerLinkActive="active"
+              [routerLink]="['products', 'sales']"
+              class="a-nav"
+              >{{ "Header.Sales" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              routerLinkActive="active"
+              [routerLink]="['products', 'shop']"
+              class="a-nav"
+              >{{ "Header.shop" | translate }}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="7.077"
+                height="4.047"
+                viewBox="0 0 7.077 4.047"
+              >
+                <path
+                  id="Icon_ionic-ios-arrow-forward"
+                  data-name="Icon ionic-ios-arrow-forward"
+                  d="M14.073,9.736,11.4,12.412a.5.5,0,0,0,0,.714.51.51,0,0,0,.716,0l3.034-3.032a.5.5,0,0,0,.015-.7L12.114,6.344a.506.506,0,0,0-.716.714Z"
+                  transform="translate(13.274 -11.246) rotate(90)"
+                  fill="#777"
+                />
+              </svg>
+            </a>
+            <div class="uk-navbar-dropdown">
+              <ul class="uk-nav uk-navbar-dropdown-nav">
+                <li *ngFor="let type of types">
+                  <a
+                    class="a-nav"
+                    routerLinkActive="active"
+                    routerLink="products/{{ type.id }}"
+                    >{{ type.name }}</a
+                  >
+                </li>
+                <!-- <li><a class="a-nav" routerLinkActive="active" [routerLink]="['materials']">Materials</a></li>
+                  <li><a class="a-nav" routerLinkActive="active" [routerLink]="['tools']">Tools</a></li> -->
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a
+              class="a-nav"
+              routerLinkActive="active"
+              [routerLink]="['courses']"
+              >{{ "Header.Courses" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              class="a-nav"
+              routerLinkActive="active"
+              [routerLink]="['articles']"
+              >{{ "Header.Articles" | translate }}</a
+            >
+          </li>
+          <li>
+            <a
+              class="a-nav"
+              routerLinkActive="active"
+              [routerLink]="['about-us']"
+            >
+              <!-- {{'Footer.About_us' | translate}} -->
+              {{ "Footer.WhyKMC" | translate }}
+            </a>
+          </li>
+          <li>
+            <a
+              class="a-nav"
+              routerLinkActive="active"
+              [routerLink]="['contact-us']"
+              >{{ "Footer.Contact_us" | translate }}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+          <li class="search-transation">
+            <a class="a-nav">
+              <div
+                class="search-container"
+                [ngClass]="{
+                  'search-background': !isCollaspse,
+                  'search-back-vis': isCollaspse
+                }"
+              >
+                <input
+                  [ngClass]="{ lightopacity: !isCollaspse }"
+                  type="search"
+                  placeholder="{{ 'Header.Search' | translate }}"
+                  #searchedInput
+                  class=""
+                  *ngIf="isCollaspse"
+                  (input)="searchAction(searchedInput.value)"
+                />
+                <span
+                  class="search-icon d-flex justify-content-end w-100"
+                  [ngClass]="{
+                    'search-background': !isCollaspse,
+                    'search-back-vis': isCollaspse
+                  }"
+                  (click)="openSearch()"
+                >
+                  <img src="../../../../assets/imgs/search.svg" />
+                </span>
+              </div>
+            </a>
+          </li>
+
+          <!-- <li *ngIf="http.isAuthenticated">
+            <a class="point-container" [routerLink]="['account/points']">
+              <img src="../../../../assets/imgs/header.png" />
+             
+            </a>
+          </li> -->
+          <li *ngIf="http.isAuthenticated">
+            <a
+              class="wishlist-container"
+              routerLinkActive="active"
+              [routerLink]="['wishlist']"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-heart"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+                />
+              </svg>
+              <!-- <a
+                class="a-nav"
+                routerLinkActive="active"
+                [routerLink]="['wishlist']"
+                >{{ "Header.Wishlist" | translate }}
+              </a> -->
+            </a>
+          </li>
+          <!-- <li>
+              <a href="#">Parent</a>
+              <div class="uk-navbar-dropdown">
+                <ul class="uk-nav uk-navbar-dropdown-nav">
+                  <li class="uk-active"><a href="#">Active</a></li>
+                  <li><a href="#">Item</a></li>
+                  <li><a href="#">Item</a></li>
+                </ul>
+              </div>
+            </li> -->
+          <!-- <li>
+              <a class="wishlist-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                </svg>
+                <a class="a-nav" routerLinkActive="active" [routerLink]="['account']">Account </a>
+              </a>
+            </li> -->
+
+          <li *ngIf="http.isAuthenticated">
+            <a
+              [routerLink]="['account']"
+              routerLinkActive="active"
+              class="wishlist-container a-nav"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-person"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"
+                />
+              </svg>
+              <a routerLinkActive="active" class="a-nav">
+                <!-- {{ 'Header.Account' | translate }} -->
+                {{ userName }}
+              </a>
+            </a>
+            <div class="uk-navbar-dropdown">
+              <ul class="uk-nav uk-navbar-dropdown-nav">
+                <li>
+                  <a
+                    class="a-nav"
+                    routerLinkActive="active"
+                    [routerLink]="['account', 'orders']"
+                  >
+                    {{ "Header.Orders" | translate }}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="a-nav"
+                    routerLinkActive="active"
+                    [routerLink]="['account', 'login-and-security']"
+                  >
+                    {{ "Header.Login" | translate }}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="a-nav"
+                    routerLinkActive="active"
+                    [routerLink]="['account', 'addresses']"
+                  >
+                    {{ "Header.Addresses" | translate }}
+                  </a>
+                </li>
+                <!-- <li>
+                  <a
+                    class="a-nav"
+                    routerLinkActive="active"
+                    [routerLink]="['account', 'points']"
+                  >
+                    {{ "Header.Points" | translate }}
+                  </a>
+                </li> -->
+                <li>
+                  <a class="a-nav" (click)="logout()">
+                    {{ "Header.Logout" | translate }}
+                  </a>
+                </li>
+                <!-- <li><a class="a-nav" routerLinkActive="active" [routerLink]="['materials']">Materials</a></li>
+                  <li><a class="a-nav" routerLinkActive="active" [routerLink]="['tools']">Tools</a></li> -->
+              </ul>
+            </div>
+          </li>
+
+          <li *ngIf="!http.isAuthenticated">
+            <a
+              [routerLink]="['auth', 'login']"
+              routerLinkActive="active"
+              class="wishlist-container a-nav"
+              >{{ "Header.login" | translate }}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-person"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"
+                />
+              </svg>
+            </a>
+          </li>
+
+          <li class="cart">
+            <a class="cart a-nav">
+              <div class="items-number-wrapper">
+                <span class="items-number"></span>
+              </div>
+              <div class="dash-line"></div>
+              <a
+                class="wishlist-container items-number-wrapper"
+                [routerLink]="['cart']"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-cart2"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"
+                  />
+                </svg>
+                <a routerLinkActive="active" class="a-nav"
+                  >{{ "Header.cart" | translate }}
+                </a>
+                <div class="cart-items-number">{{ cartItems }}</div>
+                <!-- <div class="cart-items-number">
+                  {{ cartQuantiety ? cartQuantiety.length : 0 }}
+                </div> -->
+              </a>
+            </a>
+
+            <div
+              class="nav-dropdown"
+              uk-dropdown="pos:bottom, boundary: .right-nav"
+              *ngIf="cartContent && cartContent.length > 0"
+            >
+              <div>
+                <ul class="uk-nav uk-dropdown-nav">
+                  <div class="cart-container">
+                    <div class="item-wrapper" *ngFor="let item of cartContent">
+                      <div class="close-btn">
+                        <svg
+                          (click)="deleteFromCart(item.id)"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="#adadad"
+                          class="bi bi-x"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                          />
+                        </svg>
+                      </div>
+
+                      <div
+                        class="img-wrapper"
+                        [ngStyle]="{
+                          'background-image':
+                            'url(' + imgUrl + item.product.main_image + ')'
+                        }"
+                      ></div>
+                      <div class="info-wrapper">
+                        <p class="product-name regular">
+                          {{ item.product.title }}
+                        </p>
+                        <div class="uk-flex uk-flex-column my-2 gray-price">
+                          <p class="regular">
+                            {{ "Orders.Quantity" | translate }}:
+                            {{ item.quantity }}
+                          </p>
+                          <div *ngIf="isLogin">
+                            <p
+                              class="regular"
+                              *ngIf="item.product_item.product_item_title"
+                            >
+                              {{ item.product_item.product_item_title }}:
+                              {{ item.product_item.species }}
+                            </p>
+                          </div>
+                          <div *ngIf="!isLogin">
+                            <p class="regular" *ngIf="item.product_item">
+                              {{ item.product_item.product_item_title }}:
+                              {{ item.product_item.species }}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="uk-flex uk-flex-middle gray-price">
+                          <!-- <div> -->
+                          <p class="">{{ "Header.price" | translate }}:</p>
+                          <!-- </div> -->
+                          <!-- <div> -->
+                          <p
+                            class="product-price mx-2"
+                            *ngIf="item.product.sale_price !== 0"
+                          >
+                            {{ item.product.sale_price }}
+                          </p>
+                          <p
+                            class="product-price mx-2"
+                            *ngIf="item.product.sale_price === 0"
+                          >
+                            {{ item.product.price }}
+                          </p>
+                          <!-- </div> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="uk-flex uk-flex-center">
+                    <button
+                      [routerLink]="['cart']"
+                      class="primary-btn my-3 w-100"
+                    >
+                      {{ "Header.view-cart" | translate }}
+                    </button>
+                  </div>
+                  <div class="uk-flex uk-flex-middle uk-flex-right my-3">
+                    <p class="total-text1 m-0 mr-2 semi-bold">
+                      {{ "Orders.Total" | translate }}:
+                    </p>
+                    <p class="total-text2 m-0">
+                      {{ totalPrice }}
+                    </p>
+                  </div>
+                </ul>
+              </div>
+            </div>
+
+            <div
+              uk-dropdown="pos:bottom, boundary: .right-nav"
+              *ngIf="cartContent && cartContent.length === 0"
+            >
+              <div>
+                <span class="regular">{{
+                  "Header.cart-empty" | translate
+                }}</span>
+                <button
+                  [routerLink]="['products', 'shop']"
+                  class="primary-btn --1"
+                >
+                  {{ "Header.shop-now" | translate }}
+                </button>
+              </div>
+            </div>
+
+            <!-- <a class="wishlist-container items-number-wrapper" [routerLink]="['cart']">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart2"
+                viewBox="0 0 16 16">
+                <path
+                  d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+              </svg>
+              <a routerLinkActive="active" class="a-nav">{{ 'Header.cart' | translate }} </a>
+              <div class="cart-items-number">{{ cartItems }}</div>
+
+            </a> -->
+          </li>
+
+          <!-- <li>
+            <a class="medium black a-nav" (click)="changeLanguage()">
+              {{ mainLang }}</a
+            >
+          </li> -->
+          <!-- <li>
+            <a [routerLink]="['search']" routerLinkActive="active">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-search"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                />
+              </svg>
+            </a>
+          </li> -->
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<!-- mobile nav  -->
+<nav class="mobile-menu">
+  <div class="header-view">
+    <div class="logo">
+      <a routerLink="">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="112"
+          height="69"
+          viewBox="0 0 112 69"
+        >
+          <path
+            id="Path_1"
+            data-name="Path 1"
+            d="M19.782,24.587h9.549V33l8.319-8.417H47.765L37.65,34.991,47.765,55.7H37.554L29.331,37.166V55.7H19.782Zm49.63,16.456-5.1,5.3-4.822-5.3V55.7H50.128V24.587h9.358v5.675l4.822,5.674,5.1-5.674V24.587H79.528V42.131L103.255,8.18l-3.072-.425L109.873,0,106.9,11.632l-1.8-2.27L94.322,24.587h8.366l9.265,11.873H102.31l-2.458-2.888H95.315L90.777,40.1l4.632,6.62h4.537l2.459-3.044H112L102.688,55.7H91.912L82.6,42.415l-3.073,4.208V55.7s-4.68-.048-8.035,0c-4,4.539-16.389,16.1-41.406,12.672C7.609,65.3.828,50.437.072,43.975-1.1,28.339,12.1,17.391,30.843,14.28c19.311-2.854,30.238,5.674,33.465,9.551a35.6,35.6,0,0,0-20.514-8.038c-7.745-.484-18.879.447-28.265,8.794-7.3,6.491-9.7,15.134-7,23.171C13.946,63.839,31.93,66.53,36.326,67.05A38.891,38.891,0,0,0,69.413,54.283Z"
+            transform="translate(0 0.001)"
+            fill="#e4021b"
+          />
+        </svg>
+      </a>
+    </div>
+    <div class="d-flex align-items-center">
+      <div class="icons">
+        <a
+          *ngIf="!http.isAuthenticated"
+          [routerLink]="['auth', 'login']"
+          routerLinkActive="active"
+          class="wishlist-container a-nav"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-person"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"
+            />
+          </svg>
+        </a>
+
+        <a
+          [routerLink]="['cart']"
+          routerLinkActive="active"
+          class="wishlist-container a-nav mobile-cart"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-cart2"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"
+            />
+          </svg>
+          <div class="cart-num">
+            {{ cartItems }}
+          </div>
+          <!-- <div class="cart-num">
+            {{ cartQuantiety ? cartQuantiety.length : 0 }}
+          </div> -->
+        </a>
+        <!-- <a [routerLink]="['search']" routerLinkActive="active">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+            />
+          </svg>
+        </a> -->
+      </div>
+
+      <a uk-toggle="target: #offcanvas-slide" class="mx-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="35"
+          height="35"
+          fill="#E4021B"
+          class="bi bi-justify"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div id="offcanvas-slide" uk-offcanvas="overlay: true">
+    <div class="uk-offcanvas-bar">
+      <button class="uk-offcanvas-close" type="button" uk-close></button>
+      <ul class="links">
+        <li>
+          <a
+            class="white regular"
+            (click)="closeOffCanvasMobile()"
+            routerLink=""
+          >
+            {{ "Header.Home" | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="white regular"
+            (click)="closeOffCanvasMobile()"
+            [routerLink]="['products', 'sales']"
+          >
+            {{ "Header.Sales" | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="white regular"
+            (click)="closeOffCanvasMobile()"
+            [routerLink]="['products', 'shop']"
+          >
+            {{ "Header.shop" | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="white regular"
+            (click)="closeOffCanvasMobile()"
+            [routerLink]="['courses']"
+          >
+            {{ "Header.Courses" | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="white regular"
+            (click)="closeOffCanvasMobile()"
+            [routerLink]="['articles']"
+          >
+            {{ "Header.Articles" | translate }}
+          </a>
+        </li>
+
+        <li>
+          <a
+            class="white regular"
+            (click)="closeOffCanvasMobile()"
+            [routerLink]="['about-us']"
+          >
+            <!-- {{'Footer.About_us' | translate}} -->
+            {{ "Footer.WhyKMC" | translate }}
+          </a>
+        </li>
+
+        <li>
+          <a
+            class="white regular"
+            (click)="closeOffCanvasMobile()"
+            [routerLink]="['contact-us']"
+          >
+            {{ "Footer.Contact_us" | translate }}
+          </a>
+        </li>
+
+        <li *ngIf="http.isAuthenticated">
+          <a
+            class="white regular"
+            (click)="closeOffCanvasMobile()"
+            [routerLink]="['account']"
+          >
+            <!-- {{ 'Header.Account' | translate }} -->
+            {{ userName }}
+          </a>
+        </li>
+
+        <li *ngIf="http.isAuthenticated">
+          <a
+            class="white regular"
+            (click)="closeOffCanvasMobile()"
+            [routerLink]="['wishlist']"
+          >
+            {{ "Header.Wishlist" | translate }}
+          </a>
+        </li>
+
+        <!-- <li>
+          <a class="white regular" (click)="closeOffCanvasMobile()"
+            [routerLink]="['cart']">{{ 'Header.cart' | translate }} </a>
+        </li> -->
+        <li *ngIf="http.isAuthenticated">
+          <a
+            class="white regular"
+            (click)="closeOffCanvasMobile()"
+            (click)="logout()"
+          >
+            {{ "Header.Logout" | translate }}
+          </a>
+        </li>
+        <!--         
+        <li>
+          <a class="white regular" [routerLink]="['search']"
+            (click)="closeOffCanvasMobile()">{{ 'Header.Search' | translate }}</a>
+            <a class="a-nav">
+              <div class="search-container">
+                <input
+                  type="search"
+                  placeholder="{{ 'Header.Search' | translate }}"
+                  #searchedInput
+                  class=""
+                  (change)="searchAction(searchedInput.value)"
+                />
+                <span class="search-icon"
+                  ><img src="../../../../assets/imgs/search.svg"
+                /></span>
+              </div>
+            </a>
+        </li> -->
+
+        <!-- <li *ngIf="!http.isAuthenticated">
+          <a class="white regular" (click)="closeOffCanvasMobile()"
+            [routerLink]="['auth' , 'login']">{{ 'Header.login' | translate }}</a>
+        </li> -->
+
+        <!-- <li>
+          <a class="regular white text-captail" (click)="changeLanguage()">
+            {{ mainLang }}</a
+          >
+        </li> -->
+        <!-- <li>
+          <a (click)="closeOffCanvasMobile()" [routerLink]="['search']" routerLinkActive="active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+              viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg>
+          </a>
+        </li> -->
+
+        <!-- <li>
+          <a class="white regular" (click)="closeOffCanvasMobile()" [routerLink]="['contact-us']">Contact</a>
+        </li>
+
+
+
+        <li>
+          <a class="white regular" (click)="closeOffCanvasMobile()" [routerLink]="['contact-us']">Contact</a>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+</nav>

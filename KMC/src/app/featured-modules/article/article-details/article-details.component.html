@@ -1,0 +1,74 @@
+<div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+
+<section class="article-details nav-margin nav-padding" *ngIf="!isLoading">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-xl-8 col-md-12">
+        <div class="article-header">
+          <h1 class="article-title">{{ articleDeatailsContent.article_title }}</h1>
+          <p class="article-meta">
+            <span *ngIf="articleDeatailsContent.created_at" class="article-date">
+              {{ 'Article.Posted' | translate }} {{ articleDeatailsContent.created_at }}
+            </span>
+            {{ 'Article.By' | translate }} <span class="article-writer">{{ articleDeatailsContent.article_writer }}</span>
+            {{ 'Article.In' | translate }} <span class="article-department">{{ articleDeatailsContent.article_department }}</span>
+         
+          </p>
+        </div>
+        <div class="article-image" [ngStyle]="{ 'background-image': 'url(' + articleDeatailsContent.article_image + ')' }"></div>
+        <div class="article-content">
+          <p class="article-text">{{ articleDeatailsContent.article_text }}</p>
+
+          <hr class="divider">
+          <a *ngIf="articleDeatailsContent.pdf_articale" [href]="articleDeatailsContent.pdf_articale" class="back-button">{{ 'View Article PDF' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+<section class="article-details  nav-margin nav-padding" *ngIf="!isLoading">
+  <div class=" container-fluid">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-xl-6 col-md-12">
+        <h4 class="balck bold my-2">{{articleDeatailsContent.article_title}}</h4>
+        <p class="medium">{{'Article.By' | translate}} <span
+            class="red">{{articleDeatailsContent.article_writer}}</span>
+          {{'Article.In' | translate}} <span class="red medium">{{articleDeatailsContent.article_department}}</span>
+          <span *ngIf ="articleDeatailsContent.created_at"
+            class="gray medium">{{'Article.Posted' | translate}}
+            {{articleDeatailsContent.created_at| date :'mediumDate'}}</span>
+        </p>
+
+        <div class="img-container" [ngStyle]="{
+            'background-image': 'url(' +articleDeatailsContent.article_image  + ')'
+          }">
+
+        </div>
+
+        <div class="my-4">
+          <h3 class="black medium s-mb-1">
+            {{articleDeatailsContent.article_title}}
+          </h3> -->
+          <!-- <p class="gray regular s-mb-1 textSpace">
+            {{articleDeatailsContent.article_text}}
+          </p>
+          
+          <div> -->
+            <!-- Link to view PDF -->
+              <!-- <a *ngIf="articleDeatailsContent.pdf_articale" [href]="articleDeatailsContent.pdf_articale" target="_blank" class="pdf-link">
+                View Article PDF
+              </a>
+          </div>
+          <hr class="gray medium"> -->
+          <!-- <button type="button" [routerLink]="['/articles']" class="primary-btn">back</button> -->
+        <!-- </div>
+      </div>
+    </div>
+  </div>
+</section> -->

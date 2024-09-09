@@ -1,0 +1,21 @@
+.articles-page {
+  padding: 30px;
+
+  .articles-heading {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: left; // Center align the heading
+  }
+
+  .articles {
+    .row {
+      margin-top: 20px;
+    }
+
+    .col-md-6 {
+      margin-bottom: 20px; // Ensure there is spacing between items
+    }
+  }
+}

@@ -1,0 +1,16 @@
+@import "../../../../assets/styles/base/colors.scss";
+.terms{
+    ul{
+        list-style: disc;
+        color: $red;
+    }
+    .list-inside{
+        list-style:decimal;
+    }
+    .title{
+        text-transform: capitalize;
+    }
+    .important-title{
+        text-transform: lowercase;
+    }
+}

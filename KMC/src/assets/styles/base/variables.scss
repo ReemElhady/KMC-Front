@@ -1,0 +1,31 @@
+@mixin bgCenter {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin hCenter {
+  display: flex;
+  align-items: center;
+}
+
+@mixin vCenter {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin vCenterWithColumn {
+  @include vCenter;
+  flex-direction: column;
+}
+
+@mixin hCenterWithColumn {
+  @include hCenter;
+  flex-direction: column;
+}

@@ -1,0 +1,129 @@
+@import "../../../../assets/styles/base/variables.scss";
+@import "../../../../assets/styles/base/colors.scss";
+@import "../../../../assets/styles/base/typography.scss";
+.article-details {
+  padding: 30px;
+  background-color: #f9f9f9;
+
+  .article-header {
+    margin-bottom: 20px;
+
+    .article-title {
+      font-size: 2em;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .article-meta {
+      font-size: 1em;
+      color: #666;
+
+      .article-writer,
+      .article-department {
+        font-weight: bold;
+        color: #333;
+      }
+
+      .article-date {
+        display: block;
+        margin-top: 5px;
+        color: #999;
+      }
+    }
+  }
+
+  .article-image {
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .article-content {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+
+    .article-text {
+      margin-bottom: 20px;
+    }
+
+    .article-links {
+      margin-bottom: 20px;
+
+      // .pdf-link {
+      //   color: #ffffff;
+      //   text-decoration: none;
+      //   font-weight: bold;
+
+        // &:hover {
+        //   text-decoration: underline;
+        // }
+      // } 
+    }
+
+    .divider {
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color:$red !important;
+      color: #fff !important;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .article-details {
+    padding: 20px;
+
+    .article-header {
+      .article-title {
+        font-size: 1.5em;
+      }
+
+      .article-meta {
+        font-size: 0.9em;
+      }
+    }
+
+    .article-image {
+      height: 200px;
+    }
+
+    .article-content {
+      font-size: 1em;
+
+      .back-button {
+        padding: 8px 16px;
+      }
+    }
+  }
+}
+
+// .article-details {
+//   p {
+//     margin: 0 0 1.5rem 0 !important;
+//   }
+
+//   span {
+//     font-size: clamp(10px, 0.78125VW, 15px);
+//     padding: 0 0.5vw;
+//   }
+
+//   .img-container {
+//     height: 40vh !important;
+//   }
+
+//   .textSpace {
+//     white-space: break-spaces;
+//   }
+// }

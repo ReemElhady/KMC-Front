@@ -1,0 +1,372 @@
+<div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+<section class="nav-margin product-detials nav-padding" *ngIf="!isLoading">
+  <div class="container-fluid">
+    <div class="row s-mt-2">
+      <div class="col-xl-6">
+        <div class="product-imgs">
+          <div class="slider">
+            <div class="row">
+              <ng-container>
+                <div class="col-xl-4 my-order-1">
+                  <ng-container
+                    *ngIf="productDetailsContent.product_image.length <= 3"
+                  >
+                    <swiper
+                      (swiper)="thumbsSwiper = $event"
+                      [spaceBetween]="1"
+                      [slidesPerView]="3"
+                      [freeMode]="true"
+                      [watchSlidesProgress]="true"
+                      class="mySwiper"
+                    >
+                      <ng-template
+                        *ngFor="
+                          let slide of productDetailsContent.product_image.slice(
+                            0,
+                            3
+                          );
+                          let i = index
+                        "
+                        swiperSlide
+                      >
+                        <img
+                          [src]="imgUrl + slide.image"
+                          class="animation-image"
+                        />
+                      </ng-template>
+                    </swiper>
+                  </ng-container>
+
+                  <ng-container
+                    *ngIf="productDetailsContent.product_image.length > 3"
+                  >
+                    <swiper
+                      (swiper)="thumbsSwiper = $event"
+                      [spaceBetween]="1"
+                      [slidesPerView]="3"
+                      [freeMode]="true"
+                      [watchSlidesProgress]="true"
+                      class="mySwiper"
+                    >
+                      <ng-template
+                        *ngFor="
+                          let slide of productDetailsContent.product_image;
+                          let i = index
+                        "
+                        swiperSlide
+                      >
+                        <img
+                          *ngIf="i == 0 || i == 1"
+                          [src]="imgUrl + slide.image"
+                          class="animation-image"
+                        />
+
+                        <div class="element-three" *ngIf="i === 2">
+                          <img
+                            [src]="imgUrl + slide.image"
+                            class="animation-image"
+                          />
+
+                          <div class="layout-hover" (click)="open(content)">
+                            <h2 class="white bold">
+                              +{{
+                                productDetailsContent.product_image?.length - 3
+                              }}
+                            </h2>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </swiper>
+                  </ng-container>
+                </div>
+                <div class="col-xl-8 my-order-2">
+                  <swiper
+                    [spaceBetween]="10"
+                    [thumbs]="{ swiper: thumbsSwiper }"
+                    class="mySwiper2"
+                  >
+                    <ng-template
+                      *ngFor="
+                        let slide of productDetailsContent.product_image;
+                        let i = index
+                      "
+                      swiperSlide
+                    >
+                      <lib-ngx-image-zoom
+                        [thumbImage]="imgUrl + slide.image"
+                        [fullImage]="imgUrl + slide.image"
+                        [magnification]="1"
+                        [enableScrollZoom]="true"
+                        zoomMode="hover"
+                        [enableLens]="false"
+                      >
+                      </lib-ngx-image-zoom>
+                    </ng-template>
+                  </swiper>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="product-info">
+          <h2 class="red semi-bold">{{ productDetailsContent.title }}</h2>
+          <div class="s-mt-1 s-mb-1 d-flex align-items-center"></div>
+          <div
+            class="s-mb-2 d-flex align-items-center"
+            *ngIf="productDetailsContent.sale_price !== 0"
+          >
+            <h3 class="semi-bold black">
+              {{ productDetailsContent.sale_price }}
+              {{ "Orders.LE" | translate }}
+            </h3>
+            <h3
+              *ngIf="productDetailsContent.sale_price !== 0"
+              class="regular gray old-price"
+            >
+              {{ productDetailsContent.price }} {{ "Orders.LE" | translate }}
+            </h3>
+          </div>
+          <div
+            class="s-mb-2 d-flex align-items-center"
+            *ngIf="productDetailsContent.sale_price === 0"
+          >
+            <h3 class="semi-bold black">
+              {{ productDetailsContent.price }} {{ "Orders.LE" | translate }}
+            </h3>
+          </div>
+          <div class="description s-mb-1">
+            <h5 class="gray medium">
+              {{ "Shop.Description" | translate }}
+            </h5>
+            <p class="regular black text-spacess w-75 my-2">
+              {{ productDetailsContent.description }}
+            </p>
+          </div>
+          <h5 class="gray medium">{{ "Shop.Quantity" | translate }}</h5>
+          <div class="buttons-container">
+            <button class="minus" (click)="counter(-1)">-</button>
+            <p class="medium black">{{ count }}</p>
+            <button class="plus" (click)="counter(1)">+</button>
+          </div>
+
+          <div class="lower-part">
+            <button
+              class="primary-btn"
+              (click)="addToCart()"
+              *ngIf="productDetailsContent.stock > 0; else outOfStock"
+            >
+              {{ "Shop.Add_to_cart" | translate }}
+            </button>
+            <ng-template #outOfStock>
+              <button class="primary-btn" disabled>
+                {{ "Products.out-of-stock" | translate }}
+              </button>
+            </ng-template>
+            <div class="select-item">
+              <div
+                class="dropdown"
+                *ngIf="productDetailsContent.product_item.length"
+              >
+                <button class="regular btn-dropdown" type="button">
+                  <span *ngIf="!selectedItem">
+                    {{ "Products.select_item" | translate }}
+                    {{ productDetailsContent.product_item_title | lowercase }}:
+                  </span>
+                  <span *ngIf="selectedItem">
+                    {{ selectedItem.species }}
+                  </span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14.577"
+                    height="8.335"
+                    viewBox="0 0 14.577 8.335"
+                    *ngIf="selectedItem"
+                  >
+                    <path
+                      id="Icon_ionic-ios-arrow-down"
+                      data-name="Icon ionic-ios-arrow-down"
+                      d="M13.479,17.069l5.512-5.516a1.037,1.037,0,0,1,1.471,0,1.05,1.05,0,0,1,0,1.476l-6.245,6.25a1.04,1.04,0,0,1-1.437.03L6.491,13.032a1.042,1.042,0,0,1,1.471-1.476Z"
+                      transform="translate(20.765 19.581) rotate(180)"
+                      fill="#ffffff"
+                    />
+                  </svg>
+                  <svg
+                    *ngIf="!selectedItem"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14.577"
+                    height="8.335"
+                    viewBox="0 0 14.577 8.335"
+                  >
+                    <path
+                      id="Icon_ionic-ios-arrow-down"
+                      data-name="Icon ionic-ios-arrow-down"
+                      d="M13.479,17.069l5.512-5.516a1.037,1.037,0,0,1,1.471,0,1.05,1.05,0,0,1,0,1.476l-6.245,6.25a1.04,1.04,0,0,1-1.437.03L6.491,13.032a1.042,1.042,0,0,1,1.471-1.476Z"
+                      transform="translate(-6.188 -11.246)"
+                      fill="#ffffff"
+                    />
+                  </svg>
+                </button>
+
+                <div id="drop" uk-dropdown="mode: click">
+                  <ul class="uk-nav uk-dropdown-nav">
+                    <li
+                      class="uk-active"
+                      *ngFor="let item of productDetailsContent.product_item"
+                    >
+                      <a
+                        class="regular blue"
+                        (click)="selectProductItem(item)"
+                        >{{ item.species }}</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <h5 class="red s-mt-1" *ngIf="selectItemError">
+                {{ "Products.selectItemError" | translate }}
+              </h5>
+            </div>
+
+            <span
+              (click)="addProductRoWighlist(productDetailsContent.id)"
+              class="wishlist-container"
+              *ngIf="!productDetailsContent.is_wishlist"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22.403"
+                height="19.732"
+                viewBox="0 0 22.403 19.732"
+              >
+                <path
+                  id="heart"
+                  d="M20.84,4.61a5.5,5.5,0,0,0-7.78,0L12,5.67,10.94,4.61a5.5,5.5,0,0,0-7.78,7.78l1.06,1.06L12,21.23l7.78-7.78,1.06-1.06a5.5,5.5,0,0,0,0-7.78Z"
+                  transform="translate(-0.799 -2.248)"
+                  fill="none"
+                  stroke="#cdcdcc"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+              </svg>
+            </span>
+
+            <span
+              (click)="removeWishlist(productDetailsContent.id)"
+              class="wishlist-container"
+              *ngIf="productDetailsContent.is_wishlist"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22.403"
+                height="19.732"
+                viewBox="0 0 22.403 19.732"
+              >
+                <path
+                  id="heart"
+                  d="M20.84,4.61a5.5,5.5,0,0,0-7.78,0L12,5.67,10.94,4.61a5.5,5.5,0,0,0-7.78,7.78l1.06,1.06L12,21.23,17.727,15.5,19.78,13.45l1.06-1.06a5.5,5.5,0,0,0,0-7.78Z"
+                  transform="translate(-0.799 -2.248)"
+                  fill="#e4021b"
+                  stroke="#f8f8f8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row s-mt-3">
+      <div
+        class="col-md-4"
+        *ngFor="let product of productDetailsContent.product_url"
+      >
+        <div class="product-video s-mb-2">
+          <iframe
+            width="100%"
+            height="315"
+            [src]="product.url | safe : 'resourceUrl'"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="may-interested s-mt-2">
+      <h2 class="medium black s-mb-2">{{ "Shop.interested" | translate }}</h2>
+      <swiper
+      class="mySwiper cirtin-swiper"
+      [loopFillGroupWithBlank]="true"
+      [slidesPerGroup]="1" 
+        [config]="option"
+        [pagination]="{
+          clickable: true
+        }"
+      >
+        <ng-template
+          swiperSlide
+          *ngFor="let product of productDetailsContent.related_products"
+        >
+          <app-product-item
+            [product]="productsList[product.type].results[product.id]"
+            *ngIf="
+              productsList &&
+                productsList[product.type] &&
+                productsList[product.type].results[product.id];
+              else currentProd
+            "
+          >
+          </app-product-item>
+          <ng-template #currentProd>
+            <app-product-item [product]="product"></app-product-item>
+          </ng-template>
+        </ng-template>
+      </swiper>
+    </div>
+  </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-body">
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+      <swiper
+        [slidesPerView]="sliderNumber"
+        [autoplay]="{
+          delay: 4000,
+          disableOnInteraction: false
+        }"
+        [cssMode]="true"
+        [navigation]="true"
+        [mousewheel]="true"
+        [keyboard]="true"
+        [spaceBetween]="30"
+        class="mySwiper"
+      >
+        <ng-template
+          *ngFor="
+            let slide of productDetailsContent.product_image;
+            let i = index
+          "
+          swiperSlide
+        >
+          <img [src]="imgUrl + slide.image" class="" />
+        </ng-template>
+      </swiper>
+    </div>
+    <!-- </div>
+      </div> -->
+  </ng-template>
+</section>

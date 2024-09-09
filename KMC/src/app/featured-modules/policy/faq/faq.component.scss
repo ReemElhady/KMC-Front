@@ -1,0 +1,13 @@
+@import "../../../../assets/styles/base/colors.scss";
+
+.faq {
+  .faq-box {
+    padding: 2rem;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid $gray;
+  }
+  .break{
+    white-space: break-spaces;
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "safe-pipe": "^2.0.2"
+  }
+}

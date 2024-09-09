@@ -1,0 +1,15 @@
+@import "../../../../assets/styles/base/colors.scss";
+
+.terms {
+  ul {
+    list-style: disc;
+    color: $red;
+  }
+  .title {
+    text-transform: capitalize;
+  }
+}
+
+.break {
+  white-space: break-spaces;
+}

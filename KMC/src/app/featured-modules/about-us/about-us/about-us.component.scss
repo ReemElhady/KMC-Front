@@ -1,0 +1,191 @@
+@import "../../../../assets/styles/base/variables.scss";
+@import "../../../../assets/styles/base/colors.scss";
+@import "swiper/scss";
+@import "swiper/scss/pagination";
+
+.content-center {
+  @include hCenterWithColumn;
+}
+
+.description-container {
+  padding: 2vw 0;
+
+  .decsription {
+    white-space: break-spaces;
+    font-size: large !important;
+  }
+}
+
+.testimonials {
+  overflow-x: hidden;
+
+  .img-container {
+    position: relative;
+    max-width: 100%;
+    min-height: 60vh;
+    @include vCenterWithColumn;
+
+    .layout {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, transparent, rgba(0, 0, 0));
+    }
+
+    .slider-container {
+      margin: 0 2vw;
+    }
+
+    .testimonial-text {
+      background-color: $white;
+      z-index: 2;
+      padding: 1vw 3vw;
+    }
+
+    .swiper-slide {
+      // background: #fff;
+      @include vCenterWithColumn;
+      // opacity: 0;
+      // visibility: hidden;
+      transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
+    }
+
+    .swiper-slide-active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .swiper-pagination-bullet {
+      background-color: $gray;
+    }
+
+    .swiper-pagination-bullet-active {
+      background-color: $white;
+    }
+
+    .swiper-wrapper {
+      padding: 2vw 0;
+    }
+
+    .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+    .swiper-pagination-horizontal.swiper-pagination-bullets
+      .swiper-pagination-bullet {
+      width: 15px;
+      border-radius: 0;
+      height: 2px;
+    }
+  }
+}
+
+//resonsive
+//ipad
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  .img-container {
+    min-height: 30vw;
+    @include vCenterWithColumn;
+  }
+
+  .testimonials {
+    .img-container {
+      min-height: 30vh;
+
+      .swiper {
+        margin: 3vw 0;
+      }
+    }
+  }
+}
+
+//mobile
+@media screen and (max-width: 767px) {
+  .img-container {
+    min-height: 88vw;
+    width: 100%;
+  }
+
+  .testimonials {
+    .img-container {
+      min-height: 60vh;
+      @include vCenterWithColumn;
+
+      .swiper-wrapper {
+        padding: 4vw 0;
+      }
+    }
+  }
+}
+
+
+.testimonial-card {
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* Increase card size */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 30px 20px; /* Add extra padding for spacing */
+  background-color: #fff;
+  text-align: center;
+  margin: 0 auto; /* Center the card */
+  
+  @media (min-width: 1200px) {
+    max-width: 500px; /* Larger card for large screens */
+    padding: 40px 30px;
+  }
+}
+
+
+.testimonial-image {
+  position: relative; /* Changed from absolute */
+  width: 100px; /* Larger image */
+  height: 100px; /* Larger image */
+  margin: 0 auto 20px; /* Center and add spacing below image */
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.testimonial-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure full image is displayed */
+}
+
+.testimonial-content {
+  margin-top: 20px; /* Adjust margin to make space for image */
+}
+
+.doctor-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.doctor-review {
+  font-size: 16px;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* Media query for larger screens */
+@media (min-width: 1200px) {
+  .testimonial-card {
+    max-width: 500px; /* Bigger on large screens */
+  }
+
+  .testimonial-image {
+    width: 120px; /* Larger image for large screens */
+    height: 120px;
+  }
+
+  .doctor-name {
+    font-size: 22px; /* Adjust text for large screens */
+  }
+
+  .doctor-review {
+    font-size: 18px;
+  }
+}

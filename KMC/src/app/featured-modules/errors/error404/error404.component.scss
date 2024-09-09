@@ -1,0 +1,14 @@
+@import "../../../../assets/styles/base/variables.scss";
+
+.notFound {
+  height: 100vh;
+
+  .notFound-container {
+    @include flexCenter;
+    flex-direction: column;
+
+    img {
+      width: 100%;
+    }
+  }
+}

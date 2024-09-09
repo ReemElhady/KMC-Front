@@ -1,0 +1,44 @@
+<div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+
+<section class="articles-page nav-margin nav-padding" *ngIf="!isLoading">
+  <div class="container">
+    <!-- Heading for the articles list -->
+    <h1 class="articles-heading">{{ 'Articles' | translate }}</h1>
+
+    <!-- Articles list -->
+    <section class="articles">
+      <div class="row">
+        <div class="col-xl-4 col-lg-6 col-md-6 mb-4" *ngFor="let articleitem of articleContent.results">
+          <app-article-item
+            [article]="articleitem"
+            [isMobile]="isMobile"
+            routerLink="article-details/{{ articleitem.id }}"
+          ></app-article-item>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+
+<!-- <div *ngIf="isLoading">
+  <app-loading-screen></app-loading-screen>
+</div>
+<section class="articles nav-margin nav-padding" *ngIf="!isLoading">
+  <div class="container-fluid">
+    <div class="row">
+      <div
+        class="col-xl-4 col-6"
+        *ngFor="let articleitem of articleContent.results"
+      >
+        <app-article-item
+          [article]="articleitem"
+          [isMobile]="isMobile"
+          routerLink="article-details/{{ articleitem.id }}"
+        ></app-article-item>
+      </div>
+    </div>
+  </div>
+</section> -->

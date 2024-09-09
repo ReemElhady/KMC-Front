@@ -1,0 +1,571 @@
+@import '../../../../../assets/styles/base/variables.scss';
+@import '../../../../../assets/styles/base/colors.scss';
+@import "~swiper/css";
+@import "~swiper/css/pagination";
+@import "~swiper/css/navigation";
+
+.product-detials {
+
+  .text-spacess {
+    white-space: break-spaces;
+  }
+.cirtin-swiper{
+ .swiper-slide {
+    height: auto;
+  }
+}
+  .slider {
+
+
+
+    .mySwiper {
+      .element-three {
+        cursor: pointer;
+        position: relative;
+        height: 18vh !important;
+        display: flex;
+
+        .layout-hover {
+
+          @include flexCenter;
+
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.4);
+        }
+      }
+
+      img {
+        height: 18vh !important;
+        object-fit: contain;
+        margin-bottom: 5px;
+
+      }
+
+      .swiper-slide {
+        width: 100% !important;
+      }
+
+      .swiper-wrapper {
+        flex-direction: column;
+
+      }
+
+      .swiper-slide-thumb-active {
+        img {
+          border: solid 1px $gray;
+
+        }
+
+
+      }
+
+    }
+
+    .mySwiper2 {
+
+
+      .img_producto_container {
+        width: 20rem;
+        height: 25rem;
+        object-fit: contain;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .img_producto {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        transition: transform 0.5s ease-out;
+      }
+
+      .ngxImageZoomContainer {
+
+        // width: 30rem !important;
+        // height: 30rem !important;
+        width: 100% !important;
+        height: 100% !important;
+        // min-height: 40vh !important;
+
+        // object-fit: cover;
+
+        // object-fit: cover;
+        // width: 500px;
+        // height: 300px;
+        // object-fit: contain;
+        // position: relative;
+        // overflow: hidden;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          object-fit: contain;
+          height: 300px;
+        }
+
+        img:hover {
+          opacity: 0;
+        }
+
+        .ngxImageZoomFullContainer {
+          height: 500px;
+          width: 100%;
+
+          .ngxImageZoomFull {}
+        }
+      }
+
+
+
+
+      .swiper-slide {
+        justify-content: center;
+
+        // img {
+        //   width: 20vw;
+        //   height: 20rem;
+        //   object-fit: contain;
+        // }
+
+      }
+    }
+
+  }
+
+
+  .product-info {
+    .stat-review {
+      display: flex;
+    }
+
+    svg {
+      width: 1vw;
+    }
+
+    span {
+      font-size: clamp(11px, 0.78125VW, 14px);
+    }
+
+    .rate {
+      margin-left: 1vw;
+    }
+
+    .reviews {
+      margin-left: 0.3vw;
+      font-weight: 600;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      margin-left: 1vw !important;
+    }
+
+    .lower-part {
+      @include hCenter;
+
+      .primary-btn {
+        padding: 0.6vw 3vw !important;
+      }
+
+      .wishlist-container {
+        border: solid 1px #F2F2F2;
+        padding: 0.5vw;
+        cursor: pointer;
+        margin: 0 2vw;
+
+        svg {
+          width: 1.5vw;
+        }
+      }
+
+      svg {
+        cursor: pointer;
+      }
+    }
+
+    .select-item {
+      position: relative;
+      width: 100;
+      @include flexCenter;
+
+      .btn-dropdown {
+        width: 16rem;
+
+        @include hCenter;
+        justify-content: space-around;
+        padding: 0.6vw 2vw;
+        margin-left: 2rem;
+        border: solid 1px #F2F2F2;
+        background-color: $red;
+        color: $white;
+
+
+        svg {
+          width: 0.8rem;
+        }
+      }
+
+      .uk-dropdown {
+        top: 50px !important;
+        width: 16rem;
+        background-color: $white;
+        padding: 0.8rem;
+        box-shadow: none;
+        border: solid 1px #F2F2F2;
+      }
+
+      h5 {
+        // margin-left: 3rem !important;
+        // text-align: center;
+        margin-top: 6rem !important;
+        position: absolute;
+      }
+    }
+
+  }
+
+  .reviews {
+    .reviews-header {
+      @include hCenter;
+      justify-content: space-between;
+
+      a {
+        text-decoration: none;
+
+        &:hover {
+          color: $red;
+        }
+      }
+    }
+
+    a {
+      &:hover {
+        color: $black;
+      }
+    }
+
+    .rate {
+      float: left;
+      height: 46px;
+      padding: 0 10px;
+      overflow: hidden;
+    }
+
+    .rate:not(:checked)>input {
+      position: absolute;
+      // top: -9999px;
+      display: none;
+    }
+
+    .rate:not(:checked)>label {
+      float: right;
+      width: 1em;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+      font-size: 30px;
+      color: #ccc;
+    }
+
+    .rate:not(:checked)>label:before {
+      content: '★ ';
+    }
+
+    .rate>input:checked~label {
+      color: $red;
+    }
+
+    .rate:not(:checked)>label:hover,
+    .rate:not(:checked)>label:hover~label {
+      color: #e4021c;
+    }
+
+    .rate>input:checked+label:hover,
+    .rate>input:checked+label:hover~label,
+    .rate>input:checked~label:hover,
+    .rate>input:checked~label:hover~label,
+    .rate>label:hover~input:checked~label {
+      color: #e4021c;
+    }
+
+  }
+
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    @include flexCenter;
+  }
+
+  // .swiper-slide img {
+  //   display: block;
+  //   width: 100%;
+  //   height: 100%;
+  //   object-fit: cover;
+  // }
+
+
+}
+
+//popup
+.col-12 {
+  padding: 0;
+  margin: 0;
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0)
+  }
+
+  to {
+    transform: scale(1)
+  }
+}
+
+/* The Close Button */
+// .close {
+//   position: absolute;
+//   top: 15px;
+//   right: 35px;
+//   color: #f1f1f1;
+//   font-size: 40px;
+//   font-weight: bold;
+//   transition: 0.3s;
+// }
+// .close:hover,
+// .close:focus {
+//   color: #bbb;
+//   text-decoration: none;
+//   cursor: pointer;
+// }
+
+.modal {
+  background-color: #060606;
+  opacity: 0.9;
+}
+
+.fade .modal-dialog {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+  transition: transform 0.3s ease-out;
+  min-width: 100% !important;
+  transform: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100% !important;
+  margin: 0;
+  padding: 0;
+
+  .modal-content {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+    background-color: transparent;
+    margin: 0;
+    padding: 0 !important;
+    border: 0;
+    border-radius: 0;
+    outline: 0;
+
+
+    .btn-close {
+      box-sizing: content-box;
+      width: 1em;
+      height: 1em;
+      padding: 0.7em 0.7em;
+      background-color: #ffff;
+      border: 0;
+      outline: 0;
+      border-radius: 50%;
+      opacity: 0.5;
+      z-index: 111;
+      position: absolute;
+      top: -3rem;
+      right: 30px;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 100%;
+
+    }
+
+    .swiper-slide {
+      text-align: center;
+      @include flexCenter;
+      padding: 0;
+    }
+
+
+
+    img {
+      width: 25rem;
+      height: 25rem;
+
+
+    }
+
+    .swiper-button-next:after {
+      content: '' !important;
+    }
+
+    .swiper-button-prev::after {
+      content: '' !important;
+
+    }
+
+    .swiper-button-prev {
+      display: block;
+      background-image: url("../../../../../assets/imgs/Icon\ ionic-ios-arrow-back.svg");
+      // right: 15% !important;
+      // left: auto !important;
+      background-color: $white;
+      // top: 88%;
+      left: 0 !important;
+      right: auto;
+      border-radius: 50%;
+      width: 3rem;
+      height: 3rem;
+      padding: 1rem;
+      background-repeat: no-repeat;
+      background-position: center;
+      // margin-right: 1rem;
+    }
+
+
+    .swiper-button-next {
+
+
+      display: block;
+      background-image: url("../../../../../assets/imgs/footer/Icon\ ionic-ios-arrow-back.svg");
+      background-color: $white;
+      border-radius: 50%;
+      right: 0 !important;
+      left: auto;
+      width: 3rem;
+      height: 3rem;
+      padding: 1rem;
+      background-repeat: no-repeat;
+      background-position: center;
+
+    }
+
+
+  }
+}
+
+@media only screen and (min-width : 1200px) {
+  .product-detials {
+    .slider {
+
+      .swiper {
+        height: auto;
+      }
+    }
+  }
+}
+
+// responsive
+
+@media only screen and (max-width : 767px) {
+  .product-detials {
+    .slider {
+      .my-order-1 {
+        order: 2;
+      }
+
+      .my-order-2 {
+        order: 1;
+      }
+
+      .mySwiper {
+        .swiper-slide {
+          width: auto !important;
+        }
+
+        .swiper-wrapper {
+          flex-direction: row;
+          justify-content: center;
+        }
+
+        img {
+          height: 11vh !important;
+        }
+      }
+
+      .mySwiper2 {
+        .swiper-slide {
+          img {
+            width: 100%;
+            height: 30vh;
+            object-fit: contain;
+            margin-bottom: 20px;
+          }
+        }
+      }
+    }
+
+    .product-info {
+      svg {
+        width: 5vw;
+      }
+
+      .buttons-container {
+        p {
+          padding: 0 2vw !important;
+        }
+      }
+
+      .lower-part {
+        display: block;
+
+        .wishlist-container {
+          border: none;
+          @include flexCenter;
+          margin-top: 2rem;
+
+          svg {
+            width: 8vw;
+          }
+        }
+
+        .dropdown {
+          width: 100% !important;
+
+          .btn-dropdown {
+            margin-left: 0;
+            width: 100%;
+            padding: 2.6vw 2vw;
+          }
+        }
+
+        .primary-btn {
+          padding: 2.6vw 5vw !important;
+        }
+      }
+    }
+
+  }
+
+  .fade .modal-dialog .modal-content .btn-close {
+    top: -1.3rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    padding: 0.5rem;
+  }
+
+}

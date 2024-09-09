@@ -1,0 +1,142 @@
+@import "../../../../../assets/styles/base/colors.scss";
+@import "../../../../../assets/styles/base/variables.scss";
+@import "../../../../../assets/styles/base/typography.scss";
+
+.addresses {
+  .cursor {
+    cursor: pointer;
+  }
+
+  .addresses-header {
+    background-color: $regularGray;
+    padding: 1vw 0;
+    // margin: 10px;
+    width: 100%;
+  }
+
+  .addressesmargin {
+    margin: 10px !important;
+  }
+
+  .border-def {
+    border: 1px solid #777777;
+    padding: 0.3rem;
+    opacity: 0.5;
+  }
+
+  .div-container {
+    margin: 0.5vw 0;
+
+    .secondrey {
+      background-color: $regularGray;
+      font-size: clamp(10px, 0.625vw, 12px) !important;
+    }
+
+    .btn-default {
+      // border-radius: 30px !important;
+      padding: 0.5vw 1.5vw !important;
+      font-size: 12px;
+    }
+  }
+}
+
+.phone-container {
+  margin: 0.5vw 0;
+
+  label {
+    color: $black;
+    font-size: clamp(11px, 0.9375vw, 18px);
+    margin-bottom: 0.5vw;
+    display: block;
+  }
+
+  .errors {
+    color: $red;
+    // font-family: $KMC-p-bold;
+    // text-align: center;
+    text-transform: capitalize;
+    font-size: clamp(11px, 1.0443864229765014vw, 12px);
+  }
+
+  .containe {
+    position: relative;
+    width: 100%;
+    display: flex;
+
+    .input-code {
+      width: 35% !important;
+
+      border: solid 1px #f2f2f2 !important;
+      padding: 0.3vw 1vw;
+      outline: none;
+    }
+
+    .input-phone {
+      width: 65% !important;
+
+      border: solid 1px #f2f2f2 !important;
+      padding: 0.3vw 1vw;
+      outline: none;
+    }
+
+    .sizeFont {
+      font-size: clamp(8px, 0.8333333333333334vw, 16px) !important;
+      padding-bottom: 0.2vw !important;
+    }
+
+    .imgParent {
+      @include flexCenter;
+
+      img {
+        width: 1.5vw;
+        margin-right: 0.8vw;
+      }
+    }
+  }
+}
+
+//response
+//ipad
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+  .addresses {
+    .containe {
+      padding: 2vw !important;
+
+      .imgParent {
+        img {
+          width: 3.5vw !important;
+          margin-right: 1vw !important;
+        }
+       
+      }
+    }
+  }
+}
+
+//mobile
+@media screen and (max-width: 767px) {
+  .addresses {
+    .containe {
+      padding: 3vw !important;
+
+      .imgParent {
+        img {
+          width: 3.5vw !important;
+          margin-right: 1vw !important;
+        }
+        .delete-res {
+          svg {
+            width: 0.8rem !important;
+          }
+        }
+      }
+    }
+  }
+}
+.input-select{
+  background: white;
+    width: 100%;
+    height: 2rem;
+    border: 1px solid #f8f8f8;
+}
