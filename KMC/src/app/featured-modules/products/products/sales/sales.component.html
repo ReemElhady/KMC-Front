@@ -3,14 +3,9 @@
 </div>
 
 <section class="devices nav-margin" *ngIf="!isLoading">
-  <div
-    class="section-header"
-    [ngStyle]="{
-      'background-image': 'url(' + imgUrl + data.image + ')'
-    }"
-  >
-    <div class="layout"></div>
-  </div>
+  <div class="section-header">
+  <img [src]="imgUrl + data.image" alt="Header Image" class="header-img">
+  </div>  
 
   <div class="container-fluid">
     <div class="products">

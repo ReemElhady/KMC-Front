@@ -14,22 +14,18 @@
         <!-- Wrap the entire card in an anchor tag -->
         <a [routerLink]="['/courses', 'details', list.id]" class="list-card-link">
           <div class="list-card d-flex flex-column flex-md-row">
-            <div class="list-image" [ngStyle]="{ 'background-image': 'url(' + list.image + ')' }"></div>
+            <div class="list-image">
+              <img [src]="list.image" alt="{{ list.title }}" class="img-fluid" />
+            </div>
             <div class="list-content p-3 d-flex flex-column">
               <h3 class="list-title">{{ list.title | translate}}</h3>
 
               <span class="regular gray">
                 <strong>{{ list.instructor_position }} {{ list.instructor_name }}</strong>
               </span>
-               <!-- <h5 class="semi-bold black py-2">
-                {{ list.instructor_name }}
-              </h5> -->
               <p class="list-description">{{ list.description | translate }}</p>
               <div class="list-info mt-auto">
-                <span class="regular gray py-2"
-                >{{ list.level }} {{ "Courses.Level" | translate }}
-              </span>
-                <!-- <span class="info-item"><strong> Course Duration :</strong> {{ list.duration }} h</span> -->
+                <span class="regular gray py-2">{{ list.level }} {{ "Courses.Level" | translate }}</span>
               </div>
             </div>
           </div>
@@ -38,4 +34,3 @@
     </div>
   </div>
 </section>
-

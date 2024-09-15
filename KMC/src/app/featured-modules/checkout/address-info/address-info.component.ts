@@ -225,6 +225,56 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
     this.AddressesForm.get('city')?.setValue(selectedId);
   }
   // confirm
+  // confirm() {
+  //   if (this.AddressesForm.valid) {
+  //     this.isLoading = true;
+  //     this.clickedConfirm = true;
+  //     let body = this.AddressesForm.value;
+  //     if (body['last_name']) {
+  //       body['name'] = `${body['first_name']} ${body['last_name']}`;
+  //     } else {
+  //       body['name'] = `${body['first_name']}`;
+  //     }
+  //     delete body['first_name'];
+  //     delete body['last_name'];
+
+  //     if (!this.id) {
+  //       this.addressService.addNewAddress(body).subscribe(
+  //         (res) => {
+  //           this.isLoading = false;
+  //           this.clickedConfirm = false;
+  //           this.AddressesForm.reset();
+  //           this.modalService.dismissAll();
+  //           this.addressService.getAddresses().subscribe((res) => {
+  //             // this.allAddresses.push(res);
+  //           });
+  //         },
+  //         (error) => {
+  //           this.errorMsg = this.http.handleAdressesError(error);
+  //           this.isLoading = false;
+  //           this.clickedConfirm = false;
+  //         }
+  //       );
+  //     } else {
+  //       this.addressService.updateAddress(this.id, body).subscribe(
+  //         (res) => {
+  //           this.isLoading = false;
+  //           this.clickedConfirm = false;
+  //           this.AddressesForm.reset();
+  //           this.modalService.dismissAll();
+  //           this.addressService.getAddresses().subscribe((res) => {});
+  //           this.id = null;
+  //         },
+  //         (error) => {
+  //           this.errorMsg = this.http.handleAdressesError(error);
+  //           this.isLoading = false;
+  //           this.clickedConfirm = false;
+  //           this.id = null;
+  //         }
+  //       );
+  //     }
+  //   }
+  // }
   confirm() {
     if (this.AddressesForm.valid) {
       this.isLoading = true;
@@ -237,7 +287,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       }
       delete body['first_name'];
       delete body['last_name'];
-
+  
       if (!this.id) {
         this.addressService.addNewAddress(body).subscribe(
           (res) => {
@@ -246,7 +296,8 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
             this.AddressesForm.reset();
             this.modalService.dismissAll();
             this.addressService.getAddresses().subscribe((res) => {
-              // this.allAddresses.push(res);
+              // Optionally, you could replace the `allAddresses` array with the response if needed
+              // this.allAddresses = res;
             });
           },
           (error) => {
@@ -262,7 +313,17 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
             this.clickedConfirm = false;
             this.AddressesForm.reset();
             this.modalService.dismissAll();
-            this.addressService.getAddresses().subscribe((res) => {});
+            
+            // Update the address in the local array
+            this.allAddresses = this.allAddresses.map((address) =>
+              address.id === this.id ? { ...address, ...body } : address
+            );
+  
+            // If the updated address is selected, update it in the selectedAddress
+            if (this.selectedAddress && this.selectedAddress.id === this.id) {
+              this.selectedAddress = { ...this.selectedAddress, ...body };
+            }
+  
             this.id = null;
           },
           (error) => {
@@ -275,6 +336,7 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       }
     }
   }
+  
   //open modal update and create addresses
   openAddresses(content: any, index: any, id: any) {
     this.id = id;
@@ -298,25 +360,56 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       id: this.id,
     });
   }
+  // deleteAddress(addressId: any) {
+  //   this.isLoading = true;
+  //   this.addressService.deleteAddress(addressId).subscribe(
+  //     (res) => {
+  //       this.isLoading = false;
+  //       if (this.selectedAddress) {
+  //         if (this.selectedAddress.id == addressId) {
+  //           this.selectedAddress = null;
+  //           if (this.allAddresses.length > 0) {
+  //             this.selectedAddress = this.allAddresses[0];
+  //           }
+  //         }
+  //       }
+  //       // Redirect to the desired page after successful deletion
+  //       this.router.navigate(['/checkout/address']); 
+  //     },
+  //     (error) => {
+  //       this.isLoading = false;
+  //     }
+  //   );
+  // }
   deleteAddress(addressId: any) {
     this.isLoading = true;
     this.addressService.deleteAddress(addressId).subscribe(
       (res) => {
         this.isLoading = false;
-        if (this.selectedAddress) {
-          if (this.selectedAddress.id == addressId) {
-            this.selectedAddress = null;
-            if (this.allAddresses.length > 0) {
-              this.selectedAddress = this.allAddresses[0];
-            }
+        
+        // Remove the deleted address from the local array
+        this.allAddresses = this.allAddresses.filter(
+          (address) => address.id !== addressId
+        );
+        
+        // Update the selected address if needed
+        if (this.selectedAddress && this.selectedAddress.id === addressId) {
+          this.selectedAddress = null;
+          if (this.allAddresses.length > 0) {
+            this.selectedAddress = this.allAddresses[0];
           }
         }
+  
+        // Redirect to the desired page after successful deletion
+        this.router.navigate(['/checkout/address']); 
       },
       (error) => {
         this.isLoading = false;
+        // Optionally, handle the error case if needed
       }
     );
   }
+  
   getShipingFees() {
     console.log('triggered');
     if (this.paymentMethod === this.paymemtValues[1]) {

@@ -3,7 +3,7 @@
 
 .product-item {
   @include hCenterWithColumn;
-  // border: solid 1px #f2f2f2;
+  border: solid 1px #f2f2f2;
   padding: 0 0 1vw 0;
   cursor: pointer;
   margin-bottom: 1vw;
@@ -13,8 +13,6 @@
     white-space: nowrap;
     overflow: hidden;
     width: 10rem;
-    text-align: center;
-    
 
     span {
       display: block;
@@ -23,10 +21,9 @@
       p {
         transition: all 2s ease-in-out;
         position: relative;
-        // overflow-x: hidden;
+        overflow-x: hidden;
         text-overflow: ellipsis;
-        left: 2px;
-        
+        left: 0px;
       }
     }
 
@@ -60,7 +57,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      // background-color: $red;
+      background-color: $red;
 
       .text-spacing {
         white-space: break-spaces;
@@ -160,7 +157,7 @@
     cursor: pointer;
 
     &:hover {
-      color: $red;
+      color: $gray;
     }
   }
 
@@ -176,22 +173,6 @@
   .old-price {
     font-size: clamp(12px, 0.78125vw, 16px);
   }
-  // .price-wrapper {
-  //   display: flex;
-  //   justify-content: center;  /* Centers horizontally */
-  //   align-items: center;  /* Centers vertically */
-  //   height: 100%;  /* Ensure the wrapper takes full height */
-  //   // padding: 1rem; /* Optional: Adjust padding for better spacing */
-  // }
-
-  // .product-price {
-  //   display: flex;
-  //   justify-content: center; /* Center the content */
-  //   align-items: center;  /* Center the content vertically */
-  //   width: 100%;  /* Make sure it takes up full width */
-  //   height: 100%;  /* Ensure it takes up full height */
-  //   text-align: center;  /* Center the text */
-  // }
 }
 
 .uk-modal-dialog {
@@ -338,27 +319,9 @@
   }
   
   // }
-  .pricing {
-    height: auto; /* Remove fixed height for mobile */
-    margin-bottom: 1rem; /* Add margin to avoid overlap */
-  }
-
-  .primary-btn {
-    margin-top: 1rem; /* Ensure spacing between pricing and button */
-    display: block;
-  }
-}
-
-
-.pricing{//reem
-  height: 10vh;
 }
 .product-price {
   font-size: 1.2em;
-  // height: 15vh;
-  // background-color: #f2f2f2;
-  // min-height: 50px;
-  
 }
 
 .original-price {
@@ -372,10 +335,5 @@
 }
 
 .discount-label {
-  // background-color: #f2f2f2;
   color: green;
-}
-.test{
-  padding-top: 1em; 
- 
 }

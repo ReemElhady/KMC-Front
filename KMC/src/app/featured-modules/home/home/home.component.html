@@ -15,7 +15,7 @@
               (input)="searchAction(searchedInput.value)"
             />
             <span
-              class="search-icon d-flex justify-content-between align-items-center gray px-3 w-100"
+              class="search-icon d-flex justify-content-between align-items-center gray px-1 w-20"
               (click)="openSearch()"
               *ngIf="isMobile"
             >
@@ -32,7 +32,7 @@
                 class="header-container"
                 *ngIf="!item.is_video"
                 [ngStyle]="{
-                  'background-image': 'url(' + imgurl + item.media + ')'
+                  'background-image': 'url(' + imageUrl + item.media + ')'
                 }"
               ></div>
               <div class="header-container" *ngIf="item.is_video">
@@ -43,7 +43,7 @@
                   playsInline
                   onloadedmetadata="this.muted = true"
                 >
-                  <source [src]="imgurl + item.media" type="video/mp4" />
+                  <source [src]="imageUrl + item.media" type="video/mp4" />
                 </video>
               </div>
             </div>
@@ -53,7 +53,7 @@
                 *ngIf="!item.is_video"
                 [ngStyle]="{
                   'background-image':
-                    'url(' + imgurl + item.mobile_view_media + ')'
+                    'url(' + imageUrl + item.mobile_view_media + ')'
                 }"
               ></div>
               <div class="header-container" *ngIf="item.is_video">
@@ -65,7 +65,7 @@
                   onloadedmetadata="this.muted = true"
                 >
                   <source
-                    [src]="imgurl + item.mobile_view_media"
+                    [src]="imageUrl + item.mobile_view_media"
                     type="video/mp4"
                   />
                 </video>
@@ -146,7 +146,14 @@
 <!-- starting category section -->
   <div class="categories">
     <div class="section-title text-center s-mb-2 my-4">
-      <h3 class="bold">{{ "Products.Branches" | translate }}</h3>
+      <h3 
+      (click)="navigateToCategories()"
+      class="clickable-title"
+      title="Click to view products"
+      style="cursor: pointer; color: #e4021b;"
+      onmouseover="this.style.color='black';"
+      onmouseout="this.style.color='red';"
+      class="bold">{{ "Products.Branches" | translate }}</h3>
     </div>
     <div class="container-fluid">
       <div class="row s-mt-2">
@@ -300,7 +307,14 @@
 
   <div class="about-us">
     <div class="section-title text-center s-mt-2">
-      <h3 class="bold black mt-5">
+      <h3 
+        (click)="navigateToWhyKMC()"
+        class="clickable-title"
+        title="Click to view products"
+        style="cursor: pointer; color: #e4021b;"
+        onmouseover="this.style.color='black';"
+        onmouseout="this.style.color='red';"
+        class="bold black mt-5">
         {{ "Footer.WhyKMC" | translate }}
       </h3>
     </div>
@@ -325,7 +339,7 @@
                   [ngStyle]="{
                     'background-image':
                       'url(' +
-                      imgurl +
+                      imageUrl +
                       homeContent.home_details.about_us_1_image +
                       ')'
                   }"
@@ -357,7 +371,7 @@
                 [ngStyle]="{
                   'background-image':
                     'url(' +
-                    imgurl +
+                    imageUrl +
                     homeContent.home_details.about_us_1_image +
                     ')'
                 }"

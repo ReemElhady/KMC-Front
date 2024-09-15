@@ -202,6 +202,7 @@
                     <p class="gray quantity">
                       {{ "Orders.Quantity" | translate }}
                     </p>
+                    <p class="medium gray">{{ item.quantity }}</p>
 
                     <p class="semi-bold black" *ngIf="!item.product.sale_price">
                       {{ item.product.price }}
@@ -212,7 +213,7 @@
                       {{ "Checkout.Currency" | translate }}
                     </p>
                   </div>
-                  <h5 class="medium gray">{{ item.quantity }}</h5>
+                  <!-- <h5 class="medium gray">{{ item.quantity }}</h5> -->
                   <h5 class="medium gray" *ngIf="item.product_item.species">
                     {{ item.product_item.product_item_title }} :
                     {{ item.product_item.species }}

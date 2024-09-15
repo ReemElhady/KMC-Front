@@ -189,8 +189,8 @@
     </div>
     <!-- End Product List -->
     <!-- starting cart summary -->
-    <div class="col-lg-4 col-md-6">
-      <div class="checkout-card" *ngIf="localItems.length || remoteItems.length">
+    <div class="col-lg-4 col-md-6" *ngIf="localItems.length || remoteItems.length">
+      <div class="checkout-card" *ngIf="remoteItems.length">
         <div class="checkout-card-header">
           <h4 class="title">{{ "Cart.order_summary" | translate }}</h4>
         </div>
@@ -255,6 +255,7 @@
             <span class="regular red">{{ "Cart.discount" | translate }}</span>
             <span class="regular red">
               {{ remoteOrderSummary.discount }} {{ "Cart.currency" | translate }}
+
             </span>
           </li>
           <li class="total d-flex justify-content-between">
@@ -281,10 +282,108 @@
             [routerLink]="['/products', 'shop']"
             class="continue-shopping-link"
           >
-            {{ "Continue Shopping" | translate }}
+            {{ "Cart.c_shopping" | translate }}
           </a>
         </div>
       </div>
+      <!-- SUMMARY CARD ON LOCAL VIEW -->
+      <div class="checkout-card" *ngIf="localItems.length">
+        <div class="checkout-card-header">
+          <h4 class="title">{{ "Cart.order_summary" | translate }}</h4>
+        </div>
+        
+        <!-- Coupon Section -->
+        <div class="coupon-section" *ngIf="localItems.length">
+          <!-- Show Coupon Form if no coupon is applied -->
+          <form
+            class="coupon-form"
+            [formGroup]="couponForm"
+            (ngSubmit)="sendCoupon()"
+            *ngIf="!appiedCoupon"
+          >
+            <input
+              type="text"
+              formControlName="code"
+              placeholder="{{ 'Apply Coupon' | translate }}"
+              aria-label="Coupon Code"
+            />
+            <button
+              type="submit"
+              class="primary-btn"
+              [disabled]="formContarols['code'].invalid"
+            >
+              {{ "Cart.apply" | translate }}
+            </button>
+            <!-- Error Messages -->
+            <div class="error-messages">
+              <small
+                class="error"
+                *ngIf="formContarols['code']?.errors?.['minlength'] && formContarols['code']?.touched"
+              >
+                {{ "Cart.coupon_val" | translate }}
+              </small>
+              <small
+                class="error"
+                *ngIf="couponError && !formContarols['code']?.errors?.['required'] && !formContarols['code']?.errors?.['minlength']"
+              >
+                {{ couponErrorMessage }}
+              </small>
+            </div>
+          </form>
+
+
+      
+          <!-- Show Applied Coupon with Option to Delete -->
+          <div class="applied-coupon" *ngIf="appiedCoupon">
+            <p class="coupon-text">
+              {{ "Cart.coupon_applied" | translate }}: <strong>{{ appiedCoupon.code }}</strong>
+            </p>
+            <button (click)="deleteCoupon()" class="delete-btn">
+              {{ "Cart.remove_coupon" | translate }}
+            </button>
+          </div>
+        </div>
+      
+        <!-- Order Summary Section -->
+        <ul>
+          <li
+            class="d-flex justify-content-between" style=" margin: 20px;"
+          >
+            <span class="regular red">{{ "Cart.discount" | translate }}</span>
+            <span class="regular red">
+              {{ localOrderSummary.discount }} {{ "Cart.currency" | translate }}
+
+            </span>
+          </li>
+          <li class="total d-flex justify-content-between">
+            <span class="bold black">{{ "Cart.total" | translate }}</span>
+              <span class="bold black">{{ localOrderSummary.total_price }} {{ "Cart.currency" | translate }}</span>
+              
+          </li>
+          <li>
+            <p class="bold black"> ( +{{ "Addresses.ShipingFees" | translate }} ) </p> 
+          </li>
+        </ul>
+      
+        <!-- Action Buttons -->
+        <div class="actions">
+          <button
+            class="primary-btn"
+            (click)="navigate()"
+            [disabled]="isClicked"
+          >
+            {{ isClicked ? '' : "Cart.checkout" | translate }}
+            <app-forms-loading-spinner *ngIf="isClicked"></app-forms-loading-spinner>
+          </button>
+          <a
+            [routerLink]="['/products', 'shop']"
+            class="continue-shopping-link"
+          >
+            {{ "Cart.c_shopping" | translate }}
+          </a>
+        </div>
+      </div>
+      <!-- END SUMMARY CARD ON LOCAL VIEW -->
     </div>
     <!-- ending cart summary -->
     </div>
@@ -597,8 +696,8 @@
         </div>
       </div>
      <!-- starting cart summary -->
-      <div class="col-lg-4 col-md-6">
-        <div class="checkout-card" *ngIf="localItems.length || remoteItems.length">
+      <div class="col-lg-4 col-md-6" *ngIf="localItems.length || remoteItems.length">
+        <div class="checkout-card" *ngIf="remoteItems.length">
           <div class="checkout-card-header">
             <h4 class="title">{{ "Cart.order_summary" | translate }}</h4>
           </div>
@@ -668,6 +767,101 @@
             <li class="total d-flex justify-content-between">
               <span class="bold black">{{ "Cart.total" | translate }}</span>
                 <span class="bold black">{{ remoteOrderSummary.total_price }} {{ "Cart.currency" | translate }}</span>
+                
+            </li>
+            <li>
+              <p class="bold black"> ( +{{ "Addresses.ShipingFees" | translate }} ) </p> 
+            </li>
+          </ul>
+        
+          <!-- Action Buttons -->
+          <div class="actions">
+            <button
+              class="primary-btn"
+              (click)="navigate()"
+              [disabled]="isClicked"
+            >
+              {{ isClicked ? '' : "Cart.checkout" | translate }}
+              <app-forms-loading-spinner *ngIf="isClicked"></app-forms-loading-spinner>
+            </button>
+            <a
+              [routerLink]="['/products', 'shop']"
+              class="continue-shopping-link"
+            >
+              {{ "Continue Shopping" | translate }}
+            </a>
+          </div>
+        </div>
+        <div class="checkout-card" *ngIf="localOrderSummary">
+          <div class="checkout-card-header">
+            <h4 class="title">{{ "Cart.order_summary" | translate }}</h4>
+          </div>
+          
+          <!-- Coupon Section -->
+          <div class="coupon-section"*ngIf="localOrderSummary">
+            <!-- Show Coupon Form if no coupon is applied -->
+            <form
+              class="coupon-form"
+              [formGroup]="couponForm"
+              (ngSubmit)="sendCoupon()"
+              *ngIf="!appiedCoupon"
+            >
+              <input
+                type="text"
+                formControlName="code"
+                placeholder="{{ 'Apply Coupon' | translate }}"
+                aria-label="Coupon Code"
+              />
+              <button
+                type="submit"
+                class="primary-btn"
+                [disabled]="formContarols['code'].invalid"
+              >
+                {{ "Cart.apply" | translate }}
+              </button>
+              <!-- Error Messages -->
+              <div class="error-messages">
+                <small
+                  class="error"
+                  *ngIf="formContarols['code']?.errors?.['minlength'] && formContarols['code']?.touched"
+                >
+                  {{ "Cart.coupon_val" | translate }}
+                </small>
+                <small
+                  class="error"
+                  *ngIf="couponError && !formContarols['code']?.errors?.['required'] && !formContarols['code']?.errors?.['minlength']"
+                >
+                  {{ couponErrorMessage }}
+                </small>
+              </div>
+            </form>
+
+
+        
+            <!-- Show Applied Coupon with Option to Delete -->
+            <div class="applied-coupon" *ngIf="appiedCoupon">
+              <p class="coupon-text">
+                {{ "Cart.coupon_applied" | translate }}: <strong>{{ appiedCoupon.code }}</strong>
+              </p>
+              <button (click)="deleteCoupon()" class="delete-btn">
+                {{ "Cart.remove_coupon" | translate }}
+              </button>
+            </div>
+          </div>
+        
+          <!-- Order Summary Section -->
+          <ul>
+            <li
+              class="d-flex justify-content-between" style=" margin: 20px;"
+            >
+              <span class="regular red">{{ "Cart.discount" | translate }}</span>
+              <span class="regular red">
+                {{ localOrderSummary.discount }} {{ "Cart.currency" | translate }}
+              </span>
+            </li>
+            <li class="total d-flex justify-content-between">
+              <span class="bold black">{{ "Cart.total" | translate }}</span>
+                <span class="bold black">{{ localOrderSummary.total_price }} {{ "Cart.currency" | translate }}</span>
                 
             </li>
             <li>

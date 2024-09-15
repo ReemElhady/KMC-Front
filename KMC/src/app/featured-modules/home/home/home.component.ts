@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
   private unSubscribe!: Subscription;
   isLoading: boolean = false;
   latestArticles: any[] = [];
-  imgurl = environment.baseUrl + '/';
+  // imgurl = environment.baseUrl + '/';
   imageUrl = imgUrl;
   productsList!: ProductType;
   firstElment: any;
@@ -176,5 +176,11 @@ export class HomeComponent implements OnInit {
   }
   navigateToArticles() {
     this.router.navigate(['./articles']);
+  }
+  navigateToCategories() {
+    this.router.navigate(['products', 'shop']);
+  }
+  navigateToWhyKMC() {
+    this.router.navigate(['./about-us']);
   }
 }

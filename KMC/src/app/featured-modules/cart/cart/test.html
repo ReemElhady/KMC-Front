@@ -1,0 +1,121 @@
+<div class="col-xl-3" *ngIf="localItems.length || remoteItems.length">
+    <div class="cart-card" *ngIf="localOrderSummary">
+      <div class="kmc-card-header">
+        <h4 class="bold black">{{ "Cart.order_summary" | translate }}</h4>
+      </div>
+      <ul class="summary-list">
+        <li>
+          <!-- <p class="light black">{{ "Cart.subtotal" | translate }}</p>
+          <p class="light black">
+            {{ localOrderSummary.sub_total }}
+            {{ "Cart.currency" | translate }}
+          </p> -->
+          <!-- <li>
+          <p class="light black">{{ "Cart.tax" | translate }}</p>
+          <p class="light black">
+            {{ localOrderSummary.tax }} {{ "Cart.currency" | translate }}
+          </p>
+        </li> -->
+          <!-- <li> -->
+          <p class="light black">{{ "Cart.discount" | translate }}</p>
+          <p class="light black">
+           C
+            {{ "Cart.currency" | translate }}
+          </p>
+        </li>
+        <!-- <li>
+          <p class="light black">{{ "Cart.shipping" | translate }}</p>
+          <p class="light black">
+            {{ "Cart.shipping_fee" | translate }}
+            {{ "Cart.currency" | translate }}
+          </p>
+        </li> -->
+        <li class="s-mt-2">
+          <p class="light black">
+            {{ "Cart.total" | translate }}
+          </p>
+          <p class="semi-bold black">
+            {{ localOrderSummary.total_price
+            }}{{ "Cart.currency" | translate }}
+            <!-- +
+            <span class="light black shipping-fess">
+              {{ "Addresses.ShipingFees" | translate }}
+            </span> -->
+          </p>
+        </li>
+      </ul>
+
+    </div>
+    <div class="cart-card" *ngIf="remoteOrderSummary">
+      <div class="kmc-card-header">
+        <h4 class="bold black">{{ "Cart.order_summary" | translate }}</h4>
+      </div>
+      <ul class="summary-list">
+        <!-- <li> -->
+        <!-- <p class="light black">{{ "Cart.subtotal" | translate }}</p>
+          <p class="light black">
+            {{ remoteOrderSummary.sub_total }}
+            {{ "Cart.currency" | translate }}
+          </p> -->
+        <!-- <li>
+          <p class="light black">{{ "Cart.tax" | translate }}</p>
+          <p class="light black">
+            {{ remoteOrderSummary.tax }} {{ "Cart.currency" | translate }}
+          </p>
+        </li> -->
+        <li>
+          <p class="light black">{{ "Cart.discount" | translate }}</p>
+          <p class="light black">
+            {{ remoteOrderSummary.discount }}
+            {{ "Cart.currency" | translate }}
+          </p>
+        </li>
+        <!-- <li>
+          <p class="light black">{{ "Cart.shipping" | translate }}</p>
+          <p class="light black">
+            {{ "Cart.shipping_fee" | translate }}
+            {{ "Cart.currency" | translate }}
+          </p>
+        </li> -->
+        <li class="s-mt-2">
+          <p class="light black">
+            {{ "Cart.total" | translate }}
+          </p>
+          <div
+            class="d-flex justify-content-center align-items-center flex-column"
+          >
+            <p class="semi-bold black d-block">
+              {{ remoteOrderSummary.total_price }}
+              {{ "Cart.currency" | translate }}
+            </p>
+            <div>
+              ( +
+              <span class="light black shipping-fess">
+                {{ "Addresses.ShipingFees" | translate }} </span
+              >)
+            </div>
+          </div>
+        </li>
+      </ul>
+
+    </div>
+    <div class="s-mt-2 summary flex-column">
+      <button
+        class="primary-btn w-100"
+        (click)="navigate()"
+        *ngIf="!isClicked"
+      >
+        {{ "Cart.checkout" | translate }}
+      </button>
+      <a
+        [routerLink]="['/products', 'shop']"
+        role="button"
+        class="link gray medium"
+      >
+        {{ "Cart.c_shopping" | translate }}</a
+      >
+      <div *ngIf="isClicked">
+        <app-forms-loading-spinner></app-forms-loading-spinner>
+      </div>
+    </div>
+  </div>

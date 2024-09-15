@@ -1,222 +1,20 @@
 <div class="product-item">
   <div class="product-descraption">
     <div>
+      <a [routerLink]="['/products/details', product.type, product.id]">
       <img
         [src]="imgUrl + product.main_image"
         alt=""
         routerLink="/products/details/{{ product.type }}/{{ product.id }}"
       />
+    </a>
     </div>
-    <div class="text-descraption" *ngIf="iconClose">
-      <div class="d-flex align-items-center justify-content-between s-mt-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="42"
-          height="42"
-          viewBox="0 0 42 42"
-          class="s-mt-1"
-          (click)="togglePointPrice()"
-        >
-          <g
-            id="Group_585"
-            data-name="Group 585"
-            transform="translate(-1381 -1077)"
-          >
-            <circle
-              id="Ellipse_51"
-              data-name="Ellipse 51"
-              cx="21"
-              cy="21"
-              r="21"
-              transform="translate(1381 1077)"
-              fill="#fff"
-            />
-            <path
-              id="Icon_awesome-info"
-              data-name="Icon awesome-info"
-              d="M.81,17.174h.81V11.326H.81a.81.81,0,0,1-.81-.81V8.583a.81.81,0,0,1,.81-.81H5.344a.81.81,0,0,1,.81.81v8.592h.81a.81.81,0,0,1,.81.81v1.934a.81.81,0,0,1-.81.81H.81a.81.81,0,0,1-.81-.81V17.984A.81.81,0,0,1,.81,17.174ZM3.886,0A2.915,2.915,0,1,0,6.8,2.915,2.915,2.915,0,0,0,3.886,0Z"
-              transform="translate(1398.114 1087.636)"
-              fill="#e4021b"
-            />
-          </g>
-        </svg>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="42"
-          height="42"
-          viewBox="0 0 42 42"
-          class="s-mt-1"
-          (click)="iconCloseHover()"
-          aria-label="Close"
-        >
-          <g
-            id="Group_592"
-            data-name="Group 592"
-            transform="translate(-402 -434)"
-          >
-            <g
-              id="Group_590"
-              data-name="Group 590"
-              transform="translate(-979 -643)"
-              opacity="0.41"
-            >
-              <circle
-                id="Ellipse_51"
-                data-name="Ellipse 51"
-                cx="21"
-                cy="21"
-                r="21"
-                transform="translate(1381 1077)"
-                fill="#b5b5b5"
-              />
-            </g>
-            <g
-              id="Group_591"
-              data-name="Group 591"
-              transform="translate(2132.863 1526.863)"
-            >
-              <line
-                id="Line_49"
-                data-name="Line 49"
-                x2="13.274"
-                y2="13.274"
-                transform="translate(-1716.5 -1078.5)"
-                fill="none"
-                stroke="#c9c9c9"
-                stroke-width="3"
-              />
-              <line
-                id="Line_50"
-                data-name="Line 50"
-                x1="13.274"
-                y2="13.274"
-                transform="translate(-1716.5 -1078.5)"
-                fill="none"
-                stroke="#c9c9c9"
-                stroke-width="3"
-              />
-            </g>
-          </g>
-        </svg>
-      </div>
-      <div
-        class="d-flex align-items-end justify-content-end"
-        *ngIf="!iconClose"
-        class="iconClose"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="42"
-          height="42"
-          viewBox="0 0 42 42"
-          class="s-mt-1"
-          (click)="togglePointPrice()"
-        >
-          <g
-            id="Group_585"
-            data-name="Group 585"
-            transform="translate(-1381 -1077)"
-          >
-            <circle
-              id="Ellipse_51"
-              data-name="Ellipse 51"
-              cx="21"
-              cy="21"
-              r="21"
-              transform="translate(1381 1077)"
-              fill="#fff"
-            />
-            <path
-              id="Icon_awesome-info"
-              data-name="Icon awesome-info"
-              d="M.81,17.174h.81V11.326H.81a.81.81,0,0,1-.81-.81V8.583a.81.81,0,0,1,.81-.81H5.344a.81.81,0,0,1,.81.81v8.592h.81a.81.81,0,0,1,.81.81v1.934a.81.81,0,0,1-.81.81H.81a.81.81,0,0,1-.81-.81V17.984A.81.81,0,0,1,.81,17.174ZM3.886,0A2.915,2.915,0,1,0,6.8,2.915,2.915,2.915,0,0,0,3.886,0Z"
-              transform="translate(1398.114 1087.636)"
-              fill="#e4021b"
-            />
-          </g>
-        </svg>
-      </div>
-      <div class="data">
-        <p
-          class="medium text-spacing"
-          *ngIf="!pointPrice"
-          routerLink="/products/details/{{ product.type }}/{{ product.id }}"
-        >
-          {{ product.description | slice : 0 : 60 }} ....
-        </p>
-
-        <!-- <p
-          routerLink="/products/details/{{ product.type }}/{{ product.id }}"
-          class="medium"
-          *ngIf="pointPrice"
-        >
-          {{ "Products.Points" | translate }} : {{ product.point_price }}
-          {{ "Cart.currency" | translate }}
-        </p> -->
-
-     
-        <a
-          class="white medium product-hover"
-          routerLink="/products/details/{{ product.type }}/{{ product.id }}"
-        >
-          {{ "Products.view-product" | translate }}
-        </a>
-  
-      </div>
-    </div>
-    <div class="text-descraption" *ngIf="!iconClose">
-      <div
-        class="d-flex align-items-start justify-content-start s-mt-2"
-        class=""
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="42"
-          height="42"
-          viewBox="0 0 42 42"
-          class="s-mt-1"
-          (click)="togglePointPrice()"
-        >
-          <g
-            id="Group_585"
-            data-name="Group 585"
-            transform="translate(-1381 -1077)"
-          >
-            <circle
-              id="Ellipse_51"
-              data-name="Ellipse 51"
-              cx="21"
-              cy="21"
-              r="21"
-              transform="translate(1381 1077)"
-              fill="#fff"
-            />
-            <path
-              id="Icon_awesome-info"
-              data-name="Icon awesome-info"
-              d="M.81,17.174h.81V11.326H.81a.81.81,0,0,1-.81-.81V8.583a.81.81,0,0,1,.81-.81H5.344a.81.81,0,0,1,.81.81v8.592h.81a.81.81,0,0,1,.81.81v1.934a.81.81,0,0,1-.81.81H.81a.81.81,0,0,1-.81-.81V17.984A.81.81,0,0,1,.81,17.174ZM3.886,0A2.915,2.915,0,1,0,6.8,2.915,2.915,2.915,0,0,0,3.886,0Z"
-              transform="translate(1398.114 1087.636)"
-              fill="#e4021b"
-            />
-          </g>
-        </svg>
-      </div>
-      <div class="data">
-        <p class="medium description" *ngIf="!pointPrice">
-          {{ product.description | slice : 0 : 60 }} ....
-        </p>
-
-        <a
-          class="white medium product-hover"
-          routerLink="/products/details/{{ product.type }}/{{ product.id }}"
-        >
-          {{ "Products.view-product" | translate }}
-        </a>
-      </div>
-    </div>
+    <!-- commented here -->
   </div>
 
-  <p
+  
+    <!-- title -->
+    <p
     *ngIf="product.title.length < 20"
     class="text-center medium text-spacing textOne"
   >
@@ -232,41 +30,32 @@
       </p>
     </span>
   </div>
-
-  <!-- <div class="d-flex justify-content-center">
-    <span
-      [ngClass]="{ 'old-price': product.sale_price }"
-      class="gray medium price"
-      >{{ product.price }} {{ "Cart.currency" | translate }}</span
-    >
-    <span class="price red medium" *ngIf="product.sale_price"
-      >{{ product.sale_price }} {{ "Cart.currency" | translate }}</span
-    >
-  </div> -->
+  <!-- Price display -->
   <div class="product-item">
-    <h2>{{ product.name }}</h2>
-    <p class="product-price text-center">
-      <span *ngIf="product.sale_percentage || product.sale_price">
-        <span class="original-price" *ngIf="product.sale_price && product.price !== product.sale_price">
-          <del>{{ product.price.toFixed(2) }} EGP</del>
+    <h1 class="medium semi-bold">{{ product.name }}</h1>
+    <div class="pricing">
+      <p class="product-price text-center ">
+        <span *ngIf="product.sale_percentage || product.sale_price">
+          <span class="original-price" *ngIf="product.sale_price && product.price !== product.sale_price">
+            <del>{{ product.price.toFixed(2) }} EGP</del>
+          </span>
+          <span class="discounted-price">
+             {{ getDisplayPrice(product).toFixed(2) }} EGP
+          </span>
+          
         </span>
-        <span class="discounted-price">
-           {{ getDisplayPrice(product).toFixed(2) }} EGP
+        <br/>
+        <span *ngIf="!product.sale_percentage && !product.sale_price">
+          {{ product.price.toFixed(2) }} EGP
         </span>
-      </span>
-      <span *ngIf="!product.sale_percentage && !product.sale_price">
-        {{ product.price.toFixed(2) }} EGP
-      </span>
-    </p>
-    <p class="discount-label text-center">
-      {{ getDiscountLabel(product) }}
-    </p>
-</div>
+      </p>
+      <p class="discount-label text-center">
+        {{ getDiscountLabel(product) }}
+      </p>
+  </div>
+  </div>
 
-  
-  
-  
-
+  <!-- Add to cart and wishlist-->
   <div class="d-flex justify-content-center">
     <button
       class="primary-btn"
@@ -331,7 +120,7 @@
     routerLink="/products/details/{{ product.type }}/{{ product.id }}"
     >{{ product.title }}</span
   >
-</div>
+  </div>
 
 <!-- This is the modal -->
 
@@ -417,15 +206,7 @@
                   />
                 </svg>
               </button>
-              <!-- <button class=" black regular btn-dropdown" type="button" *ngIf="selectedItem">
-                {{ selectedItem.species}}
-                <svg xmlns="http://www.w3.org/2000/svg" width="14.577" height="8.335" viewBox="0 0 14.577 8.335">
-                  <path id="Icon_ionic-ios-arrow-down" data-name="Icon ionic-ios-arrow-down"
-                    d="M13.479,17.069l5.512-5.516a1.037,1.037,0,0,1,1.471,0,1.05,1.05,0,0,1,0,1.476l-6.245,6.25a1.04,1.04,0,0,1-1.437.03L6.491,13.032a1.042,1.042,0,0,1,1.471-1.476Z"
-                    transform="translate(-6.188 -11.246)" fill="#050605" />
-                </svg>
-
-              </button> -->
+            <!-- here -->
               <div id="drop" uk-dropdown="mode: click">
                 <ul class="uk-nav uk-dropdown-nav">
                   <li
