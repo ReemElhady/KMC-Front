@@ -73,13 +73,14 @@ p {
 //   //   background-color: rgba(0, 0, 0, 0.6);
 //   // }
 // }
+// me styling which works 
 .section-header {
   position: relative;
   height: 50vh; /* Default height for large screens */
   @include bgCenter;
   @include flexCenter;
   overflow: hidden; /* Hide overflow if needed */
-
+  // background-size: cover;
   .header-img {
     position: absolute;
     top: 0;
@@ -108,11 +109,47 @@ p {
 // Responsive adjustments for mobile devices
 @media only screen and (max-width: 767px) {
   .section-header {
-    height: 20vh; /* Adjust height for mobile */
+    height: 16vh; /* Adjust height for mobile */
   }
 }
 
+// till here
+// .section-header {
+//   position: relative;
+//   height: 60vh; /* Default height for large screens */
+//   background-size: cover; /* Ensure the background covers the container */
+//   background-position: center; /* Center the image */
+//   background-repeat: no-repeat;
+//   overflow: hidden;
+//   @include bgCenter;
+//   @include flexCenter;
 
+//   h2 {
+//     color: $white;
+//     font-family: $KMC-p-sBold;
+//     position: relative;
+//     z-index: 2;
+//   }
+// }
+
+// // Responsive adjustments for tablets
+// @media only screen and (min-width: 768px) and (max-width: 1024px) {
+//   .section-header {
+//     height: 35vh; /* Adjust height for tablets */
+//   }
+// }
+
+// // Responsive adjustments for mobile devices
+// @media only screen and (max-width: 767px) {
+//   .section-header {
+//     height: auto; /* Allow the section to adjust based on content */
+//     min-height: 30vh; /* Set a reasonable minimum height */
+//     background-size: contain; /* Ensure the entire image fits */
+//     background-position: center center; /* Center the image */
+//   }
+// }
+
+//end new 
 .layout {
   position: absolute;
   width: 100%;
@@ -648,9 +685,6 @@ textarea.ng-invalid.ng-touched {
 // ipad
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
 
-  .section-header {
-    height: 35vh;
-  }
 
   .auth {
     .form-content {
@@ -661,10 +695,6 @@ textarea.ng-invalid.ng-touched {
 
 // mobile
 @media only screen and (max-width: 767px) {
-
-  .section-header {
-    height: 20vh; /* Adjust height as needed */
-  }
 
   // auth Pages style
   .auth {
