@@ -250,12 +250,12 @@
         <div class="col-xl-6 my-4">
           <div class="section-title s-mt-2">
             <h3 (click)="navigateToArticles()"
-            class="clickable-title"
             title="Click to view products"
             style="cursor: pointer; color: #e4021b;"
             onmouseover="this.style.color='black';"
             onmouseout="this.style.color='red';"
-            class="centerd">{{ "Home.Articles" | translate }}</h3>
+            class="centerd">
+            {{ "Home.Articles" | translate }}</h3>
             <h5 class="centerd">{{ "Home.text" | translate }}.</h5>
           </div>
         </div>
@@ -315,7 +315,7 @@
         style="cursor: pointer; color: #e4021b;"
         onmouseover="this.style.color='black';"
         onmouseout="this.style.color='red';"
-        class="bold black mt-5">
+        >
         {{ "Footer.WhyKMC" | translate }}
       </h3>
     </div>

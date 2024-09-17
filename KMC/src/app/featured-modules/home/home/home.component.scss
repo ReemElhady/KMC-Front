@@ -247,6 +247,17 @@
   h5 {
     text-align: center !important;
   }
+.clickable-title {
+  cursor: pointer;
+  color: #e4021b;
+  transition: color 0.3s ease;
+}
+
+.clickable-title:hover, 
+.clickable-title:active, 
+.clickable-title:focus {
+  color: black;
+}
 
   h3 {
     font-size: 35px;
@@ -720,28 +731,28 @@ a:hover {
     }
   }
 
-  .product-container,
-  .aticles-background {
-    .section-title {
-      h3,
-      h5 {
-        text-align: center !important;
-      }
+//   .product-container,
+//   .aticles-background {
+//     .section-title {
+//       h3,
+//       h5 {
+//         text-align: center !important;
+//       }
 
-      h3 {
-        font-family: "Montserrat" !important;
-        font-size: 35px !important;
-        text-align: center !important;
-        color: $red !important;
+//       h3 {
+//         // font-family: "Montserrat" !important;
+//         // font-size: 35px !important;
+//         // text-align: center !important;
+//         // color: $red !important;
       
-      }
-      .section-title h3:hover {
-        color: $red !important;
-      }
+//       }
+//       .section-title h3:hover {
+//         // color: $red !important;
+//       }
       
-}
+// }
 
-  }
+//   }
 }
 .description-container {
   // padding: 2vw 0;
@@ -776,3 +787,14 @@ a:hover {
 //   }
 // }
 
+// .clickable-title {
+//   cursor: pointer;
+//   color: #e4021b; /* Initial color */
+//   transition: color 0.3s ease; /* Smooth transition */
+// }
+
+// .clickable-title:hover,
+// .clickable-title:focus,
+// .clickable-title:active {
+//   color: black; /* Change color on hover, focus, or active state */
+// }
