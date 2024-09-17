@@ -34,14 +34,22 @@
     }
   }
 
+  // .article-image {
+  //   height: 500px;
+  //   background-size: cover;
+  //   background-position: center;
+  //   border-radius: 8px;
+  //   margin-bottom: 20px;
+  // }
   .article-image {
     height: 500px;
-    background-size: cover;
+    background-size: contain; /* Change from cover to contain */
     background-position: center;
+    background-repeat: no-repeat; /* Ensure the image doesn't repeat */
     border-radius: 8px;
     margin-bottom: 20px;
   }
-
+  
   .article-content {
     font-size: 1.1em;
     line-height: 1.6;
