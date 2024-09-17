@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { HttpService } from 'src/app/@shared/http/http.service';
-
 import { Home } from 'src/app/models/home.model';
 import { ProductType } from 'src/app/models/products.models';
 import { AppType } from 'src/app/models/type.model';
@@ -42,7 +41,7 @@ export class HomeComponent implements OnInit {
   cookies: boolean = false;
   isMobile: boolean = false;
   isCollaspse: boolean = false;
-  searchTimeout: any; // For debouncing
+  // searchTimeout: any; // For debouncing
   option: SwiperOptions = {
     slidesPerView: 2.2,
     spaceBetween: 13,
@@ -165,7 +164,6 @@ export class HomeComponent implements OnInit {
   openSearch(): void {
     this.isCollaspse = !this.isCollaspse;
   }
-
   // searchAction(searchedText: string): void {
   //   if (searchedText.trim()) {
   //     this.router.navigate(['search', searchedText]);
@@ -173,17 +171,17 @@ export class HomeComponent implements OnInit {
   //     // Optionally handle empty search text here if needed
   //   }
   // }
-  searchAction(searchedText: string): void {
-    // Clear the previous timeout
-    clearTimeout(this.searchTimeout);
+  // searchAction(searchedText: string): void {
+  //   // Clear the previous timeout
+  //   clearTimeout(this.searchTimeout);
     
-    // Set a new timeout (debounce)
-    this.searchTimeout = setTimeout(() => {
-      if (searchedText.trim()) {
-        this.router.navigate(['search', searchedText]);
-      }
-    }, 1000); // Delay by 300ms, adjust as needed
-  }
+  //   // Set a new timeout (debounce)
+  //   this.searchTimeout = setTimeout(() => {
+  //     if (searchedText.trim()) {
+  //       this.router.navigate(['search', searchedText]);
+  //     }
+  //   }, 1000); // Delay by 300ms, adjust as needed
+  // }
 
 
 

@@ -4,7 +4,7 @@
 <section *ngIf="!isLoading">
   <section class="home-page">
     <div class="img-container-header">
-      <ng-container *ngIf="isMobile">
+      <!-- <ng-container *ngIf="isMobile">
       <a class="a-nav">
         <div class="search-container-home">
           <input
@@ -24,7 +24,7 @@
           </span>
         </div>
       </a>
-    </ng-container>
+    </ng-container> -->
       <swiper [config]="MYSwiper" class="mySwiper">
         <ng-template swiperSlide *ngFor="let item of homeContent.Home_Swiper">
           <div class="slider-container" (click)="routeForLink(item.link)">
