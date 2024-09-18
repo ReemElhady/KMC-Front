@@ -730,6 +730,12 @@ a:hover {
       }
     }
   }
+  .swiper-wrapper{
+    .swiper-pagination-bullet-active {
+      color: $white;
+      background: $red;
+    }
+  }
 
 //   .product-container,
 //   .aticles-background {

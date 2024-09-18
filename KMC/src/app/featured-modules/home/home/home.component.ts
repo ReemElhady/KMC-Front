@@ -41,7 +41,6 @@ export class HomeComponent implements OnInit {
   cookies: boolean = false;
   isMobile: boolean = false;
   isCollaspse: boolean = false;
-  // searchTimeout: any; // For debouncing
   option: SwiperOptions = {
     slidesPerView: 2.2,
     spaceBetween: 13,
@@ -52,7 +51,7 @@ export class HomeComponent implements OnInit {
       },
     },
   };
-  optionArticles: SwiperOptions = {
+  optionCategories: SwiperOptions = {
     slidesPerView: 2.2,
     spaceBetween: 13,
     // breakpoints: {
@@ -74,7 +73,16 @@ export class HomeComponent implements OnInit {
       disableOnInteraction: false, // Keeps autoplay running even after user interactions
     },
   };
-  
+  // Adjusted options for articles Swiper on mobile
+  optionArticles: SwiperOptions = {
+    slidesPerView: 1,  // Show 1 article at a time
+    spaceBetween: 10,
+    autoplay: {
+      delay: 3000,  // Adjust for swipe speed
+      disableOnInteraction: false,
+    },
+    pagination: { clickable: true },
+  };
   constructor(
     private store: Store<{
       home: Home;

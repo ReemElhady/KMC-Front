@@ -208,7 +208,7 @@
               delay: 1000,
               disableOnInteraction: false
             }"
-            [config]="optionArticles"
+            [config]="optionCategories"
             class="swiper-wrapper"
           >
             <ng-template
@@ -274,7 +274,19 @@
             </app-article-item>
           </div>
         </ng-container>
-        <ng-container *ngIf="isMobile">
+        <!-- Mobile Screen: Swiper for Articles -->
+      <ng-container *ngIf="isMobile">
+        <swiper [config]="optionArticles" class="swiper-wrapper">
+          <ng-template swiperSlide *ngFor="let articles of homeContent.Latest_Articles">
+            <app-article-item
+              [isMobile]="true"
+              routerLink="articles/article-details/{{ articles.id }}"
+              [article]="articles">
+            </app-article-item>
+          </ng-template>
+        </swiper>
+      </ng-container>
+        <!-- <ng-container *ngIf="isMobile">
           <swiper
             [autoplay]="{
               delay: 1200,
@@ -295,7 +307,7 @@
               </app-article-item>
             </ng-template>
           </swiper>
-        </ng-container>
+        </ng-container> -->
        
         <!-- <div class="d-flex justify-content-center align-items-center s-mb-1">
           <a class="regular red view-all-btn" routerLink="./articles"
