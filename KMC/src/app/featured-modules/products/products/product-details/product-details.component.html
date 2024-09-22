@@ -117,14 +117,14 @@
           <div class="s-mt-1 s-mb-1 d-flex align-items-center"></div>
           <div
             class="s-mb-2 d-flex align-items-center"
-            *ngIf="productDetailsContent.sale_price !== 0"
+            *ngIf="productDetailsContent.sale_price && productDetailsContent.sale_price > 0"
           >
             <h3 class="semi-bold black">
               {{ productDetailsContent.sale_price }}
               {{ "Orders.LE" | translate }}
             </h3>
             <h3
-              *ngIf="productDetailsContent.sale_price !== 0"
+              *ngIf="productDetailsContent.sale_price && productDetailsContent.sale_price > 0"
               class="regular gray old-price"
             >
               {{ productDetailsContent.price }} {{ "Orders.LE" | translate }}
@@ -132,7 +132,7 @@
           </div>
           <div
             class="s-mb-2 d-flex align-items-center"
-            *ngIf="productDetailsContent.sale_price === 0"
+            *ngIf="!productDetailsContent.sale_price || productDetailsContent.sale_price === 0"
           >
             <h3 class="semi-bold black">
               {{ productDetailsContent.price }} {{ "Orders.LE" | translate }}
