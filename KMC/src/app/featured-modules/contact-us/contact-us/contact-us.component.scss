@@ -3,6 +3,7 @@
 
 .contact-us {
   min-height: 100vh;
+  padding: 50px;
 
   .img-container {
     position: relative;
@@ -72,6 +73,7 @@ textarea {
 
 @media only screen and (max-width: 767px) {
   .contact-us {
+    margin-top: 10vh;
     .img-container {
       justify-content: center;
 

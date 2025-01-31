@@ -1,0 +1,197 @@
+.kmc-navbar {
+    padding: 0;
+    position: fixed;
+    top: 37px;
+    width: 100%;
+    z-index: 999;
+    background: transparent;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: none;
+  
+    &.scrolled {
+      background: $darkGray;
+      color: $white;
+  
+      .a-nav {
+        color: $white !important;
+  
+        &:hover {
+          color: $red !important; // Hover color
+        }
+      }
+  
+      .type-colors {
+        color: $black !important;
+  
+        &:hover {
+          color: $red !important;
+        }
+      }
+  
+      .wishlist-container {
+        color: $white !important;
+  
+        &:hover {
+          color: $red !important;
+        }
+      }
+    }
+  
+    .logo {
+      margin-top: -0.5rem;
+  
+      svg {
+        max-width: none !important;
+      }
+    }
+  
+    // Desktop-specific styles
+    @media (min-width: 768px) {
+      display: block;
+  
+      .a-nav {
+        font-size: 1rem; // Larger font size for desktop
+      }
+  
+      .wishlist-container {
+        margin-right: 1rem;
+      }
+    }
+  
+    // Hide desktop navbar on mobile
+    @media (max-width: 767px) {
+      display: none;
+    }
+  }
+  
+  // Mobile navbar styles
+  .mobile-menu {
+    display: none;
+  
+    @media (max-width: 767px) {
+      display: block;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: $darkGray;
+  
+      .header-view {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+  
+        .logo {
+          svg {
+            width: 20vw;
+          }
+        }
+  
+        .icons {
+          display: flex;
+          align-items: center;
+  
+          svg {
+            fill: $red;
+            width: 6vw;
+            margin: 0 1rem;
+          }
+  
+          .mobile-cart {
+            position: relative;
+  
+            .cart-num {
+              position: absolute;
+              top: 0;
+              right: 0;
+              background-color: $red;
+              color: $white;
+              width: 16px;
+              height: 16px;
+              border-radius: 50%;
+              text-align: center;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 12px;
+            }
+          }
+        }
+      }
+  
+      .uk-offcanvas-bar {
+        padding: 2rem;
+        background-color: $red;
+        height: 100%;
+        width: 80%; // Adjust width for mobile
+        max-width: 300px; // Prevent overly wide sidebar
+      }
+  
+      .links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+  
+        li {
+          padding: 1rem 0;
+  
+          a {
+            font-size: 1rem; // Adjust font size for links
+            color: $white;
+  
+            &:hover {
+              color: $black;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Dropdown menus
+  .uk-navbar-dropdown {
+    position: absolute;
+    background-color: $white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+  
+    @media (max-width: 767px) {
+      position: static; // Make dropdown appear inline for mobile
+      width: 100%;
+      padding: 0.5rem; // Reduce padding for smaller screens
+      background-color: $darkGray;
+  
+      .a-nav {
+        color: $white;
+  
+        &:hover {
+          color: $red;
+        }
+      }
+    }
+  }
+  
+  // Responsive adjustments
+  @media only screen and (max-width: 1180px) {
+    .mobile-menu {
+      display: block;
+  
+      .icons {
+        svg {
+          width: 4vw;
+        }
+  
+        .mobile-cart {
+          .cart-num {
+            width: 20px;
+            height: 20px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+  

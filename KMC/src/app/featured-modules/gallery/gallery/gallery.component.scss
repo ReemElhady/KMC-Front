@@ -1,0 +1,31 @@
+@import "../../../../assets/styles/base/variables.scss";
+@import "../../../../assets/styles/base/colors.scss";
+.articles-page {
+  padding: 50px;
+
+  .articles-heading {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: $white;
+    text-align: left; // Center align the heading
+  }
+
+  .articles {
+    .row {
+      margin-top: 20px;
+    }
+
+    .col-md-6 {
+      margin-bottom: 20px; // Ensure there is spacing between items
+    }
+  }
+}
+// Responsive adjustments for mobile devices
+@media only screen and (max-width: 767px) {
+  .articles-page {
+    
+    margin-top: 10vh;
+   
+  }
+}

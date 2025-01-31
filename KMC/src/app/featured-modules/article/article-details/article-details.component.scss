@@ -2,8 +2,8 @@
 @import "../../../../assets/styles/base/colors.scss";
 @import "../../../../assets/styles/base/typography.scss";
 .article-details {
-  padding: 30px;
-  background-color: #f9f9f9;
+  padding: 50px;
+  background-color: $black;
 
   .article-header {
     margin-bottom: 20px;
@@ -11,19 +11,19 @@
     .article-title {
       font-size: 2em;
       font-weight: bold;
-      color: #333;
+      color: $white;
       margin-bottom: 10px;
       text-align: center;
     }
 
     .article-meta {
       font-size: 1em;
-      color: #666;
+      color: #999;
 
       .article-writer,
       .article-department {
         font-weight: bold;
-        color: #333;
+        color: $white;
       }
 
       .article-date {
@@ -53,7 +53,7 @@
   .article-content {
     font-size: 1.1em;
     line-height: 1.6;
-    color: #333;
+    color: #999;
 
     .article-text {
       margin-bottom: 20px;

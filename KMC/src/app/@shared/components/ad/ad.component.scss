@@ -1,0 +1,90 @@
+@import "../../../../assets/styles/base/colors.scss";
+@import "../../../../assets/styles/base/typography.scss";
+@import "../../../../assets/styles/base/variables.scss";
+.ad-navbar {
+  background-color: $white;
+  color: $black;
+  text-align: center;
+  padding: 7px;
+  font-size: 18px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; // Ensure it's above the content but below modal overlays
+  
+  .ads-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    animation: slideAds 15s linear infinite;
+  }
+
+  span {
+    padding: 0 15px;
+
+    @media (max-width: 767px) {
+      padding: 2px;      
+    }
+  }
+}
+
+@keyframes slideAds {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+// .ad-navbar {
+//   background-color: $white; // Ad navbar background color
+//   color: $black;           // Text color
+//   text-align: center;
+//   padding: 7px;
+//   font-size: 16px;
+//   position: fixed;
+//   top: 0;                 // Fix it to the very top of the screen
+//   width: 100%;
+//   z-index: 1000;          // Higher than the main navbar but lower than modals if needed
+//   // font-weight: bold;
+
+//   .ads-container {
+//     display: flex;
+//     justify-content: space-between; // Space ads evenly across the container
+//     width: 100%;
+//     animation: slideAds 15s linear infinite; // Adjust the timing for smooth movement
+//   }
+
+//   span {
+//     display: inline-block;
+//     padding: 0 15px;  // Space between each ad
+//   }
+
+//   // Mobile-specific adjustments
+//   @media (max-width: 767px) {
+//     padding: 5px;             // Reduce padding on mobile
+//     font-size: 14px;          // Adjust font size for smaller screens
+//     top: 0;                   // Ensure it starts at the very top
+//     position: relative;       // Adjust position if needed to eliminate gaps
+    
+//     .ads-container {
+//       justify-content: center; // Center ads on mobile
+//       animation: none;         // Optional: Disable animation for readability on mobile
+//       flex-wrap: wrap;         // Wrap ads for better spacing
+//     }
+
+//     span {
+//       padding: 0 10px;         // Reduce spacing between ads
+//     }
+//   }
+// }
+
+// @keyframes slideAds {
+//   0% {
+//     transform: translateX(100%);  // Start position off-screen to the right
+//   }
+//   100% {
+//     transform: translateX(-100%); // End position off-screen to the left
+//   }
+// }

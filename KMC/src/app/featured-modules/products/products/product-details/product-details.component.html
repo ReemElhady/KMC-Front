@@ -119,7 +119,7 @@
             class="s-mb-2 d-flex align-items-center"
             *ngIf="productDetailsContent.sale_price && productDetailsContent.sale_price > 0"
           >
-            <h3 class="semi-bold black">
+            <h3 class="semi-bold">
               {{ productDetailsContent.sale_price }}
               {{ "Orders.LE" | translate }}
             </h3>
@@ -134,7 +134,7 @@
             class="s-mb-2 d-flex align-items-center"
             *ngIf="!productDetailsContent.sale_price || productDetailsContent.sale_price === 0"
           >
-            <h3 class="semi-bold black">
+            <h3 class="semi-bold">
               {{ productDetailsContent.price }} {{ "Orders.LE" | translate }}
             </h3>
           </div>
@@ -142,7 +142,7 @@
             <h5 class="gray medium">
               {{ "Shop.Description" | translate }}
             </h5>
-            <p class="regular black text-spacess w-75 my-2">
+            <p class="regular text-spacess w-75 my-2">
               {{ productDetailsContent.description }}
             </p>
           </div>
@@ -302,7 +302,7 @@
     </div>
 
     <div class="may-interested s-mt-2">
-      <h2 class="medium black s-mb-2">{{ "Shop.interested" | translate }}</h2>
+      <h2 class="medium s-mb-2">{{ "Shop.interested" | translate }}</h2>
       <swiper
       class="mySwiper cirtin-swiper"
       [loopFillGroupWithBlank]="true"

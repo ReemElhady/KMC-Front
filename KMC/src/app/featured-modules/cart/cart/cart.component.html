@@ -3,7 +3,7 @@
 </div>
 <section class="cart nav-margin nav-padding" *ngIf="!isLoading">
   <div class="container-fluid"  >
-    <h2 class="semi-bold black s-mb-2">
+    <h2 class="semi-bold s-mb-2">
       {{ "Cart.title" | translate }}
     </h2>
 
@@ -39,22 +39,22 @@
             <img [src]="imgUrl + item.product.main_image" alt="" class="img" />
           </div>
           <div class="col-xl-2 d-flex align-items-center">
-            <p class="regular product-name ms-3">
+            <p class="regular product-name ms-3 black">
               {{ item.product.title }}
-              <span *ngIf="item.product_item.species" class="regular d-block">
+              <span *ngIf="item.product_item.species" class="regular d-block black">
                 {{ item.product_item.product_item_title }} : {{ item.product_item.species }}
               </span>
             </p>
           </div>
           <div class="col-xl-2 text-center">
             <p
-              class="medium"
+              class="medium black"
               [ngClass]="{ 'item-price': item.product.sale_price }"
               *ngIf="!item.product.sale_price"
             >
               {{ item.product.price }} {{ "Cart.currency" | translate }}
             </p>
-            <p *ngIf="item.product.sale_price" class="medium">
+            <p *ngIf="item.product.sale_price" class="medium black">
               {{ item.product.sale_price }}
               {{ "Cart.currency" | translate }}
             </p>
@@ -66,7 +66,7 @@
               <button class="plus btn btn-outline-secondary" (click)="remoteCounter(1, item.id)">+</button>
             </div>
           </div>
-          <div class="col-xl-2 text-end">
+          <div class="col-xl-2 text-end black">
             <p class="medium" [ngClass]="{ 'item-price': item.product.sale_price }">
               {{ (item.product.sale_price || item.product.price) * item.quantity }} {{ "Cart.currency" | translate }}
             </p>
@@ -89,22 +89,22 @@
           </small>
           <div class="col-xl-5 d-flex align-items-center">
             <img  [src]="imgUrl + item.main_image" alt="" class="img" />
-            <p class="regular product-name ms-3">
+            <p class="regular product-name ms-3 black">
               {{ item.title }}
-              <span class="regular d-block" *ngIf="item.product_item"
+              <span class="regular d-block black" *ngIf="item.product_item"
                         >{{ item.product_item.product_item_title }} :
                         {{ item.product_item.species }}</span>
             </p>
           </div>
           <div class="col-xl-2 text-center">
             <p
-            class="medium"
+            class="medium black"
             [ngClass]="{ 'item-price': item.sale_price }"
             *ngIf="!item.sale_price"
           >
             {{ item.price }} {{ "Cart.currency" | translate }}
           </p>
-          <p class="medium" *ngIf="item.sale_price">
+          <p class="medium black" *ngIf="item.sale_price">
             {{ item.sale_price }} {{ "Cart.currency" | translate }}
           </p>
           </div>
@@ -117,14 +117,14 @@
           </div>
           <div class="col-xl-2 text-end">
             <p
-            class="medium"
+            class="medium black"
             [ngClass]="{ 'item-price': item.sale_price }"
             *ngIf="!item.sale_price"
           >
             {{ item.price * item.quantity }}
             {{ "Cart.currency" | translate }}
           </p>
-          <p class="medium" *ngIf="item.sale_price">
+          <p class="medium black" *ngIf="item.sale_price">
             {{ item.sale_price * item.quantity }}
             {{ "Cart.currency" | translate }}
           </p>
@@ -432,15 +432,16 @@
                 alt="Your Order"
                 class="img"
               />
-              <p class="regular">{{ item.title }}</p>
+              <p class="regular black">{{ item.title }}</p>
               <div class="align-items-center d-flex justify-content-start">
                 <p
+                  class="black"
                   *ngIf="!item.sale_price"
                   [ngClass]="{ 'item-price': item.sale_price }"
                 >
                   {{ item.price }} {{ "Cart.currency" | translate }}
                 </p>
-                <p *ngIf="item.sale_price">
+                <p *ngIf="item.sale_price" class="black">
                   {{ item.sale_price }} {{ "Cart.currency" | translate }}
                 </p>
               </div>
@@ -469,13 +470,14 @@
             <div class="d-flex justify-content-center align-items-center">
               <div class="align-items-center d-flex justify-content-start">
                 <p
+                  class="black"
                   *ngIf="!item.sale_price"
                   [ngClass]="{ 'item-price': item.sale_price }"
                 >
                   {{ item.price * item.quantity }}
                   {{ "Cart.currency" | translate }}
                 </p>
-                <p *ngIf="item.sale_price">
+                <p *ngIf="item.sale_price" class="black">
                   {{ item.sale_price * item.quantity }}
                   {{ "Cart.currency" | translate }}
                 </p>
@@ -585,16 +587,16 @@
                 alt=""
                 class="img"
               />
-              <p class="regular text-center product-name">{{ item.product.title }}</p>
+              <p class="regular text-center product-name black">{{ item.product.title }}</p>
               <div class="align-items-center d-flex justify-content-center">
                 <p
-                  class="medium"
+                  class="medium black"
                   [ngClass]="{ 'item-price': item.product.sale_price }"
                   *ngIf="!item.product.sale_price"
                 >
                   {{ item.product.price }} {{ "Cart.currency" | translate }}
                 </p>
-                <p class="medium" *ngIf="item.product.sale_price">
+                <p class="medium black" *ngIf="item.product.sale_price">
                   {{ item.product.sale_price }}
                   {{ "Cart.currency" | translate }}
                 </p>
@@ -618,14 +620,14 @@
             <div class="d-flex justify-content-center align-items-center">
   
                 <p
-                  class="medium"
+                  class="medium black"
                   [ngClass]="{ 'item-price': item.product.sale_price }"
                   *ngIf="!item.product.sale_price"
                 >
                   {{ item.product.price * item.quantity }}
                   {{ "Cart.currency" | translate }}
                 </p>
-                <p class="medium" *ngIf="item.product.sale_price">
+                <p class="medium black" *ngIf="item.product.sale_price">
                   {{ item.product.sale_price * item.quantity }}
                   {{ "Cart.currency" | translate }}
                 </p>
@@ -924,4 +926,3 @@
     </div>
   </div>
 </div>
-

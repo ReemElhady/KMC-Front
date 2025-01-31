@@ -48,6 +48,13 @@ const routes: Routes = [
             (m) => m.ArticleModule
           ),
       },
+      {
+        path: 'gallery',
+        loadChildren: () =>
+          import('./featured-modules/gallery/gallery.module').then(
+            (m) => m.GalleryModule
+          ),
+      },
 
       {
         path: 'cart',
@@ -114,7 +121,13 @@ const routes: Routes = [
             (m) => m.CoursesModule
           ),
       },
-
+      {
+        path: 'book-demo',
+        loadChildren: () =>
+          import('./featured-modules/book-demo/book-demo.module').then(
+            (m) => m.BookDemoModule
+          ),
+      },
       {
         path: 'search/:searched',
         component: SearchComponent,

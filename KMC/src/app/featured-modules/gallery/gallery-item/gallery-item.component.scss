@@ -1,0 +1,69 @@
+@import "../../../../assets/styles/base/colors.scss";
+@import "../../../../assets/styles/base/variables.scss";
+
+.article-item {
+  .article-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+    align-items: flex-start;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+
+    .img-container {
+      width: 100%; // Full width
+      min-height: 40vh !important; 
+      padding-top: 100%; // Make it a square
+      background-size: cover;
+      background-position: center;
+      position: relative;
+  }
+}
+}   
+
+//responsive
+// ipad
+@media screen and(min-width:768px) and (max-width:1024px) {
+  .article-item {
+    .article-container {
+      .img-container  {
+          padding: 1vw;
+        }
+      }
+    }
+  }
+
+
+
+  
+// Mobile
+@media screen and (max-width: 767px) {
+  .article-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+    .img-container {
+      width: 100%;
+      height: 200px; /* Adjust to make it near-square */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      object-fit: cover; /* Ensure the image scales to fit the container */
+      
+    }
+  }
+  .article-container{
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+}
+

@@ -88,7 +88,7 @@
         <div class="img">
           <img [src]="imgUrl + item.product_image" />
         </div>
-        <p class="black regular">
+        <p class="regular">
           {{
             cs.get("language") == "ar"
               ? item.product_title_ar
@@ -107,7 +107,7 @@
         </p>
       </div>
       <div class="large-screen-item">
-        <p class="black regular">
+        <p class="regular">
           <span
             class="meduim bac-gray gray d-block quantity"
             *ngIf="item.refund_item.refunded_quantity != null"
@@ -118,7 +118,7 @@
         </p>
       </div>
       <div>
-        <p class="black regular price">
+        <p class="regular price">
           {{ item.total_price }} {{ "Orders.LE" | translate }}
         </p>
         <div class="mob-screen-item">
@@ -137,7 +137,7 @@
         <div class="d-flex">
           <button
             type="button"
-            class="primary-btn meduim white"
+            class="primary-btn meduim"
             *ngIf="!order.can_be_paid"
             (click)="reorder(order.id)"
           >
@@ -145,7 +145,7 @@
           </button>
           <button
             type="button"
-            class="primary-btn meduim white"
+            class="primary-btn meduim"
             *ngIf="order.can_be_paid"
             (click)="payNow(order.id)"
           >
@@ -160,7 +160,7 @@
         <div class="d-flex justify-content-end">
           <button
             type="button"
-            class="primary-btn meduim white"
+            class="primary-btn meduim"
             [routerLink]="['/account', 'orders', 'refund', order.id]"
           >
             {{ "Orders.Return" | translate }}

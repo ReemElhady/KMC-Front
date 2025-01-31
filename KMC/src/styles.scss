@@ -6,3 +6,7 @@
 /* Importing Datepicker SCSS file. */
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 // @import url("https://connect.facebook.net/en_US/sdk/xfbml.customerchat.css");
+body {
+    background-color: black;
+    color: white; /* Optional: Set text color to white for contrast */
+  }

@@ -2,7 +2,7 @@
 @import "../../../../assets//styles/base/variables.scss";
 
 .course-list-section {
-  padding: 30px;
+  padding: 50px;
 }
 
 // Header Styling
@@ -129,6 +129,15 @@
 
   @media only screen and (max-width: 767px) {
     margin: 4vw 0 !important;
+  }
+}
+
+// Responsive adjustments for mobile devices
+@media only screen and (max-width: 767px) {
+  .course-list-section {
+    
+    margin-top: 10vh;
+   
   }
 }
 

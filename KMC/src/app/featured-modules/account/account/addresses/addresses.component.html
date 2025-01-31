@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="s-mt-1 align-items-center justify-content-center">
-    <h4 *ngIf="AddressesContent.length == 0" class="black addressesmargin">
+    <h4 *ngIf="AddressesContent.length == 0" class="addressesmargin">
       {{ "Addresses.N_Address" | translate }}
     </h4>
 
@@ -38,7 +38,7 @@
           {{ "Addresses.Default" | translate }}
         </button>
         <div class="d-flex justify-content-between align-items-center">
-          <p class="black medium s-mt-1">{{ addresses.name }}</p>
+          <p class="medium s-mt-1">{{ addresses.name }}</p>
           <div class="imgParent">
             <!-- <img src="../../../../../assets/imgs/delete.svg" class="cursor" (click)="open(contentDelete,addresses.id )">
              -->
@@ -84,7 +84,7 @@
   id="content"
 >
   <div class="d-flex justify-content-between align-items-center">
-    <h4 class="black" id="modal-basic-title">
+    <h4 id="modal-basic-title">
       {{ "Addresses.Add new address" | translate }}
     </h4>
     <button
@@ -495,7 +495,7 @@
 <!-- modAL delete-->
 <ng-template #contentDelete let-c="close" let-d="dismiss">
   <div class="d-flex justify-content-between align-items-center">
-    <h4 class="black" id="modal-basic-title">
+    <h4 id="modal-basic-title">
       {{ "Addresses.Delete" | translate }}
     </h4>
     <button
@@ -506,7 +506,7 @@
     ></button>
   </div>
   <div class="modal-body">
-    <h5 class="black" id="modal-basic-title">
+    <h5 id="modal-basic-title">
       {{ "Addresses.Are You Sure" | translate }}
     </h5>
     <div class="d-flex justify-content-end align-items-center">

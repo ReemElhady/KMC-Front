@@ -120,6 +120,9 @@
 
 @media only screen and (max-width : 767px) {
   .devices-body {
+    .nav-margin{
+      margin-top: 20vh !important;
+    }
     .fliters-container {
       .filters {
         .uk-accordion-title {
@@ -130,15 +133,6 @@
           width: 19px;
         }
       }
-    }
-
-    .branches {
-
-
-     
-
-
-
     }
   }
 }

@@ -14,6 +14,7 @@ import { SalesComponent } from './products/sales/sales.component';
 import {  SafePipeModule } from 'safe-pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxImageZoomComponent } from 'ngx-image-zoom';
+import { BrandProductsComponent } from './products/brand-products/brand-products.component';
 // import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 
@@ -23,6 +24,7 @@ import { NgxImageZoomComponent } from 'ngx-image-zoom';
     DevicesComponent,
     ShopComponent,
     SalesComponent,
+    BrandProductsComponent,
 
   ],
   imports: [

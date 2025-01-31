@@ -1,4 +1,4 @@
-<div class="product-item">
+<div class="product-item  product-card">
   <div class="product-descraption">
     <div>
       <a [routerLink]="['/products/details', product.type, product.id]">
@@ -16,7 +16,7 @@
     <!-- title -->
     <p
     *ngIf="product.title.length < 20"
-    class="text-center medium text-spacing textOne"
+    class="text-center medium text-spacing textOne short-title"
   >
     {{ product.title }}
   </p>
@@ -32,7 +32,7 @@
   </div>
   <!-- Price display -->
   <div class="product-item">
-    <h1 class="medium semi-bold">{{ product.name }}</h1>
+    <!-- <h1 class="medium semi-bold">{{ product.name }}</h1> -->
     <div class="pricing">
       <p class="product-price text-center ">
         <span *ngIf="product.sale_percentage || product.sale_price">
@@ -160,7 +160,7 @@
             <p class="gray medium s-mt-1">
               {{ "Products.description" | translate }}:
             </p>
-            <h5 class="black regular s-mt-1">
+            <h5 class=" regular s-mt-1">
               {{ product.description }}
             </h5>
             <div

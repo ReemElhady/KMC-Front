@@ -17,7 +17,11 @@ import { StoreTypeActions } from 'src/app/store/types/type-action ';
 import { GetWishlistAction } from 'src/app/store/wishlist/wishlist-action';
 import { CartService } from '../../cart.service';
 import { HttpService, imgUrl } from '../../http/http.service';
+// import { AdService } from '../../services/ad.service'; // Import the Ad Service
+import { Home } from 'src/app/models/home.model';
+
 declare let UIkit: any;
+type MobileDropdownKeys = 'shop' | 'categories' | 'brands' | 'branches';
 
 @Component({
   selector: 'app-header',
@@ -25,6 +29,7 @@ declare let UIkit: any;
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  cartDropdownOpen = false; // A boolean to track the cart dropdown state
   mainLang!: string;
   langs!: string;
   types: any;
@@ -42,11 +47,21 @@ export class HeaderComponent implements OnInit {
   isInHome: boolean = false;
   isCollaspse: boolean = false;
   isScroll!: boolean;
+  brands: any[] = []; 
+  branches: any[] = [];
+  // hereeeeeeeee
+  // ads: string[] = [];
+  // currentAdIndex: number = 0;
+  // adInterval: any;
 
+  
   constructor(
     private CoService: CookieService,
     private ts: TranslateService,
     public http: HttpService,
+    
+    // private adService: AdService,  //hereeeeeee
+
     private store: Store<{
       types: AppType;
       cart: CartItem[];
@@ -54,6 +69,7 @@ export class HeaderComponent implements OnInit {
       tokens: TokensModel;
       wishlist: WishList;
       accountAddresses: AccountAddresses[];
+      home: Home 
     }>,
     private router: Router,
     private cartService: CartService,
@@ -163,37 +179,110 @@ export class HeaderComponent implements OnInit {
     this.http.userName.subscribe((res) => {
       this.userName = res ? res : localStorage.getItem('userName');
     });
+
+    // Fetch ads from the service
+    // this.adService.getAds().subscribe((ads) => {
+    //   this.ads = ads;
+    //   this.startAdRotation();
+    // });
+
+    this.loadBrands();
+    this.loadBranches();
+  
   }
 
+  // Fetch brands data
+  loadBrands(): void {
+    this.store.select('home').subscribe((home) => {
+      if (home?.Brands) {
+        this.brands = home.Brands;
+      } else {
+        this.http.getReq('api/home/').subscribe((res: Home) => {
+          this.brands = res.Brands || [];
+        });
+      }
+    });
+  }
+  // Navigate to the products page filtered by brand
+  navigateToBrandProducts(brandId: number): void {
+    this.router.navigate(['/products/brand', brandId]);
+  }
+  // Fetch branches
+  loadBranches(): void {
+    this.store.select('home').subscribe((home) => {
+      if (home) {
+        console.log('Home Data:', home); // Debugging: Check the home data
+      }
+      if (home?.Branches) {
+        this.branches = home.Branches;
+      } else {
+        this.http.getReq('api/home/').subscribe((res: Home) => {
+          console.log('API Response:', res); // Debugging: Check the API response
+          this.branches = res.Branches || [];
+        });
+      }
+    });
+  }
+  
+
+  // Navigate to products by branch
+  navigateToBranchProducts(branchId: number): void {
+    this.router.navigate(['/products/branch', branchId]);
+  }
+  // startAdRotation(): void {
+  //   if (this.ads.length > 0) {
+  //     this.adInterval = setInterval(() => {
+  //       this.currentAdIndex = (this.currentAdIndex + 1) % this.ads.length;
+  //     }, 3000); // Change ad every 3 seconds
+  //   }
+  // }
+
+  // ngOnDestroy(): void {
+  //   // Cleanup the interval when the component is destroyed
+  //   if (this.adInterval) {
+  //     clearInterval(this.adInterval);
+  //   }
+  // }
+
   checkRouterUrl() {
-    console.log(this.router.url);
+    // console.log(this.router.url);
     this.router.events.subscribe((val: any) => {
       if (val instanceof NavigationEnd) {
         if (val.url != '/') {
           this.isInHome = false;
-          console.log('is in other [page ');
+          // console.log('is in other [page ');
         } else {
           this.isInHome = true;
           this.onWindowScroll();
-          console.log('is in home ');
+          // console.log('is in home ');
         }
       }
     });
   }
-  @HostListener('window:scroll', []) onWindowScroll() {
-    // do some stuff here when the window is scrolled
+  // @HostListener('window:scroll', []) onWindowScroll() {
+  //   // do some stuff here when the window is scrolled
+  //   const verticalOffset =
+  //     window.pageYOffset ||
+  //     document.documentElement.scrollTop ||
+  //     document.body.scrollTop ||
+  //     0;
+  //   if (window.pageYOffset > 0) {
+  //     this.isScroll = true;
+  //   } else {
+  //     this.isScroll = false;
+  //   }
+  // }
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
     const verticalOffset =
       window.pageYOffset ||
       document.documentElement.scrollTop ||
       document.body.scrollTop ||
       0;
-    if (window.pageYOffset > 0) {
-      this.isScroll = true;
-    } else {
-      this.isScroll = false;
-    }
+  
+    this.isScroll = verticalOffset > 0;
   }
-
+  
   setLang() {
     this.langs = this.CoService.get('language') || 'en';
     if (this.langs === 'en') {
@@ -313,4 +402,33 @@ export class HeaderComponent implements OnInit {
       // Clear search results or perform any necessary actions
     }
   }
+
+ // Define the mobileDropdown object with strict typing
+mobileDropdown: { [key in MobileDropdownKeys]: boolean } = {
+  shop: false,
+  categories: false,
+  brands: false,
+  branches: false,
+};
+
+toggleMobileDropdown(section: MobileDropdownKeys): void {
+  // If the section is already open, close it
+  if (this.mobileDropdown[section]) {
+    this.mobileDropdown[section] = false;
+    return;
+  }
+
+  // Close all other dropdowns except the parent ones
+  if (section !== 'shop') {
+    this.mobileDropdown.categories = false;
+    this.mobileDropdown.brands = false;
+    this.mobileDropdown.branches = false;
+  }
+
+  // Toggle the current dropdown
+  this.mobileDropdown[section] = true;
+}
+
+
+  
 }

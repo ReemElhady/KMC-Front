@@ -2,31 +2,15 @@
   class="kmc-navbar"
   [ngClass]="{
     'kmc-nav-home-slider': isInHome && !isScroll,
-    'kmc-nav-home-scroll': !isInHome || isScroll
+    'kmc-nav-home-scroll': !isInHome || isScroll,
+    'scrolled': isScroll
   }"
 >
-  <div class="container-fluid">
+  <div class="container-fluid-secondary">
     <nav uk-navbar>
+
       <div class="uk-navbar-left">
         <ul class="uk-navbar-nav">
-          <li class="logo">
-            <a [routerLink]="['']">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="112"
-                height="69"
-                viewBox="0 0 112 69"
-              >
-                <path
-                  id="Path_1"
-                  data-name="Path 1"
-                  d="M19.782,24.587h9.549V33l8.319-8.417H47.765L37.65,34.991,47.765,55.7H37.554L29.331,37.166V55.7H19.782Zm49.63,16.456-5.1,5.3-4.822-5.3V55.7H50.128V24.587h9.358v5.675l4.822,5.674,5.1-5.674V24.587H79.528V42.131L103.255,8.18l-3.072-.425L109.873,0,106.9,11.632l-1.8-2.27L94.322,24.587h8.366l9.265,11.873H102.31l-2.458-2.888H95.315L90.777,40.1l4.632,6.62h4.537l2.459-3.044H112L102.688,55.7H91.912L82.6,42.415l-3.073,4.208V55.7s-4.68-.048-8.035,0c-4,4.539-16.389,16.1-41.406,12.672C7.609,65.3.828,50.437.072,43.975-1.1,28.339,12.1,17.391,30.843,14.28c19.311-2.854,30.238,5.674,33.465,9.551a35.6,35.6,0,0,0-20.514-8.038c-7.745-.484-18.879.447-28.265,8.794-7.3,6.491-9.7,15.134-7,23.171C13.946,63.839,31.93,66.53,36.326,67.05A38.891,38.891,0,0,0,69.413,54.283Z"
-                  transform="translate(0 0.001)"
-                  fill="#e4021b"
-                />
-              </svg>
-            </a>
-          </li>
           <li>
             <a
               routerLinkActive="active"
@@ -40,7 +24,8 @@
               routerLinkActive="active"
               [routerLink]="['products', 'shop']"
               class="a-nav"
-              >{{ "Header.shop" | translate }}
+            >
+              {{ "Header.shop" | translate }}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="7.077"
@@ -58,16 +43,49 @@
             </a>
             <div class="uk-navbar-dropdown">
               <ul class="uk-nav uk-navbar-dropdown-nav">
-                <li *ngFor="let type of types">
-                  <a
-                    class="a-nav"
-                    routerLinkActive="active"
-                    routerLink="products/{{ type.id }}"
-                    >{{ type.name }}</a
-                  >
+                <li class="uk-parent">
+                  <a class="a-nav type-colors" href="#">Categories</a>
+                  <ul class="uk-nav-sub">
+                    <li *ngFor="let type of types">
+                      <a
+                        class="a-nav type-colors"
+                        routerLinkActive="active"
+                        routerLink="products/{{ type.id }}"
+                        >{{ type.name }}</a
+                      >
+                    </li>
+                  </ul>
                 </li>
-                <!-- <li><a class="a-nav" routerLinkActive="active" [routerLink]="['materials']">Materials</a></li>
-                  <li><a class="a-nav" routerLinkActive="active" [routerLink]="['tools']">Tools</a></li> -->
+                <li class="uk-parent">
+                  <a class="a-nav type-colors" href="#">Brands</a>
+                  <ul class="uk-nav-sub scrollable-list">
+                    <li *ngFor="let brand of brands">
+                      <a
+                        class="a-nav type-colors"
+                        routerLinkActive="active"
+                        (click)="navigateToBrandProducts(brand.id)"
+                        >{{ brand.name }}</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <!-- Branches Dropdown -->
+                <li class="uk-parent">
+                  <a class="a-nav type-colors" href="#">Branches</a>
+                  <ul
+                    class="uk-nav-sub scrollable-list"
+                  >
+                    <li *ngFor="let branch of branches">
+                      <a
+                        class="a-nav type-colors"
+                        routerLinkActive="active"
+                        (click)="navigateToBranchProducts(branch.id)"
+                      >
+                        {{ branch.name }}
+                      </a>
+                    </li>
+                  </ul>
+                </li>
               </ul>
             </div>
           </li>
@@ -83,9 +101,9 @@
             <a
               class="a-nav"
               routerLinkActive="active"
-              [routerLink]="['articles']"
-              >{{ "Header.Articles" | translate }}</a
-            >
+              [routerLink]="['gallery']"
+              >Gallery
+            </a>
           </li>
           <li>
             <a
@@ -107,6 +125,30 @@
           </li>
         </ul>
       </div>
+
+       <div class="uk-navbar-center">
+        <ul class="uk-navbar-nav">
+          <li class="logo">
+            <a [routerLink]="['']">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="112"
+                height="69"
+                viewBox="0 0 112 69"
+              >
+                <path
+                  id="Path_1"
+                  data-name="Path 1"
+                  d="M19.782,24.587h9.549V33l8.319-8.417H47.765L37.65,34.991,47.765,55.7H37.554L29.331,37.166V55.7H19.782Zm49.63,16.456-5.1,5.3-4.822-5.3V55.7H50.128V24.587h9.358v5.675l4.822,5.674,5.1-5.674V24.587H79.528V42.131L103.255,8.18l-3.072-.425L109.873,0,106.9,11.632l-1.8-2.27L94.322,24.587h8.366l9.265,11.873H102.31l-2.458-2.888H95.315L90.777,40.1l4.632,6.62h4.537l2.459-3.044H112L102.688,55.7H91.912L82.6,42.415l-3.073,4.208V55.7s-4.68-.048-8.035,0c-4,4.539-16.389,16.1-41.406,12.672C7.609,65.3.828,50.437.072,43.975-1.1,28.339,12.1,17.391,30.843,14.28c19.311-2.854,30.238,5.674,33.465,9.551a35.6,35.6,0,0,0-20.514-8.038c-7.745-.484-18.879.447-28.265,8.794-7.3,6.491-9.7,15.134-7,23.171C13.946,63.839,31.93,66.53,36.326,67.05A38.891,38.891,0,0,0,69.413,54.283Z"
+                  transform="translate(0 0.001)"
+                  fill="#e4021b"
+                />
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
       <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
           <li class="search-transation">
@@ -173,26 +215,6 @@
               </a> -->
             </a>
           </li>
-          <!-- <li>
-              <a href="#">Parent</a>
-              <div class="uk-navbar-dropdown">
-                <ul class="uk-nav uk-navbar-dropdown-nav">
-                  <li class="uk-active"><a href="#">Active</a></li>
-                  <li><a href="#">Item</a></li>
-                  <li><a href="#">Item</a></li>
-                </ul>
-              </div>
-            </li> -->
-          <!-- <li>
-              <a class="wishlist-container">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
-                  viewBox="0 0 16 16">
-                  <path
-                    d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                </svg>
-                <a class="a-nav" routerLinkActive="active" [routerLink]="['account']">Account </a>
-              </a>
-            </li> -->
 
           <li *ngIf="http.isAuthenticated">
             <a
@@ -221,7 +243,7 @@
               <ul class="uk-nav uk-navbar-dropdown-nav">
                 <li>
                   <a
-                    class="a-nav"
+                    class="a-nav type-colors"
                     routerLinkActive="active"
                     [routerLink]="['account', 'orders']"
                   >
@@ -230,7 +252,7 @@
                 </li>
                 <li>
                   <a
-                    class="a-nav"
+                    class="a-nav type-colors"
                     routerLinkActive="active"
                     [routerLink]="['account', 'login-and-security']"
                   >
@@ -239,7 +261,7 @@
                 </li>
                 <li>
                   <a
-                    class="a-nav"
+                    class="a-nav type-colors"
                     routerLinkActive="active"
                     [routerLink]="['account', 'addresses']"
                   >
@@ -256,7 +278,7 @@
                   </a>
                 </li> -->
                 <li>
-                  <a class="a-nav" (click)="logout()">
+                  <a class="a-nav type-colors" (click)="logout()">
                     {{ "Header.Logout" | translate }}
                   </a>
                 </li>
@@ -318,7 +340,7 @@
                 </div> -->
               </a>
             </a>
-
+            <div class="cart-container">
             <div
               class="nav-dropdown"
               uk-dropdown="pos:bottom, boundary: .right-nav"
@@ -435,7 +457,7 @@
                 </button>
               </div>
             </div>
-
+          </div>
             <!-- <a class="wishlist-container items-number-wrapper" [routerLink]="['cart']">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart2"
                 viewBox="0 0 16 16">
@@ -447,28 +469,6 @@
 
             </a> -->
           </li>
-
-          <!-- <li>
-            <a class="medium black a-nav" (click)="changeLanguage()">
-              {{ mainLang }}</a
-            >
-          </li> -->
-          <!-- <li>
-            <a [routerLink]="['search']" routerLinkActive="active">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-search"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                />
-              </svg>
-            </a>
-          </li> -->
         </ul>
       </div>
     </nav>
@@ -496,6 +496,7 @@
         </svg>
       </a>
     </div>
+    
     <div class="d-flex align-items-center">
       <div class="icons">
         <!-- mobile search -->
@@ -558,11 +559,11 @@
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="20"
+            height="20"
             fill="currentColor"
             class="bi bi-cart2"
-            viewBox="0 0 16 16"
+            viewBox="0 0 20 20"
           >
             <path
               d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"
@@ -631,7 +632,7 @@
             {{ "Header.Sales" | translate }}
           </a>
         </li>
-        <li>
+        <!-- <li>
           <a
             class="white regular"
             (click)="closeOffCanvasMobile()"
@@ -639,7 +640,79 @@
           >
             {{ "Header.shop" | translate }}
           </a>
+        </li> -->
+        <li class="white regular">
+          <a class="white regular" (click)="toggleMobileDropdown('shop')">
+            {{ "Header.shop" | translate }}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="7.077"
+              height="4.047"
+              viewBox="0 0 7.077 4.047"
+            >
+              <path
+                id="Icon_ionic-ios-arrow-forward"
+                data-name="Icon ionic-ios-arrow-forward"
+                d="M14.073,9.736,11.4,12.412a.5.5,0,0,0,0,.714.51.51,0,0,0,.716,0l3.034-3.032a.5.5,0,0,0,.015-.7L12.114,6.344a.506.506,0,0,0-.716.714Z"
+                transform="translate(13.274 -11.246) rotate(90)"
+                fill="#777"
+              />
+            </svg>
+          </a>
+          <ul class="mobile-dropdown" *ngIf="mobileDropdown.shop">
+            <!-- Categories -->
+            <li class="mobile-parent">
+              <a class="white regular" (click)="toggleMobileDropdown('categories')">
+                Categories
+              </a>
+              <ul class="nested-dropdown" *ngIf="mobileDropdown.categories">
+                <li *ngFor="let type of types">
+                  <a
+                    class="white regular"
+                    routerLinkActive="active"
+                    [routerLink]="'products/' + type.id"
+                    (click)="closeOffCanvasMobile()"
+                    >{{ type.name }}</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <!-- Brands -->
+            <li class="mobile-parent">
+              <a class="white regular" (click)="toggleMobileDropdown('brands')">
+                Brands
+              </a>
+              <ul class="nested-dropdown" *ngIf="mobileDropdown.brands">
+                <li *ngFor="let brand of brands">
+                  <a
+                    class="white regular"
+                    routerLinkActive="active"
+                    (click)="navigateToBrandProducts(brand.id); closeOffCanvasMobile()"
+                    >{{ brand.name }}</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <!-- Branches -->
+            <li class="mobile-parent">
+              <a class="white regular" (click)="toggleMobileDropdown('branches')">
+              Branches
+              </a>
+              <ul class="nested-dropdown" *ngIf="mobileDropdown.branches">
+                <li *ngFor="let branch of branches">
+                  <a
+                    class="white regular"
+                    routerLinkActive="active"
+                    (click)="navigateToBranchProducts(branch.id); closeOffCanvasMobile()"
+                  >
+                    {{ branch.name }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </li>
+        
         <li>
           <a
             class="white regular"
@@ -647,6 +720,14 @@
             [routerLink]="['courses']"
           >
             {{ "Header.Courses" | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="white regular"
+            (click)="closeOffCanvasMobile()"
+            [routerLink]="['gallery']"
+            >Gallery
           </a>
         </li>
         <li>

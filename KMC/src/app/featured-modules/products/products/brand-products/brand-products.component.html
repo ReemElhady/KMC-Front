@@ -1,0 +1,40 @@
+<div *ngIf="isLoading">
+    <app-loading-screen></app-loading-screen>
+  </div>
+  
+  <section class="nav-margin" *ngIf="!isLoading">
+    <!-- <div
+      class="section-header"
+      [ngStyle]="{
+        'background-image': 'url(' + header.category_details_image + ')'
+      }"
+    >
+      <div class="layout"></div>
+      <h2>{{ header.name }}</h2>
+    </div> -->
+  </section>
+  <div class="devices-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-12 s-mt-1 text-center" *ngIf="isLoading">
+          <app-forms-loading-spinner></app-forms-loading-spinner>
+        </div>
+        <div
+          class="col-xl-12 s-mt-1"
+          *ngIf="!isLoading"
+        >
+          <div class="row">
+            <div
+              class="col-lg-4 col-6" 
+              *ngFor="let product of products | keyvalue"
+            >
+              <app-product-item [product]="product.value"></app-product-item>
+            </div>
+        </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+  

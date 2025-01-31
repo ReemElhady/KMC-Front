@@ -12,7 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { SwiperModule } from 'swiper/angular';
 import { SearchComponent } from 'src/app/@shared/search/search.component';
-import { FooterComponent, HeaderComponent } from 'src/app/@shared/components';
+import { FooterComponent, HeaderComponent, AdComponent } from 'src/app/@shared/components';
 import { NotFoundComponent } from 'src/app/@shared/not-found/not-found.component';
 import { LayoutComponent } from 'src/app/@shared/components/layout/layout/layout.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -27,6 +27,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     FooterComponent,
     SearchComponent,
     HeaderComponent,
+    AdComponent,
     LayoutComponent,
     NotFoundComponent
   ],
@@ -56,6 +57,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
   exports: [
     FooterComponent,
     HeaderComponent,
+    AdComponent,
     NotFoundComponent,
 
 

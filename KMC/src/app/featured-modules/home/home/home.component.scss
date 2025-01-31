@@ -76,11 +76,11 @@
   position: relative;
   .img-container-header {
     // min-height: 65vh;
-
+    padding-top: 50px;
     .slider-container {
       .header-container {
         width: 100vw;
-        height: 100vh;
+        height: 65vh;
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -93,10 +93,6 @@
         @media only screen and (max-width: 1200px) {
           height: 30rem;
         }
-      }
-
-      .slider-row {
-        // min-height: 100vh;
       }
 
       h1 {
@@ -243,26 +239,30 @@
 }
 
 .section-title {
-  h3,
-  h5 {
-    text-align: center !important;
-  }
+  // h3,
+  // h5 {
+  //   text-align: center !important;
+  // }
 .clickable-title {
   cursor: pointer;
-  color: #e4021b;
+  color: #fff;
+  text-align: bold;
   transition: color 0.3s ease;
+  &:hover {
+    color: $red; /* Red color on hover */
+  }
 }
 
 .clickable-title:hover, 
 .clickable-title:active, 
 .clickable-title:focus {
-  color: black;
+  color: $red;
 }
 
   h3 {
     font-size: 35px;
     // color: #050605;
-    color: $red;
+    color: $white;
     letter-spacing: 4px;
     font-family: $KMC-p-regular;
   }
@@ -736,71 +736,363 @@ a:hover {
       background: $red;
     }
   }
-
-//   .product-container,
-//   .aticles-background {
-//     .section-title {
-//       h3,
-//       h5 {
-//         text-align: center !important;
-//       }
-
-//       h3 {
-//         // font-family: "Montserrat" !important;
-//         // font-size: 35px !important;
-//         // text-align: center !important;
-//         // color: $red !important;
-      
-//       }
-//       .section-title h3:hover {
-//         // color: $red !important;
-//       }
-      
-// }
-
-//   }
+  .clickable-title {
+    font-size: 20px; /* Adjust font size for smaller screens */
+    &:hover,
+    &:focus,
+    &:active {
+      color: #e4021b; /* Ensure hover color applies on touch interactions */
+    }
+  }
 }
+
 .description-container {
-  // padding: 2vw 0;
-  // margin-right: 30px; /* Increases space between the description and the image */
   .decsription {
-    // white-space: break-spaces;
-    line-height: 1.6; /* Adds spacing between lines */
-    margin-bottom: 15px; /* Adds space between h5 and h6 */
+    line-height: 1.6;
+    margin-bottom: 15px; 
     font-size: large !important;
   }
 }
-// .description-container {
-//   .decsription {
-//     line-height: 1.6; /* Adds spacing between lines */
-//     margin-bottom: 15px; /* Adds space between h5 and h6 */
-//     font-size: large !important;
-//   }
-// }
 
-// .about-us-container {
-//   .img-container {
-//     min-height: 50vh;
-//     width: 80%;
-//     position: relative;
+//flash sale
+.flash-sale {
+  background-color: #000; /* Black background */
+  padding: 40px 0px;
+  border-radius: 10px;
+  margin: 0 auto;
+  text-align: center;
+  color: #fff; /* White text */
 
-//     img {
-//       position: absolute;
-//       left: 10rem;
-//       top: 2.5rem;
-//       height: 30vh;
+  .flash-sale-header {
+    h2 {
+      font-size: 36px; /* Bigger font size */
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #fff;
+      width: 60%;
+      margin: 10px auto;
+    }
+   
+  }
+
+  .flash-sale-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    margin: 30px 0px;
+
+    .time-unit {
+      text-align: center;
+
+      .time {
+        font-size: 36px; /* Large numbers */
+        font-weight: bold;
+        color: #fff; /* Red color */
+        display: block;
+      }
+
+      .label {
+        font-size: 16px;
+        margin-top: 5px;
+        color: #fff;
+      }
+    }
+
+    .separator {
+      font-size: 36px;
+      color: $red;
+      margin: 0 10px;
+    }
+  }
+
+  .flash-sale-btn {
+    margin-top: 20px; /* Adds some spacing from the above elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      width: auto; /* Ensures the button doesn't take full width */
+      padding: 10px 20px; /* Adds padding for a nice button size */
+      font-size: 16px; /* Adjust font size for better readability */
+      background-color: $red; /* Example color */
+      color: #fff; /* Text color */
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken($red, 10%); /* Darken the color on hover */
+      }
+    }
+  }
+
+  .img-container-header {
+    margin: 0px auto; /* Spacing around the image */
+    text-align: center;
+  }
+  .header-container {
+    margin: 0 auto; /* Remove any left margin */
+    max-width: 100%; /* Ensure the image does not overflow */
+    background-size: cover; /* Ensure the image covers the container */
+    background-position: center;
+    height: 200px; /* Set a fixed height for the image */
+  }
+}
+//Low In Stock
+.low-in-stock-section {
+  background-color: #000;
+  padding: 10px;
+  color: #fff;
+
+
+  .low-stock-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Equalize left and right div widths */
+    gap: 20px; /* Spacing between left and right divs */
+    height: auto; /* Adapt height to content */
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .left-div,
+  .right-div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the top */
+    overflow: hidden;
+  }
+
+  .left-div {
+    width: 90%; /* Adjust width for alignment */
+    margin: 0 auto;
+  }
+
+  .right-div {
+    display: grid;
+    grid-template-rows: auto auto; /* Automatically size rows based on content */
+    gap: 10px;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .product-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .product-link {
+    display: block;
+    width: 100%;
+  }
+
+  .product-image {
+    width: 100%;
+    height: auto; /* Preserve original image height */
+    object-fit: cover;
+    border: #fff solid 5px;
+    display: block;
+  }
+
+  .primary-btn {
+    margin-top: 10px;
+    width: auto; /* Ensure button size is not full width */
+    padding: 10px 20px; /* Add padding for a proportional size */
+    font-size: 16px; /* Adjust font size for readability */
+    background-color: $red; /* Example background color */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($red, 10%); /* Slightly darken on hover */
+    }
+
+    &:disabled {
+      background-color: #666; /* Grey out disabled buttons */
+      cursor: not-allowed; /* Change cursor to not-allowed */
+    }
+  }
+}
+
+//Browse By Brands
+// .browse-by-brands {
+//   padding: 20px;
+//   background-color: #000;
+//   color: #fff;}
+
+// .browse-header-section {
+//   margin-bottom: 20px;
+//   text-align: left;
+
+//   .title-wrapper {
+//     display: inline-flex;
+//     align-items: left;
+//     justify-content: left;
+//     margin: 20px;
+
+//     .white-block {
+//       display: inline-block;
+//       width: 20px; /* Adjust width as needed */
+//       height: 35px; /* Adjust height as needed */
+//       background-color: white;
+//       margin-right: 10px; /* Spacing between block and title */
+//     }
+
+//     h3 {
+//       font-size: 24px;
+//       font-weight: bold;
+//       color: white;
+//       margin: 0;
 //     }
 //   }
-// }
 
-// .clickable-title {
-//   cursor: pointer;
-//   color: #e4021b; /* Initial color */
-//   transition: color 0.3s ease; /* Smooth transition */
+//   .subtitle {
+//     font-size: 14px;
+//     color: $red; /* Slightly lighter than white for contrast */
+//     margin-top: 20vh;
+    
+//   }
 // }
+.browse-header-section {
+  margin-bottom: 20px;
+  text-align: left;
+  padding-top: 30px;
 
-// .clickable-title:hover,
-// .clickable-title:focus,
-// .clickable-title:active {
-//   color: black; /* Change color on hover, focus, or active state */
-// }
+  .title-combined {
+    display: flex;
+    align-items: flex-start; /* Align the items at the top */
+    gap: 10px; /* Space between the white block and titles */
+
+    .titles-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .subtitle {
+        font-size: 14px;
+        color: #e4021b; /* Red color for contrast */
+        margin: 0;
+      }
+
+      h3 {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        margin: 0;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+
+//Most wanted
+.most-wanted-btn {
+  .primary-btn {
+    margin-top: 10px;
+    width: auto; /* Ensure button size is not full width */
+    padding: 10px 20px; /* Add padding for a proportional size */
+    font-size: 16px; /* Adjust font size for readability */
+    background-color: $red; /* Example background color */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($red, 10%); /* Slightly darken on hover */
+    }
+
+    &:disabled {
+      background-color: #666; /* Grey out disabled buttons */
+      cursor: not-allowed; /* Change cursor to not-allowed */
+    }
+  }
+}
+//Brands
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Exactly 5 columns */
+  gap: 20px; /* Spacing between items */
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(5, 1fr); /* Enforce 5 columns in mobile view */
+    gap: 10px; /* Smaller gap for mobile view */  }
+    @media screen and (max-width: 576px) { /* For extra-small screens */
+      grid-template-columns: repeat(5, 1fr); /* Still enforce 5 columns */
+      gap: 8px; /* Slightly tighter spacing */
+    }
+}
+.brand-item {
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  .brand-image {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+}
+
+//the line between divs
+hr {
+  border-top: 2px solid #fff;
+  color: $white;
+  width: 90%;
+  margin: 10px auto;
+  background-color: $white !important;
+}
+
+//Book a Demo
+.demoContainer{
+  .header-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align children to the bottom */
+    height: 100%; /* Ensure the container has a height */
+  }
+  
+  .demo {
+    position: absolute;
+    bottom: 20px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  .primary-btn {
+    margin-top: 10px;
+    width: auto; /* Ensure button size is not full width */
+    padding: 10px 20px; /* Add padding for a proportional size */
+    font-size: 16px; /* Adjust font size for readability */
+    background-color: $red; /* Example background color */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($red, 10%); /* Slightly darken on hover */
+    }
+
+    &:disabled {
+      background-color: #666; /* Grey out disabled buttons */
+      cursor: not-allowed; /* Change cursor to not-allowed */
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<section class="articles-page nav-margin nav-padding" *ngIf="!isLoading">
+<div class="container">
+    <!-- Heading for the articles list -->
+    <h1 class="articles-heading">Gallery</h1>
+
+    <!-- Articles list -->
+    <section class="articles">
+    <div class="row">
+        <div class="col-xl-4 col-lg-6 col-md-6 mb-4" *ngFor="let galleryitem of images">
+        <app-gallery-item
+            [galleryitem]="galleryitem"
+            [isMobile]="isMobile"
+        ></app-gallery-item>
+        </div>
+    </div>
+    </section>
+</div>
+</section>

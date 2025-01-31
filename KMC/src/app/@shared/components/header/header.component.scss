@@ -1,73 +1,45 @@
 @import "../../../../assets/styles/base/colors.scss";
 @import "../../../../assets/styles/base/typography.scss";
 @import "../../../../assets/styles/base/variables.scss";
-
-.text-captail {
-  text-transform: capitalize;
-}
-.primary-btn {
-  &.--1 {
-    padding: 0.5rem 2vw;
-  }
-}
-.lightopacity {
-  opacity: 0;
-}
-.search-back-vis {
-  background-color: #f1f1f1;
-}
-.search-background {
-  background-color: transparent;
-}
-.total-text1 {
-  font-family: $KMC-p-bold;
-  color: $black;
-  padding: 0 0.5rem !important;
-}
-.search-transation {
-  transition: 0.6s;
-  position: relative;
-}
-.a-nav {
-  font-size: clamp(11.5px, 0.6770833333333334vw, 13px) !important;
-  text-decoration: none;
-  font-family: $KMC-p-medium;
-  text-transform: capitalize;
-  color: $black !important;
-
-  &:hover {
-    color: $red !important;
-    // background-color: #d8d6d6;
-    border-radius: 1rem !important;
-
-  }
-
-  span {
-    font-weight: 700;
-  }
-}
-
-.user-icon {
-  border-radius: 50%;
-  width: 1rem;
-  height: 1rem;
-  color: $white;
-  background-color: $red;
-}
-
-.kmc-navbar {
+//Navbar 
+.kmc-navbar { 
   // padding: 10px 0;
   padding: 0;
   position: fixed;
-  top: 0;
+  // top: 0;
+  top: 37px;
   width: 100%;
-  z-index: 100;
-  // opacity: .7;
-  // box-shadow: 0px 0px 6px 0px;
-  // filter: drop-shadow(0px 3px 3px rgba(0,0,0,0.16 ));
+  z-index: 1000;
+  background: transparent; // Initially transparent
+  transition: background-color 0.3s ease-in-out; // Smooth transition
+  box-shadow: none;
 
-  // background: rgba(255, 255, 255, 0);
+  &.scrolled {
+    background: $darkGray;
+    color: $white;
+    // background: #6b69698b; // Solid grey background on scroll
+    // box-shadow: 0px 3px 6px rgba(85, 84, 84, 0.736); // Optional shadow for better visibility
+    // color: #000 !important; // Adjust text color for solid grey
+    .a-nav{
+      color: $white !important;
+      &:hover {
+        color: $red !important; // Hover color
+      }
+    }
+    .type-colors{
+      color: $black !important;
+      &:hover {
+        color: $red !important; // Add hover color for dropdown items
+      }
+    }
+    .wishlist-container {
+      color: $white !important;
+      &:hover {
+        color: $red !important; // Hover color for wishlist items, if needed
+      }
+    }
 
+  }
   .logo {
     margin-top: -0.5rem;
     svg {
@@ -89,10 +61,13 @@
     img {
       margin-right: 10px;
     }
+    &:hover {
+      color: $red !important; // Hover color for wishlist items, if needed
+    }
   }
 
   .point-container {
-    color: $black;
+    color: $white;
     text-decoration: none;
 
     .a-nav {
@@ -133,21 +108,26 @@
   .active {
     color: $red !important;
   }
+
+  // Desktop-specific styles
+  @media (min-width: 768px) {
+    display: block;
+    .a-nav {
+      font-size: 1rem; // Larger font size for desktop
+    }
+
+    .wishlist-container {
+      margin-right: 1rem;
+    }
+  }
+
+  // Hide desktop navbar on mobile
+  @media (max-width: 767px) {
+    top: 50px; // Ensure it adjusts for smaller screens
+    display: none;
+  }
 }
 .kmc-nav-home-slider {
-  // background: rgb(255, 255, 255);
-  // background: linear-gradient(
-  //   90deg,
-  //   rgba(255, 255, 255, 1) 100%,
-  //   rgba(255, 255, 255, 1) 20%,
-  //   rgba(255, 255, 255, 1) 0%
-  // );
-  // background: linear-gradient(to bottom, #fff, #f1f1f1);
-  // background: linear-gradient(
-  //   to bottom,
-  //   #f8f8f8,
-  //   rgba(255, 255, 255, 0.7) 100%
-  // );
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 1),
@@ -156,9 +136,42 @@
   ) !important;
 }
 .kmc-nav-home-scroll {
-  background: #fff;
+  background: $darkGray;
+  color: $white;
+  .a-nav{
+    color: $white !important;
+    &:hover {
+      color: $red !important; // Hover color for wishlist items, if needed
+    }
+  }
+  .type-colors{
+    color: $black !important;
+    &:hover {
+      color: $red !important; // Hover color for wishlist items, if needed
+    }
+  }
+  .wishlist-container {
+    color: $white !important;
+    &:hover {
+      color: $red !important; // Hover color for wishlist items, if needed
+    }
+  }
 }
 
+//search
+.lightopacity {
+  opacity: 0;
+}
+.search-back-vis {
+  background-color: #f1f1f1;
+}
+.search-background {
+  background-color: transparent;
+}
+.search-transation {
+  transition: 0.6s;
+  position: relative;
+}
 .search-container {
   // background-color: #f1f1f1;
   width: 250px;
@@ -194,26 +207,29 @@
   }
 }
 
-.uk-navbar-nav > li > a {
-  padding: 0 7px;
-}
-.uk-dropdrown {
-  right: 5rem !important;
-}
-.nav-dropdown {
-  right: 0 !important;
-  left: auto !important;
-  top: 4.125rem !important;
-}
+//cart 
 .cart-container {
+  position: absolute; /* Ensure it doesn't affect the navbar height */
+  top: calc(100% + 10px); /* Adjust position to appear just below the navbar */
+  right: 0;
   max-height: 200px;
-  overflow: auto;
-  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.16);
-  // filter: drop-shadow(0px 3px 3px rgba(0,0,0,0.16 ));
+  overflow-y: auto;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
 
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
   .close-btn {
     position: absolute;
-    top: 0;
+    top: 10px;
     right: 10px;
     cursor: pointer;
   }
@@ -223,86 +239,280 @@
   }
 
   .item-wrapper {
-    position: relative;
     display: flex;
     align-items: center;
-    padding: 10px 10px 10px 0;
-    // border: 0.5px solid #dfe0e1;
-    border-bottom: 0.5px solid #dfe0e1;
-
-    &:nth-child(1) {
-      // border-top: 1px solid #DFE0E1;
-    }
+    padding: 10px;
+    border-bottom: 1px solid #eee;
 
     .small-title {
       font-size: 16px !important;
     }
 
     .img-wrapper {
-      width: 80px;
-      height: 80px;
-      @include bgCenter();
-      margin-right: 1rem;
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      background-size: cover;
     }
-
     .info-wrapper {
-      min-width: 150px;
-      margin-top: 15px;
+      flex: 1;
 
       .product-name {
-        font-size: 16px;
-        // color: $black;
-        text-transform: capitalize;
-        margin: 0;
-        margin-bottom: 23px;
-        line-height: 1;
-        color: #050605;
+        font-size: 14px;
+        color: #333;
       }
 
       .product-price {
-        color: $black;
-        // font-family: $regular;
-        font-size: 16px;
-        margin: 0;
+        font-size: 12px;
+        color: #999;
       }
     }
   }
-  .gray-price {
-    p {
-      font-size: 14px !important;
-      color: #777777 !important;
+}
+.gray-price {
+  p {
+    font-size: 14px !important;
+    color: #777777 !important;
+  }
+}
+.cart-items-number {
+  position: absolute;
+  top: auto;
+  right: auto;
+  left: 5px;
+  bottom: 35px;
+  display: inline-flex;
+  justify-content: center; /* Replace @include hCenter */
+  align-items: center;
+  background-color: red;
+  color: white;
+  line-height: 1em;
+  padding: 0.3em 0.5em;
+  border-radius: 99px;
+  font-size: 11px;
+}
+.total-text1 {
+  font-family: $KMC-p-bold;
+  color: $black;
+  padding: 0 0.5rem !important;
+}
+
+
+//user icon
+.user-icon {
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  color: $white;
+  background-color: $red;
+}
+
+//Anchor tags for navbar
+.a-nav {
+  font-size: clamp(11.5px, 0.6770833333333334vw, 13px) !important;
+  text-decoration: none;
+  font-family: $KMC-p-medium;
+  text-transform: capitalize;
+  color: $black !important;
+
+  &:hover {
+    color: $red !important;
+    border-radius: 1rem !important;
+  }
+
+  span {
+    font-weight: 700;
+  }
+}
+
+.uk-navbar-nav > li > a {
+  padding: 0 7px;
+  position: relative; /* Make this the positioned ancestor for the dropdown */
+  overflow: visible; /* Prevent clipping */
+}
+
+.uk-navbar-dropdown {
+  position: absolute;
+  background-color: $white; /* Set your desired dropdown background color */
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  @media (max-width: 767px) {
+    position: static; // Make dropdown appear inline for mobile
+    width: 100%;
+    padding: 0.5rem; // Reduce padding for smaller screens
+    background-color: $darkGray;
+
+    .a-nav {
+      color: $white;
+
+      &:hover {
+        color: $red;
+      }
     }
   }
-  .cart-items-number {
-    position: absolute;
-    top: auto;
-    right: auto;
-    left: 5px;
-    bottom: 35px;
-    display: inline-flex;
-    @include hCenter;
-    background-color: $red;
-    color: $white;
-    line-height: 1em;
-    padding: 0.3em 0.5em;
-    border-radius: 99px;
-    font-size: 11px;
+}
+
+.nav-dropdown {
+  position: relative;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+.uk-parent {
+  position: relative;
+}
+
+.uk-nav-sub {
+  display: none; /* Initially hidden */
+  margin-top: 1rem; /* Adds spacing between main menu and submenu */
+  list-style: none;
+  padding: 0;
+
+  /* Same styling as the main dropdown */
+  background-color: transparent;
+  position: static; /* Removes absolute positioning */
+  box-shadow: none;
+}
+
+.uk-parent:hover > .uk-nav-sub {
+  display: block; /* Show on hover */
+}
+
+.uk-nav-sub li {
+  padding: 0.5em 0; /* Adjust padding for items */
+  position: relative;
+}
+
+.uk-nav-sub li a {
+  text-decoration: none;
+  color: $black;
+  padding: 0.5rem 0; /* More padding for links */
+  display: block;
+  font-family: $KMC-p-regular;
+
+  &:hover {
+    color: $red;
+  }
+}
+
+/* Indent submenu items */
+.uk-parent .uk-nav-sub {
+  margin-left: 20px; /* Create the tapped distance */
+  border-left: 2px solid #ddd; /* Optional: Add a visual separator */
+  padding-left: 10px; /* Create spacing inside the submenu */
+  // display: block; /* Ensure submenu is visible */
+}
+
+//Extra Styles
+.type-colors{
+  color: $black !important;
+}
+
+.primary-btn {
+  &.--1 {
+    padding: 0.5rem 2vw;
   }
 }
 
 .mobile-menu {
   display: none;
+  @media (max-width: 767px) {
+    display: block;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: $darkGray;
+
+    .header-view {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+
+      .logo {
+        svg {
+          width: 20vw;
+        }
+      }
+
+      .icons {
+        display: flex;
+        align-items: center;
+
+        svg {
+          fill: $red;
+          width: 6vw;
+          margin: 0 1rem;
+        }
+
+        .mobile-cart {
+          position: relative;
+        
+          .cart-num {
+            position: absolute;
+            top: -5px; // Adjust according to the design
+            right: 8px; // Adjust according to the design
+            background-color: $red;
+            color: $white;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            z-index: 1; // Ensure it stays on top
+          }
+        }
+        
+      }
+    }
+
+    .uk-offcanvas-bar {
+      padding: 2rem;
+      background-color: $red;
+      height: 100%;
+      width: 80%; // Adjust width for mobile
+      max-width: 300px; // Prevent overly wide sidebar
+    }
+
+    .links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: 1rem 0;
+
+        a {
+          font-size: 1rem; // Adjust font size for links
+          color: $white;
+
+          &:hover {
+            color: $black;
+          }
+        }
+      }
+    }
+  }
 }
+
 
 // responsive
 // mobile
 @media only screen and (max-width: 1180px) {
-  .kmc-navbar {
-    display: none;
-  }
-
   .mobile-menu {
     display: block;
+    position: fixed;
+    top: 40px;
+    z-index: 1000;
 
     .uk-offcanvas-close {
       top: 15px;
@@ -313,7 +523,7 @@
       @include hCenter;
 
       svg {
-        fill: $red;
+        // fill: $red;
         margin: 0 2vw;
         width: 6vw;
       }
@@ -323,8 +533,8 @@
 
         .cart-num {
           position: absolute;
-          top: 0;
-          right: 0;
+          top: -5px; // Adjust according to the design
+          right: 8px; // Adjust according to the design
           background-color: $red;
           color: $white;
           width: 16px;
@@ -340,7 +550,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: $regularGray;
+      // background-color: $regularGray;
       padding: 2vw 5vw;
 
       .logo {
@@ -387,6 +597,19 @@
         }
       }
     }
+    .mobile-menu .header-view {
+      // background-color: rgba(255, 255, 255, 0.9); // Faded background
+      // box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 40; // Ensure it's at the top of the viewport
+      z-index: 1000; // Higher than the ad bar
+      
+      .icons {
+        svg {
+          fill: #e4021b;
+        }
+      }
+    }
   }
 }
 
@@ -404,6 +627,46 @@
           width: 25px;
           height: 25px;
           font-size: 20px;
+        }
+      }
+    }
+  }
+}
+.mobile-dropdown {
+  list-style: none;
+  // padding: 0;
+  padding-left: 2.5rem;
+  margin: 0;
+
+  > li {
+    padding: 0.5rem 1rem;
+
+    .mobile-parent {
+      > a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        color: #fff;
+        text-decoration: none;
+
+        &:hover {
+          color: #e4021b;
+        }
+      }
+
+      .nested-dropdown {
+        list-style: none;
+        padding-left: 2.5rem; // Indent for nested items
+        margin-top: 0.5rem;
+
+        > li > a {
+          color: #ccc;
+          text-decoration: none;
+
+          &:hover {
+            color: #fff;
+          }
         }
       }
     }

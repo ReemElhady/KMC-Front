@@ -1,11 +1,14 @@
+@import "../../../../assets/styles/base/variables.scss";
+@import "../../../../assets/styles/base/colors.scss";
+
 .articles-page {
-  padding: 30px;
+  padding: 50px;
 
   .articles-heading {
     font-size: 2em;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #333;
+    color: $white;
     text-align: left; // Center align the heading
   }
 
@@ -17,5 +20,12 @@
     .col-md-6 {
       margin-bottom: 20px; // Ensure there is spacing between items
     }
+  }
+}
+
+
+@media only screen and (max-width: 767px) {
+  .articles-page{
+    margin-top: 10vh;
   }
 }

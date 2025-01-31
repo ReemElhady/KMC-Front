@@ -3,6 +3,9 @@
 @import "swiper/scss";
 @import "swiper/scss/pagination";
 
+.about-us{
+  padding: 50px;
+}
 .content-center {
   @include hCenterWithColumn;
 }
@@ -112,6 +115,9 @@
         padding: 4vw 0;
       }
     }
+  }
+  .about-us{
+    margin-top: 10vh;
   }
 }
 

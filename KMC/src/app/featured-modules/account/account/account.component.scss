@@ -18,6 +18,9 @@
 
   .active {
     background-color: $regularGray;
+    p{
+      color: $black !important;
+    }
   }
 }
 

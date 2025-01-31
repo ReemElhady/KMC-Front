@@ -68,6 +68,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    
     this.activatedRoute.params.subscribe((res) => {
       this.typeId = res['id'];
       this.resetFilters(false);
@@ -124,6 +125,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
         this.PaginateisLoading = false;
       },
       (errors) => {
+        console.error('API Error:', errors.message, errors);
         this.isLoading = false;
         this.PaginateisLoading = false;
       }

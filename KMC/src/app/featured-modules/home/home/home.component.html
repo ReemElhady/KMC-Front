@@ -3,96 +3,475 @@
 </span>
 <section *ngIf="!isLoading">
   <section class="home-page">
+    <!-- Top Header Section -->
     <div class="img-container-header">
-      <!-- <ng-container *ngIf="isMobile">
-      <a class="a-nav">
-        <div class="search-container-home">
-          <input
-            type="search"
-            placeholder="{{ 'Header.Search' | translate }}"
-            #searchedInput
-            class="search-input"
-            (input)="searchAction(searchedInput.value)"
-          />
 
-          <span
-            class="search-icon d-flex justify-content-between align-items-center gray px-1 w-20"
-            (click)="openSearch()"
-            *ngIf="isMobile"
-          >
-            <img src="../../../../assets/imgs/search.svg" />
-          </span>
+      <div *ngFor="let item of homeContent.Home_Swiper" class="slider-container" (click)="routeForLink(item.link)">
+        <!-- Non-Mobile View -->
+        <div *ngIf="item.position === 'top'">
+        <div *ngIf="!isMobile">
+          <div
+            class="header-container"
+            *ngIf="!item.is_video"
+            [ngStyle]="{
+              'background-image': 'url(' + imageUrl + item.media + ')'
+            }"
+          ></div>
+          <div class="header-container" *ngIf="item.is_video">
+            <video
+              loop
+              [muted]="true"
+              autoplay="true"
+              playsInline
+              onloadedmetadata="this.muted = true"
+            >
+              <source [src]="imageUrl + item.media" type="video/mp4" />
+            </video>
+          </div>
         </div>
-      </a>
-    </ng-container> -->
-      <swiper [config]="MYSwiper" class="mySwiper">
-        <ng-template swiperSlide *ngFor="let item of homeContent.Home_Swiper">
-          <div class="slider-container" (click)="routeForLink(item.link)">
-            <div *ngIf="!isMobile">
-              <div
-                class="header-container"
-                *ngIf="!item.is_video"
-                [ngStyle]="{
-                  'background-image': 'url(' + imageUrl + item.media + ')'
-                }"
-              ></div>
-              <div class="header-container" *ngIf="item.is_video">
-                <video
-                  loop
-                  [muted]="true"
-                  autoplay="true"
-                  playsInline
-                  onloadedmetadata="this.muted = true"
-                >
-                  <source [src]="imageUrl + item.media" type="video/mp4" />
-                </video>
+      
+        <!-- Mobile View -->
+        <div *ngIf="isMobile">
+          <div
+            class="header-container"
+            *ngIf="!item.is_video"
+            [ngStyle]="{
+              'background-image':
+                'url(' + imageUrl + item.mobile_view_media + ')'
+            }"
+          ></div>
+          <div class="header-container" *ngIf="item.is_video">
+            <video
+              loop
+              [muted]="true"
+              autoplay="true"
+              playsInline
+              onloadedmetadata="this.muted = true"
+            >
+              <source [src]="imageUrl + item.mobile_view_media" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- Flash Sale Section -->
+    <div class="flash-sale" *ngIf="flashSale">
+    <div class="flash-sale-header">
+      <h2>FLASH SALE</h2>
+      <hr />
+    </div>
+    <div class="flash-sale-timer">
+      <div class="time-unit">
+        <span class="time">{{ days }}</span>
+        <span class="label">Days</span>
+      </div>
+      <span class="separator">:</span>
+      <div class="time-unit">
+        <span class="time">{{ hours }}</span>
+        <span class="label">Hours</span>
+      </div>
+      <span class="separator">:</span>
+      <div class="time-unit">
+        <span class="time">{{ minutes }}</span>
+        <span class="label">Minutes</span>
+      </div>
+      <span class="separator">:</span>
+      <div class="time-unit">
+        <span class="time">{{ seconds }}</span>
+        <span class="label">Seconds</span>
+      </div>
+    </div>
+    <!-- FlashSale Header Section -->
+    <div class="img-container-header">
+      <div *ngFor="let item of homeContent.Home_Swiper" class="slider-container" (click)="routeForLink(item.link)">
+        <!-- Non-Mobile View -->
+        <div *ngIf="item.position === 'flashSale'">
+        <div *ngIf="!isMobile">
+          <div
+            class="header-container"
+            *ngIf="!item.is_video"
+            [ngStyle]="{
+              'background-image': 'url(' + imageUrl + item.media + ')'
+            }"
+          ></div>
+          <div class="header-container" *ngIf="item.is_video">
+            <video
+              loop
+              [muted]="true"
+              autoplay="true"
+              playsInline
+              onloadedmetadata="this.muted = true"
+            >
+              <source [src]="imageUrl + item.media" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      
+        <!-- Mobile View -->
+        <div *ngIf="isMobile">
+          <div
+            class="header-container"
+            *ngIf="!item.is_video"
+            [ngStyle]="{
+              'background-image':
+                'url(' + imageUrl + item.mobile_view_media + ')'
+            }"
+          ></div>
+          <div class="header-container" *ngIf="item.is_video">
+            <video
+              loop
+              [muted]="true"
+              autoplay="true"
+              playsInline
+              onloadedmetadata="this.muted = true"
+            >
+              <source [src]="imageUrl + item.mobile_view_media" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+      <div class="flash-sale-btn">
+      <button
+      class="primary-btn "
+      routerLink="/products/sales">
+        View all products
+      </button>
+      </div>
+      
+    </div>
+
+
+    <hr />
+    <!-- starting category section -->
+    <!-- <div class="container-fluid">
+    <div class="categories">
+      <div class="section-title text-center s-mb-2 my-4">
+        <h3 
+        (click)="navigateToCategories()"
+        class="clickable-title"
+        title="Click to view products"
+        style="cursor: pointer; color: #e4021b;"
+        onmouseover="this.style.color='black';"
+        onmouseout="this.style.color='red';"
+        class="bold">{{ "Products.Branches" | translate }}</h3>
+      </div>
+      <div class="container-fluid">
+        <div class="row s-mt-2">
+          <ng-container *ngIf="!isMobile">
+            <div
+              class="col-lg-4 col-12 s-mt-2"
+              *ngFor="let details of types; let index = index"
+            >
+              <div class="hover" routerLink="/products/{{ details.id }}">
+                <div class="img-hover">
+                  <div
+                    class="img-container d-flex align-items-end justify-content-center"
+                    [ngStyle]="{
+                      'background-image': 'url(' + details.image + ')'
+                    }"
+                  >
+                    <button class="primary-btn">
+                      {{ "Header.shop" | translate }}
+                    </button>
+                  </div>
+                  <div class="layout-hover"></div>
+                </div>
+
+                <div class="img-hover">
+                  <div
+                    class="img-container-hover align-items-end justify-content-center"
+                    [ngStyle]="{
+                      'background-image': 'url(' + details.image + ')'
+                    }"
+                  >
+                    <div
+                      class="d-flex flex-column justify-content-between text-cont"
+                    >
+                      <h3 class="bold black">{{ details.name }}</h3>
+                      <button
+                        class="primary-btn"
+                        routerLink="/products/{{ details.id }}"
+                      >
+                        {{ "Header.shop" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                  <div class="layout-hover"></div>
+                </div>
               </div>
             </div>
-            <div *ngIf="isMobile">
-              <div
-                class="header-container"
-                *ngIf="!item.is_video"
-                [ngStyle]="{
-                  'background-image':
-                    'url(' + imageUrl + item.mobile_view_media + ')'
-                }"
-              ></div>
-              <div class="header-container" *ngIf="item.is_video">
-                <video
-                  loop
-                  [muted]="true"
-                  autoplay="true"
-                  playsInline
-                  onloadedmetadata="this.muted = true"
+          </ng-container>
+          <ng-container *ngIf="isMobile">
+            <swiper
+              [autoplay]="{
+                delay: 1000,
+                disableOnInteraction: false
+              }"
+              [config]="optionCategories"
+              class="swiper-wrapper"
+            >
+              <ng-template
+                swiperSlide
+                *ngFor="let details of types; let index = index"
+              >
+                <div class="hover" routerLink="/products/{{ details.id }}">
+                  <div class="img-hover">
+                    <div
+                      class="img-container d-flex align-items-end justify-content-center"
+                      [ngStyle]="{
+                        'background-image': 'url(' + details.image + ')'
+                      }"
+                    >
+                      <div
+                        class="d-flex flex-column justify-content-between text-cont"
+                      >
+                        <h6 class="bold black">{{ details.name }}</h6>
+                        <button
+                          class="primary-btn"
+                          routerLink="/products/{{ details.id }}"
+                        >
+                          {{ "Header.shop" | translate }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </swiper>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+    <!-- Low In Stock section-->
+    <div class="container-fluid">
+      <div
+        class="low-in-stock-section"
+        *ngIf="homeContent.Low_Stock_Products.length >= 3"
+      >
+        <div class="home">
+          <div class="browse-header-section">
+            <!-- <div class="title-wrapper">
+              <span class="white-block"></span>
+              <p class="subtitle">Categories</p>
+            </div> -->
+            <div class="section-title s-mb-2 my-4">
+              <h3
+              (click)="navigateToProducts()"
+                class="clickable-title bold"
+              >
+                Low In Stock
+              </h3>
+            </div>
+          </div>
+          <div class="low-stock-grid">
+            <!-- Left Div -->
+            <div class="left-div" *ngIf="homeContent.Low_Stock_Products[0] as product">
+              <div class="product-container">
+                <a
+                  [routerLink]="['/products/details', product.type, product.id]"
+                  class="product-link"
                 >
-                  <source
-                    [src]="imageUrl + item.mobile_view_media"
-                    type="video/mp4"
+                  <img
+                    [src]="imgUrl + product.main_image"
+                    alt="{{ product.name }}"
+                    class="product-image"
                   />
-                </video>
+                </a>
+                <button
+                  class="primary-btn"
+                  (click)="addToCartOrModal(product)"
+                  *ngIf="product.stock > 0; else outOfStockTemplate"
+                >
+                  Add to Cart
+                </button>
+                <ng-template #outOfStockTemplate>
+                  <button disabled class="primary-btn">Out of Stock</button>
+                </ng-template>
+              </div>
+            </div>
+    
+            <!-- Right Div -->
+            <div class="right-div">
+              <!-- Top Half -->
+              <div class="top-half" *ngIf="homeContent.Low_Stock_Products[1] as product">
+                <div class="product-container">
+                  <a
+                    [routerLink]="['/products/details', product.type, product.id]"
+                    class="product-link"
+                  >
+                    <img
+                      [src]="imgUrl + product.main_image"
+                      alt="{{ product.name }}"
+                      class="product-image"
+                    />
+                  </a>
+                  <button
+                    class="primary-btn"
+                    (click)="addToCartOrModal(product)"
+                    *ngIf="product.stock > 0; else outOfStockTemplate"
+                  >
+                    Add to Cart
+                  </button>
+                  <ng-template #outOfStockTemplate>
+                    <button disabled class="primary-btn">Out of Stock</button>
+                  </ng-template>
+                </div>
+              </div>
+    
+              <!-- Bottom Half -->
+              <div class="bottom-half" *ngIf="homeContent.Low_Stock_Products[2] as product">
+                <div class="product-container">
+                  <a
+                    [routerLink]="['/products/details', product.type, product.id]"
+                    class="product-link"
+                  >
+                    <img
+                      [src]="imgUrl + product.main_image"
+                      alt="{{ product.name }}"
+                      class="product-image"
+                    />
+                  </a>
+                  <button
+                    class="primary-btn"
+                    (click)="addToCartOrModal(product)"
+                    *ngIf="product.stock > 0; else outOfStockTemplate"
+                  >
+                    Add to Cart
+                  </button>
+                  <ng-template #outOfStockTemplate>
+                    <button disabled class="primary-btn">Out of Stock</button>
+                  </ng-template>
+                </div>
               </div>
             </div>
           </div>
-        </ng-template>
-      </swiper>      
+        </div>
+      </div>
     </div>
+
+    
+    <div class="img-container-header">
+      <div *ngFor="let item of homeContent.Home_Swiper" class="slider-container" (click)="routeForLink(item.link)">
+        <!-- Non-Mobile View -->
+        <div *ngIf="item.position === 'middle'">
+        <div *ngIf="!isMobile">
+          <div
+            class="header-container"
+            *ngIf="!item.is_video"
+            [ngStyle]="{
+              'background-image': 'url(' + imageUrl + item.media + ')'
+            }"
+          ></div>
+          <div class="header-container" *ngIf="item.is_video">
+            <video
+              loop
+              [muted]="true"
+              autoplay="true"
+              playsInline
+              onloadedmetadata="this.muted = true"
+            >
+              <source [src]="imageUrl + item.media" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      
+        <!-- Mobile View -->
+        <div *ngIf="isMobile">
+          <div
+            class="header-container"
+            *ngIf="!item.is_video"
+            [ngStyle]="{
+              'background-image':
+                'url(' + imageUrl + item.mobile_view_media + ')'
+            }"
+          ></div>
+          <div class="header-container" *ngIf="item.is_video">
+            <video
+              loop
+              [muted]="true"
+              autoplay="true"
+              playsInline
+              onloadedmetadata="this.muted = true"
+            >
+              <source [src]="imageUrl + item.mobile_view_media" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- Browse By Brands Section -->
+    <div class="container-fluid">
+      <div class="browse-by-brands">
+        <div class="browse-header-section">
+          <!-- <div class="title-wrapper">
+            <span class="white-block"></span>
+            <p class="subtitle">Categories</p>
+            
+          </div> -->
+          <div class="section-title my-4">
+            <h3 
+            (click)="navigateToCategories()"
+            class="clickable-title bold"
+            >Browse By Brand</h3>
+          </div>
+        </div>
+
+        <div class="brands-grid">
+          <div
+            class="brand-item"
+            *ngFor="let brand of homeContent?.Brands"
+            (click)="navigateToBrandProducts(brand.id)"
+            >
+            <img
+              [src]="imgUrl + brand.image"
+              [alt]="brand.name"
+              class="brand-image"
+              title="{{ brand.name }}"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
     <!-- starting product section -->
     <div class="container-fluid">
       <div class="home">
         <div class="product-container s-mt-2">
           <div class="row">
-            <div class="section-title my-4">
-              <h3
-              (click)="navigateToProducts()"
-              class="clickable-title"
-              title="Click to view products"
-              style="cursor: pointer; color: #e4021b;"
-              onmouseover="this.style.color='black';"
-              onmouseout="this.style.color='red';"
-            >{{ "Home.Popular Products" | translate }}</h3>
-              <h5>{{ "Home.text" | translate }}</h5>
+            <div class="browse-header-section d-flex justify-content-between align-items-center">
+              <div>
+                <div class="title-wrapper">
+                  <!-- <span class="white-block"></span> -->
+                  <p class="subtitle">This Month</p>
+                </div>
+                <div class="section-title s-mb-2 my-4">
+                  <h3
+                    (click)="navigateToProducts()"
+                    class="clickable-title bold"
+                  >
+                    Most Wanted
+                  </h3>
+                </div>
+              </div>
+              <div class="most-wanted-btn">
+                <button
+                  class="primary-btn"
+                  routerLink="/products/shop"
+                >
+                  View all
+                </button>
+              </div>
             </div>
-
             <div class="mobile-veiw-slider my-3">
               <!-- product from here -->
               <swiper
@@ -106,157 +485,106 @@
                 <ng-template
                   swiperSlide
                   *ngFor="let product of homeContent.Popular_Products"
-                  ><div>
+                >
+                  <div>
                     <!-- Wrap the entire product item in an anchor tag -->
                     <a [routerLink]="['/products/details', product.type, product.id]" class="product-link" style="text-decoration: none; color: inherit;">
-                    <app-product-item
-                      *ngIf="
-                        productsList &&
+                      <app-product-item
+                        *ngIf="
+                          productsList &&
                           productsList[product.type] &&
                           productsList[product.type].results[product.id];
-                        else currentProdResponsive
-                      "
-                      [product]="productsList[product.type].results[product.id]"
-                    ></app-product-item>
+                          else currentProdResponsive
+                        "
+                        [product]="productsList[product.type].results[product.id]"
+                      ></app-product-item>
                     </a>
                   </div>
                   <ng-template #currentProdResponsive>
                     <div>
-                      <app-product-item [product]="product"
-                      ></app-product-item>
+                      <app-product-item [product]="product"></app-product-item>
                     </div>
                   </ng-template>
                 </ng-template>
               </swiper>
-
               <!-- to here -->
             </div>
-            <!-- <div
-              class="d-flex justify-content-center align-items-center s-mb-1 s-mt-2"
-            >
-              <a class="regular red view-all-btn" routerLink="./products/shop"
-                >{{ "Home.View all" | translate }}
-              </a>
-            </div> -->
           </div>
           <!-- end of product section -->
         </div>
       </div>
     </div>
-  </section>
-<!-- starting category section -->
-  <div class="categories">
-    <div class="section-title text-center s-mb-2 my-4">
-      <h3 
-      (click)="navigateToCategories()"
-      class="clickable-title"
-      title="Click to view products"
-      style="cursor: pointer; color: #e4021b;"
-      onmouseover="this.style.color='black';"
-      onmouseout="this.style.color='red';"
-      class="bold">{{ "Products.Branches" | translate }}</h3>
-    </div>
-    <div class="container-fluid">
-      <div class="row s-mt-2">
-        <ng-container *ngIf="!isMobile">
-          <div
-            class="col-lg-4 col-12 s-mt-2"
-            *ngFor="let details of types; let index = index"
-          >
-            <div class="hover" routerLink="/products/{{ details.id }}">
-              <div class="img-hover">
-                <div
-                  class="img-container d-flex align-items-end justify-content-center"
-                  [ngStyle]="{
-                    'background-image': 'url(' + details.image + ')'
-                  }"
-                >
-                  <button class="primary-btn">
-                    {{ "Header.shop" | translate }}
-                  </button>
-                </div>
-                <div class="layout-hover"></div>
-              </div>
 
-              <div class="img-hover">
-                <div
-                  class="img-container-hover align-items-end justify-content-center"
-                  [ngStyle]="{
-                    'background-image': 'url(' + details.image + ')'
-                  }"
-                >
-                  <div
-                    class="d-flex flex-column justify-content-between text-cont"
-                  >
-                    <h3 class="bold black">{{ details.name }}</h3>
-                    <button
-                      class="primary-btn"
-                      routerLink="/products/{{ details.id }}"
-                    >
-                      {{ "Header.shop" | translate }}
-                    </button>
-                  </div>
-                </div>
-                <div class="layout-hover"></div>
-              </div>
-            </div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="isMobile">
-          <swiper
-            [autoplay]="{
-              delay: 1000,
-              disableOnInteraction: false
+    <!-- Bottom Header section -->
+    <div class="img-container-header">
+      <div *ngFor="let item of homeContent.Home_Swiper" class="slider-container" (click)="routeForLink(item.link)">
+        <!-- Non-Mobile View -->
+        <div *ngIf="item.position === 'bottom'">
+        <div *ngIf="!isMobile">
+          <div
+            class="header-container"
+            *ngIf="!item.is_video"
+            [ngStyle]="{
+              'background-image': 'url(' + imageUrl + item.media + ')'
             }"
-            [config]="optionCategories"
-            class="swiper-wrapper"
-          >
-            <ng-template
-              swiperSlide
-              *ngFor="let details of types; let index = index"
+          ></div>
+          <div class="header-container" *ngIf="item.is_video">
+            <video
+              loop
+              [muted]="true"
+              autoplay="true"
+              playsInline
+              onloadedmetadata="this.muted = true"
             >
-              <div class="hover" routerLink="/products/{{ details.id }}">
-                <div class="img-hover">
-                  <div
-                    class="img-container d-flex align-items-end justify-content-center"
-                    [ngStyle]="{
-                      'background-image': 'url(' + details.image + ')'
-                    }"
-                  >
-                    <div
-                      class="d-flex flex-column justify-content-between text-cont"
-                    >
-                      <h6 class="bold black">{{ details.name }}</h6>
-                      <button
-                        class="primary-btn"
-                        routerLink="/products/{{ details.id }}"
-                      >
-                        {{ "Header.shop" | translate }}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
-          </swiper>
-        </ng-container>
+              <source [src]="imageUrl + item.media" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      
+        <!-- Mobile View -->
+        <div *ngIf="isMobile">
+          <div
+            class="header-container"
+            *ngIf="!item.is_video"
+            [ngStyle]="{
+              'background-image':
+                'url(' + imageUrl + item.mobile_view_media + ')'
+            }"
+          ></div>
+          <div class="header-container" *ngIf="item.is_video">
+            <video
+              loop
+              [muted]="true"
+              autoplay="true"
+              playsInline
+              onloadedmetadata="this.muted = true"
+            >
+              <source [src]="imageUrl + item.mobile_view_media" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
-  </div>
-  <!-- end category section -->
-  <section class="aticles-background s-mt-4">
+
+
+    <!-- Articles section  -->
     <div class="container-fluid">
       <div class="row justify-content-center">
-        <div class="col-xl-6 my-4">
-          <div class="section-title s-mt-2">
-            <h3 (click)="navigateToArticles()"
-            title="Click to view products"
-            style="cursor: pointer; color: #e4021b;"
-            onmouseover="this.style.color='black';"
-            onmouseout="this.style.color='red';"
-            class="centerd">
-            {{ "Home.Articles" | translate }}</h3>
-            <h5 class="centerd">{{ "Home.text" | translate }}.</h5>
+        <div class="row">
+          <div class="browse-header-section">
+            <div class="title-wrapper">
+              <!-- <span class="white-block"></span> -->
+              <p class="subtitle">Things You May Be Interested In</p>
+            </div>
+            <div class="section-title s-mb-2 my-4">
+              <h3
+              (click)="navigateToArticles()"
+                class="clickable-title bold"
+              >
+                Articles
+              </h3>
+            </div>
           </div>
         </div>
       </div>
@@ -308,7 +636,7 @@
             </ng-template>
           </swiper>
         </ng-container> -->
-       
+      
         <!-- <div class="d-flex justify-content-center align-items-center s-mb-1">
           <a class="regular red view-all-btn" routerLink="./articles"
             >{{ "Home.View all" | translate }}
@@ -316,106 +644,49 @@
         </div> -->
       </div>
     </div>
-  </section>
 
-  <div class="about-us">
-    <div class="section-title text-center s-mt-2">
-      <h3 
-        (click)="navigateToWhyKMC()"
-        class="clickable-title"
-        title="Click to view products"
-        style="cursor: pointer; color: #e4021b;"
-        onmouseover="this.style.color='black';"
-        onmouseout="this.style.color='red';"
-        >
-        {{ "Footer.WhyKMC" | translate }}
-      </h3>
-    </div>
-    <div class="container-fluid">
-      <div class="row d-flex align-items-center justify-content-between">
-        <ng-container *ngIf="!isMobile">
-          <div class="col-lg-5 orderTwo">
-            <div class="description-container">
-              <h5 class="gray medium decsription black">
-                {{ homeContent.home_details.about_us_1_caption }}
-              </h5>
-              <h6>
-                {{ homeContent.home_details.about_us_2_caption }}
-              </h6>
-            </div>
+    <!-- Book A Demo section -->
+    <div class="img-container-header demoContainer">
+      <div *ngFor="let item of homeContent.Home_Swiper" class="slider-container" (click)="routeForLink(item.link)">
+        <!-- Non-Mobile View -->
+        <div *ngIf="item.position === 'bookDemo'">
+        <div *ngIf="!isMobile">
+          <div
+            class="header-container"
+            *ngIf="!item.is_video"
+            [ngStyle]="{
+              'background-image': 'url(' + imageUrl + item.media + ')'
+            }"
+          >
+          <div class="demo">
+              <button routerLink="/book-demo" class="primary-btn s-mt-2">
+               BOOK A DEMO
+              </button>
           </div>
-          <div class="col-lg-6 orderOne">
-            <div class="row">
-              <div class="col-md-12 s-mt-2">
-                <div
-                  class="img-container"
-                  [ngStyle]="{
-                    'background-image':
-                      'url(' +
-                      imageUrl +
-                      homeContent.home_details.about_us_1_image +
-                      ')'
-                  }"
-                ></div>
-              </div>
-              <!-- <div class="col-md-6 s-mt-2">
-                <div
-                  class="img-container"
-                  [ngStyle]="{
-                    'background-image':
-                      'url(' +
-                      imgUrl +
-                      homeContent.home_details.about_us_2_image +
-                      ')'
-                  }"
-                ></div>
-              </div> -->
-            </div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="isMobile">
-          <div class="col-12 my-2">
-            <div class="d-flex flex-column">
-              <h5 class="gray medium decsription black">
-                {{ homeContent.home_details.about_us_1_caption }}
-              </h5>
-              <div
-                class="img-container"
-                [ngStyle]="{
-                  'background-image':
-                    'url(' +
-                    imageUrl +
-                    homeContent.home_details.about_us_1_image +
-                    ')'
-                }"
-              ></div>
-            </div>
-          </div>
-          <div class="col-12 my-2">
-            <!-- <div
-              class="img-container"
-              [ngStyle]="{
-                'background-image':
-                  'url(' +
-                  imgUrl +
-                  homeContent.home_details.about_us_2_image +
-                  ')'
-              }"
-            ></div> -->
-            <h6>
-              <span class="d-block mb-2">
-
-              </span>
-              {{ homeContent.home_details.about_us_2_caption }}
-              <span class="d-flex justify-content-end mt-2">
-
-              </span>
-            </h6>
-          </div>
-        </ng-container>
+        </div>
+        </div>
+      
+        <!-- Mobile View -->
+        <div *ngIf="isMobile">
+          <div
+            class="header-container"
+            *ngIf="!item.is_video"
+            [ngStyle]="{
+              'background-image':
+                'url(' + imageUrl + item.mobile_view_media + ')'
+            }"
+          >
+          <div class="demo">
+            <button routerLink="/book-demo" class="primary-btn s-mt-2">
+             BOOK A DEMO
+            </button>
+        </div>
+      </div>
+        </div>
+      </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <div [ngClass]="{ 'cookie-banner-none': !cookies, 'cookie-banner': cookies }">
     <p class="regular white">
@@ -429,3 +700,5 @@
     ></button>
   </div>
 </section>
+
+
