@@ -2,12 +2,12 @@
   <app-loading-screen></app-loading-screen>
 </div>
 <section class="cart nav-margin nav-padding" *ngIf="!isLoading">
-  <div class="container-fluid"  >
+  <div class="container-fluid mt-5">
     <h2 class="semi-bold s-mb-2">
       {{ "Cart.title" | translate }}
     </h2>
 
-    <div class="row  not-mobile-view cart-summary-card justify-content-between" *ngIf="localItems.length || remoteItems.length">
+    <div class="row not-mobile-view cart-summary-card justify-content-between" *ngIf="localItems.length > 0 || remoteItems.length > 0">
       <!-- Start Product List -->
     <div class="col-lg-8 product-list">
       <div class="row align-items-center s-mb-1">
@@ -389,7 +389,7 @@
     </div>
   
     <!-- start mobile view -->
-    <div class="row mobile-view cart-summary-card">
+    <div class="row mobile-view cart-summary-card" *ngIf="localItems.length || remoteItems.length">
       <div class="col-12" *ngIf="localItems.length">
         <div class="row align-items-center s-mb-1">
           <div class="col-4">
