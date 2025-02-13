@@ -426,18 +426,20 @@
         </div>
 
         <div class="brands-grid">
-          <div
-            class="brand-item"
-            *ngFor="let brand of homeContent?.Brands"
-            (click)="navigateToBrandProducts(brand.id)"
+          <ng-container *ngFor="let brand of homeContent?.Brands">
+            <div
+              class="brand-item"
+              *ngIf="brand.display"
+              (click)="navigateToBrandProducts(brand.id)"
             >
-            <img
-              [src]="imgUrl + brand.image"
-              [alt]="brand.name"
-              class="brand-image"
-              title="{{ brand.name }}"
-            />
-          </div>
+              <img
+                [src]="imgUrl + brand.image"
+                [alt]="brand.name"
+                class="brand-image"
+                title="{{ brand.name }}"
+              />
+            </div>
+          </ng-container>
         </div>
       </div>
     </div>
