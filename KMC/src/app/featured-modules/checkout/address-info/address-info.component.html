@@ -5,7 +5,7 @@
   class="address-info nav-margin nav-padding"
   *ngIf="!isLoading && cartItems"
 >
-  <div class="container-fluid">
+  <div class="container-fluid mt-5">
     <div class="row justify-content-between s-mt-2 s-mb-2">
       <!-- address card -->
       <div class="col-xl-5 col-md-6">
@@ -237,7 +237,7 @@
                   (change)="getShipingFees()"
                 />
                 <label
-                  class="form-check-label regular font-sizing"
+                  class="form-check-label regular font-sizing text-dark"
                   for="flexRadioDefault1"
                 >
                   {{ "Checkout.Cash" | translate }}
@@ -264,7 +264,7 @@
                   (change)="getShipingFees()"
                 />
                 <label
-                  class="form-check-label regular font-sizing"
+                  class="form-check-label regular font-sizing text-dark"
                   for="flexRadioDefault2"
                 >
                   {{ "Checkout.Credit_Visa" | translate }}
@@ -370,7 +370,7 @@
       (click)="d('Cross click')"
     ></button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body bg-secondary">
     <!-- <form [formGroup]="AddressesForm" (ngSubmit)="confirm()">
       <div class="row">
         <div class="col-lg-6">

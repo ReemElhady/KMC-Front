@@ -110,6 +110,7 @@
               class="a-nav"
               routerLinkActive="active"
               [routerLink]="['about-us']"
+              style="white-space: nowrap"
             >
               <!-- {{'Footer.About_us' | translate}} -->
               {{ "Footer.WhyKMC" | translate }}
@@ -120,14 +121,10 @@
               class="a-nav"
               routerLinkActive="active"
               [routerLink]="['contact-us']"
+              style="white-space: nowrap"
               >{{ "Footer.Contact_us" | translate }}
             </a>
           </li>
-        </ul>
-      </div>
-
-       <div class="uk-navbar-center">
-        <ul class="uk-navbar-nav">
           <li class="logo">
             <a [routerLink]="['']">
               <svg
@@ -148,7 +145,12 @@
           </li>
         </ul>
       </div>
-
+      <!-- 
+       <div class="uk-navbar-center">
+        <ul class="uk-navbar-nav">
+        </ul>
+      </div> 
+      -->
       <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
           <li class="search-transation">
@@ -310,7 +312,7 @@
           </li>
 
           <li class="cart">
-            <a class="cart a-nav">
+            <a class="cart a-nav" style="white-space: nowrap;">
               <div class="items-number-wrapper">
                 <span class="items-number"></span>
               </div>
