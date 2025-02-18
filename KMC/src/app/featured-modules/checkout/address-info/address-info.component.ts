@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -26,7 +26,7 @@ import {
   styleUrls: ['./address-info.component.scss'],
   providers: [NgbModalConfig, NgbModal],
 })
-export class AddressInfoComponent implements OnInit, OnDestroy {
+export class AddressInfoComponent implements OnInit, OnDestroy,AfterViewInit {
   isLoading = false;
   allAddresses!: AccountAddresses[];
   allAddressesSub!: Subscription;
@@ -181,6 +181,24 @@ export class AddressInfoComponent implements OnInit, OnDestroy {
       tt: new FormControl(null),
     });
   }
+
+  ngAfterViewInit(): void {
+    // Listen for modal open event
+    this.modalService.activeInstances.subscribe(() => {
+      setTimeout(() => {
+        this.applyModalStyle();
+      }, 100); // Small delay to ensure modal is fully rendered
+    });
+  }
+
+  applyModalStyle() {
+    const modalElement = document.querySelector('.modal-content') as HTMLElement;
+    if (modalElement) {
+      modalElement.style.backgroundColor = '#666'; // Set background color
+      modalElement.style.color = 'white'; // Change text color if needed
+    }
+  }
+  
   getCities() {
     this.http.getReq('api/smsa/zone-cities/').subscribe((res) => {
       this.smsaCities = res;

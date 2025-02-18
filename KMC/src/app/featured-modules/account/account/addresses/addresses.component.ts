@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -22,13 +22,15 @@ import {
   CountriesDataService,
   getCountryCodeName,
 } from './countries-data.service';
+
+
 @Component({
   selector: 'app-addresses',
   templateUrl: './addresses.component.html',
   styleUrls: ['./addresses.component.scss'],
   providers: [NgbModalConfig, NgbModal],
 })
-export class AddressesComponent implements OnInit {
+export class AddressesComponent implements OnInit , AfterViewInit {
   AddressesContent!: any;
   AddressesForm!: FormGroup;
   isLoading: boolean = false;
@@ -66,6 +68,23 @@ export class AddressesComponent implements OnInit {
     this.onChangForm();
     this.getCities();
   }
+  ngAfterViewInit(): void {
+    // Listen for modal open event
+    this.modalService.activeInstances.subscribe(() => {
+      setTimeout(() => {
+        this.applyModalStyle();
+      }, 100); // Small delay to ensure modal is fully rendered
+    });
+  }
+
+  applyModalStyle() {
+    const modalElement = document.querySelector('.modal-content') as HTMLElement;
+    if (modalElement) {
+      modalElement.style.backgroundColor = '#666'; // Set background color
+      modalElement.style.color = 'white'; // Change text color if needed
+    }
+  }
+  
   getCities() {
     this.http.getReq('api/smsa/zone-cities/').subscribe((res) => {
       this.smsaCities = res;
