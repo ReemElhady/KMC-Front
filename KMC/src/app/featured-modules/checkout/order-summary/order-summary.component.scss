@@ -83,7 +83,9 @@
 
 //mobile
 @media screen and (max-width: 768px) {
-
+  #checkout-container{
+    margin-top: 3vh !important;
+  }
 }
 .checkout-card {
   // background-color: #FFF;

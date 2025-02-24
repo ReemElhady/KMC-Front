@@ -1,7 +1,8 @@
 <div class="main-demo-container"
 [ngStyle]="{
-  'background-image': 'url(' + imgUrl + pageContent.image + ')'
-}">
+  'background-image': 'url(' + imgUrl + getBackgroundImage() + ')'
+}"
+>
   <div class="book-demo-container">
       <div class="left-div">
       <h1>{{ pageContent?.title }}</h1>

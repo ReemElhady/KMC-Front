@@ -235,9 +235,11 @@
 
 // mobile
 @media screen and (max-width: 767px) {
-
+  #checkout-info{
+    margin-top: 13vh !important;
+  }
   .address-info {
-    margin-top: 10vh;
+    // margin-top: 10vh;
     .checkout-card {
       ul {
         li {

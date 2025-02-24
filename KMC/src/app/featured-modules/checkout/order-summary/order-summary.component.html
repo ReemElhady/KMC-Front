@@ -5,11 +5,11 @@
   class="address-info nav-margin nav-padding"
   *ngIf="!isLoading && selectedAddress"
 >
-  <div class="container-fluid">
+  <div class="container-fluid" id="checkout-container">
     <div class="row justify-content-between s-mt-2 s-mb-2">
       <!-- start address Info card -->
       <div class="col-md-6">
-        <h3 class="card-title">
+        <h3 class="card-title mb-2">
           {{ "Checkout.Address_Info" | translate }}
         </h3>
         <div class="info-line">
@@ -55,7 +55,7 @@
       <!-- summary card -->
       <div class="col-xl-5 col-md-6">
         <div class="checkout-card-header">
-          <h3 class="card-title">
+          <h3 class="card-title mb-2">
               {{ "Checkout.Order_Summary" | translate }}
           </h3>
           </div>
@@ -112,7 +112,7 @@
                 </ng-container>
                 <ng-container *ngIf="paymentMethod !== 'Credit Card'">
                     {{
-                    selectedAddress.shipping_details.shipping_cost +
+                      selectedAddress.shipping_details.shipping_cost +
                         selectedAddress.shipping_details.cod_cost
                     }}
                 </ng-container>

@@ -168,6 +168,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy {
         );
     }
   }
+  
   ngOnDestroy(): void {
     if (this.allAddressesSub) {
       this.allAddressesSub.unsubscribe();

@@ -35,12 +35,19 @@ export class BookDemoComponent implements OnInit {
   loadPageContent(): void {
     this.demoBookingService.getBookDemoPageContent().subscribe({
       next: (response) => {
+        console.log(response)
         this.pageContent = response;
       },
       error: (err) => {
         console.error('Error loading page content', err);
       },
     });
+  }
+  getBackgroundImage(): string {
+    if (!this.pageContent) {
+      return '';
+    }
+    return window.innerWidth > 768 ? this.pageContent.image : this.pageContent.mobile_view_media;
   }
 
   onSubmit(): void {

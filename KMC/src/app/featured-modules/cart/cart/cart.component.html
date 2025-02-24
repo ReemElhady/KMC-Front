@@ -2,7 +2,7 @@
   <app-loading-screen></app-loading-screen>
 </div>
 <section class="cart nav-margin nav-padding" *ngIf="!isLoading">
-  <div class="container-fluid mt-5">
+  <div class="container-fluid" #cartContainer>
     <h2 class="semi-bold s-mb-2">
       {{ "Cart.title" | translate }}
     </h2>
