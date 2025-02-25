@@ -41,10 +41,10 @@
 
 /* Responsive styling */
 @media (max-width: 768px) {
-  .address-info{
-    margin-top: 11vh;
+  // .address-info{
+  //   margin-top: 11vh;
 
-  }
+  // }
   .info-line {
     flex-direction: column;
     align-items: center;
@@ -84,7 +84,7 @@
 //mobile
 @media screen and (max-width: 768px) {
   #checkout-container{
-    margin-top: 3vh !important;
+    margin-top: 13vh !important;
   }
 }
 .checkout-card {
