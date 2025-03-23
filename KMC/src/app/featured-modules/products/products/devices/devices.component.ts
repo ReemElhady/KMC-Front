@@ -27,6 +27,7 @@ SwiperCore.use([Pagination, Navigation, Autoplay]);
   encapsulation: ViewEncapsulation.None,
 })
 export class DevicesComponent implements OnInit, OnDestroy {
+
   productsContent!: Product;
   // productsContent:  any=[];
   filterLoading: boolean = false;
@@ -65,10 +66,43 @@ export class DevicesComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private store: Store<{ types: AppType; products: ProductType }>,
     private cs: CookieService
-  ) {}
+  ) { }
+  // ✅ Accordion State Storage
+  accordionState: { [key: string]: boolean } = {};
+
+  // ✅ Toggle accordion state
+  toggleAccordion(event: Event, id: string): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.accordionState[id] = !this.accordionState[id]; // Toggle state
+    this.saveAccordionState(); // Save state
+  }
+
+  // ✅ Save accordion state to localStorage
+  saveAccordionState(): void {
+    localStorage.setItem('accordionState', JSON.stringify(this.accordionState));
+  }
+
+  // ✅ Load accordion state from localStorage
+  loadAccordionState(): void {
+    const savedState = localStorage.getItem('accordionState');
+    if (savedState) {
+      this.accordionState = JSON.parse(savedState);
+    }
+  }
+
+  // ✅ Determine if the accordion is expanded
+  isExpanded(id: string): boolean {
+    return !!this.accordionState[id];
+  }
+
+  // ✅ Control content visibility (removes hidden flicker)
+  isContentVisible(id: string): boolean {
+    return !!this.accordionState[id];
+  }
 
   ngOnInit(): void {
-    
+    this.loadAccordionState();
     this.activatedRoute.params.subscribe((res) => {
       this.typeId = res['id'];
       this.resetFilters(false);
@@ -82,7 +116,9 @@ export class DevicesComponent implements OnInit, OnDestroy {
         }
       });
     });
+
   }
+
 
   getProducts() {
     this.productsUrl = `api/product/?type=${this.typeId}`;
@@ -200,8 +236,12 @@ export class DevicesComponent implements OnInit, OnDestroy {
         for (let i = 0; i < this.subBranchChecks[key].length; i++)
           this.subBranchChecks[key][i] = false;
       });
-      this.sendRequest(this.productsUrl);
+      // ✅ Clear accordion state from localStorage
+      localStorage.removeItem('accordionState');
+      this.accordionState = {}; // Reset in-memory state too
+      
     }
+    this.sendRequest(this.productsUrl);
   }
   prepareRoute(outlet: RouterOutlet) {
     return (
