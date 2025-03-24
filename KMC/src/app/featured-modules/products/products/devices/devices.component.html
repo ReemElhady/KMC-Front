@@ -8,43 +8,52 @@
     <h2>{{ header.name }}</h2>
   </div>
 </section>
+
 <div class="devices-body">
   <div class="container-fluid">
     <div class="row">
+      <!-- ✅ Sidebar Filter Section -->
       <div class="col-xl-3 s-mt-2 s-mb-1">
         <div class="filter-fixed">
           <div class="fliters-container">
             <div class="filter-header d-flex justify-content-between align-items-center my-3">
-              <span class="medium">{{"Products.Filters" | translate}}</span>
-              <span class="gray medium clear" (click)="resetFilters()">{{"Products.Clear_All" | translate}}</span>
+              <span class="medium">{{ "Products.Filters" | translate }}</span>
+              <span class="gray medium clear" (click)="resetFilters()">{{ "Products.Clear_All" | translate }}</span>
             </div>
 
+            <!-- ✅ Main Accordion for Branches -->
             <ul class="filters">
-              <!-- ✅ Single Accordion Section for Branches -->
               <li [class.uk-open]="isExpanded('branches')" class="branch-section">
                 <a class="uk-accordion-title medium main Branches-title" role="button" (click)="toggleAccordion($event, 'branches')">
                   {{ "Shop.Branches" | translate }}
                 </a>
-            
-                <!-- ✅ Branches Content Visibility -->
+
+                <!-- ✅ Branches Content -->
                 <div class="uk-accordion-content" [class.hidden]="!isContentVisible('branches')">
                   <ul class="nested-filters">
                     <!-- ✅ Loop through Branches -->
-                    <li class="branches" *ngFor="let branch of branches; let i = index" [class.uk-open]="isExpanded('branch-' + i)">
+                    <li class="branches" *ngFor="let branch of branches; let i = index">
                       <p class="medium">
                         <input type="checkbox" [(ngModel)]="branchChecks[i]" (click)="checkedAllBranchFilter(branch.id, i)" />
                         {{ branch.name }}
                       </p>
-            
-                      <!-- ✅ Sub-branch toggle -->
-                      <a class="uk-accordion-title medium" role="button" (click)="toggleAccordion($event, 'branch-' + i)">
+
+                      <!-- ✅ Sub-branch Accordion -->
+
+                      <a class="uk-accordion-title small" role="button" (click)="toggleAccordion($event, 'branch-' + i)">
                       </a>
-            
-                      <!-- ✅ Sub-branch content visibility -->
+
+                      <!-- ✅ Sub-branches Content -->
                       <div class="uk-accordion-content" [class.hidden]="!isContentVisible('branch-' + i)">
                         <small class="medium branche" *ngFor="let sub of branch.branch_sub_branches; let j = index">
-                          <input type="checkbox" [(ngModel)]="subBranchChecks[branch.id][j]" [checked]="subBranchChecks[branch.id][j]"
-                            (click)="checkSubBranch(branch.id, j)" />
+                          <input
+                          (click)="filterBy(sub.id, subBranchList)"
+                          type="checkbox"
+                          class="sub-name"
+                          [(ngModel)]="subBranchChecks[branch.id][j]"
+                          [checked]="subBranchChecks[branch.id][j]"
+                          (click)="checkSubBranch(sub.id, i)"
+                          />
                           {{ sub.name }}
                         </small>
                       </div>
@@ -52,14 +61,14 @@
                   </ul>
                 </div>
               </li>
-            
-              <!-- ✅ Single Accordion Section for Brands -->
+
+              <!-- ✅ Accordion for Brands -->
               <li [class.uk-open]="isExpanded('brands')" class="brand-items">
                 <a class="uk-accordion-title medium main" role="button" (click)="toggleAccordion($event, 'brands')">
                   {{ "Shop.Brand" | translate }}
                 </a>
-            
-                <!-- ✅ Brand Content Visibility -->
+
+                <!-- ✅ Brand Content -->
                 <div class="uk-accordion-content" [class.hidden]="!isContentVisible('brands')">
                   <p class="medium branches" *ngFor="let brand of brands; let i = index">
                     <input type="checkbox" (click)="filterBy(brand.id, brandsChecks)" [(ngModel)]="brandsChecks[i]" [checked]="brandsChecks[i]" />
@@ -68,41 +77,38 @@
                 </div>
               </li>
             </ul>
-            
+
+            <!-- ✅ Contact Button -->
             <div class="button">
-              <button routerLink="/contact-us" class="primary-btn">
-                {{ "Home.request" | translate }}
-              </button>
+              <button routerLink="/contact-us" class="primary-btn">{{ "Home.request" | translate }}</button>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- ✅ Products Content Section -->
       <div class="col-xl-9 s-mt-1 text-center" *ngIf="isLoading">
         <app-forms-loading-spinner></app-forms-loading-spinner>
       </div>
+
       <div class="col-xl-9 s-mt-1" *ngIf="!isLoading && productsContent.results">
         <div class="row">
           <div class="col-lg-4 col-6" *ngFor="let productItem of productsContent.results | keyvalue">
             <app-product-item [product]="productItem.value"></app-product-item>
           </div>
+
           <div class="s-mt-2 text-center meduim" *ngIf="productsContentExists === 0">
             <h4 class="regular">{{ "Cart.No" | translate }}</h4>
           </div>
-
 
           <div *ngIf="PaginateisLoading">
             <app-loading-screen></app-loading-screen>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
-<div *ngIf="productsContent && productsContent.next" class="search-results" infinite-scroll
-  (scrolled)="onScrollDown($event)" [infiniteScrollDistance]="0" [infiniteScrollThrottle]="0">
 
-</div>
-
-  
-              
+<!-- ✅ Infinite Scroll Pagination -->
+<div *ngIf="productsContent && productsContent.next" class="search-results" infinite-scroll (scrolled)="onScrollDown($event)" [infiniteScrollDistance]="0" [infiniteScrollThrottle]="0"></div>
