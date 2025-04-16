@@ -192,35 +192,72 @@ export class DevicesComponent implements OnInit, OnDestroy {
         });
       });
   }
+  // filterBy(id: number, category: any) {
+  //   // this.filterLoading=true;
+  //   let branchIndex = category.findIndex((branchId: any) => branchId == id);
+  //   this.productsUrl = `api/product/?type=${this.typeId}`;
+  //   console.log("<<<<<<<<<<<Types>>>>>>>>>>>",this.productsUrl)
+  //   if (branchIndex === -1) {
+  //     category.push(id);
+  //   } else {
+  //     category.splice(branchIndex, 1);
+  //   }
+  //   if (this.branchList.length) {
+  //     let branchString = this.branchList.join(',');
+  //     this.productsUrl = this.productsUrl.concat(`&branch=${branchString}`);
+  //   }
+
+  //   if (this.subBranchList.length) {
+  //     let subBranchString = this.subBranchList.join(',');
+  //     this.productsUrl = this.productsUrl.concat(
+  //       `&sub_branch=${subBranchString}`
+  //     );
+  //   } else {
+  //     this.productsUrl = `api/product/?type=${this.typeId}`;
+  //   }
+
+  //   if (this.brandList.length) {
+  //     let brandString = this.brandList.join(',');
+  //     this.productsUrl = this.productsUrl.concat(`&brand=${brandString}`);
+  //   }
+  //   this.sendRequest(this.productsUrl);
+  // }
   filterBy(id: number, category: any) {
-    // this.filterLoading=true;
-    let branchIndex = category.findIndex((branchId: any) => branchId == id);
+    // Determine which list to update
+    let targetList: number[];
+  
+    if (category === this.brandsChecks) {
+      targetList = this.brandList;
+    } else if (category === this.branchChecks) {
+      targetList = this.branchList;
+    } else {
+      targetList = this.subBranchList;
+    }
+  
+    // Add or remove ID from the appropriate list
+    let index = targetList.indexOf(id);
+    if (index === -1) {
+      targetList.push(id);
+    } else {
+      targetList.splice(index, 1);
+    }
+  
+    // Build the product URL
     this.productsUrl = `api/product/?type=${this.typeId}`;
-    if (branchIndex === -1) {
-      category.push(id);
-    } else {
-      category.splice(branchIndex, 1);
-    }
     if (this.branchList.length) {
-      let branchString = this.branchList.join(',');
-      this.productsUrl = this.productsUrl.concat(`&branch=${branchString}`);
+      this.productsUrl += `&branch=${this.branchList.join(',')}`;
     }
-
     if (this.subBranchList.length) {
-      let subBranchString = this.subBranchList.join(',');
-      this.productsUrl = this.productsUrl.concat(
-        `&sub_branch=${subBranchString}`
-      );
-    } else {
-      this.productsUrl = `api/product/?type=${this.typeId}`;
+      this.productsUrl += `&sub_branch=${this.subBranchList.join(',')}`;
     }
-
     if (this.brandList.length) {
-      let brandString = this.brandList.join(',');
-      this.productsUrl = this.productsUrl.concat(`&brand=${brandString}`);
+      this.productsUrl += `&brand=${this.brandList.join(',')}`;
     }
+  
+    // Send request
     this.sendRequest(this.productsUrl);
   }
+  
   resetFilters(init: any = true) {
     this.branchList = [];
     this.brandList = [];

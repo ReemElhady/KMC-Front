@@ -9,7 +9,7 @@ export const environment = {
   // baseUrl: 'https://staging.kandilmedical.com/',
   baseUrl: 'https://www.kandilmedical.com/',
   // baseUrl: 'http://staging.freaksrepublic.com:8012/',
-  //baseUrl: 'http://localhost:2271/'
+  // baseUrl: 'http://localhost:2271/'
   // baseUrl: 'www'
 };
 
